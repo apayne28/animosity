@@ -1,16 +1,13 @@
-import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
-import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "./AnimeInfoSideContent.tsx";
-import AnimeInfoMainGuts from "./AnimeInfoMainGuts.tsx";
+import AnimeInfoSideContent from "./AnimeInfoSideContent.js";
+import AnimeInfoMainGuts from "./AnimeInfoMainGuts.js";
 import { useLocation } from "react-router-dom";
 
 const AnimeInfo = () => {
   const location = useLocation();
-  // const {from} = location.state
+
   const id = location.state.animeId;
   console.log(location.state.animeId);
   return (

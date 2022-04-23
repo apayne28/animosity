@@ -2,29 +2,58 @@ import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  animeId: number;
-}
+import LoadingScreen from "../LoadingScreen";
 
-function AnimeInfoMainGuts(props: Props) {
+function AnimeInfoMainGuts(props) {
   const [info, setInfo] = useState();
   const [animeRelations, setAnimeRelations] = useState();
   const [animeCharacterList, setAnimeCharacterList] = useState();
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
 
+  let navigate = useNavigate();
+
   const getAnime = useCallback(
     async (id) => {
       id = props.animeId;
       try {
-        const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}`).then(
-          (res) => res.json(),
-        );
+        //Grabs Anime Data Object
+        const animeData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}`,
+        ).then((res) => res.json());
 
-        let results = temp.data;
-        console.log(results);
-        setInfo(results);
-        return results;
+        let animeResults = animeData.data;
+        console.log(animeResults);
+        setInfo(animeResults);
+
+        // Grabs Related Anime Data
+        let relatedAnimeData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}/relations`,
+        ).then((res) => res.json());
+
+        let relatedAnimeDataResults = relatedAnimeData.data;
+        console.log("RelatedAnime", relatedAnimeDataResults);
+        setAnimeRelations(relatedAnimeDataResults);
+
+        //Grabs Anime Characters Data
+        let animeCharactersData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}/characters`,
+        ).then((res) => res.json());
+        let animeCharactersDataResults = animeCharactersData.data;
+        console.log("Chatacters", animeCharactersDataResults);
+
+        setAnimeCharacterList(animeCharactersDataResults);
+
+        let animeRecommendationsData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}/recommendations`,
+        ).then((res) => res.json());
+        let animeRecommendationsDataResults = animeRecommendationsData.data;
+
+        console.log("Recs", animeRecommendationsDataResults);
+        setAnimeRecommendationsList(animeRecommendationsDataResults);
+
+        // return results;
       } catch (error) {
         console.log("Anime not found");
       }
@@ -32,81 +61,20 @@ function AnimeInfoMainGuts(props: Props) {
     [props.animeId],
   );
 
-  const getRelatedAnime = useCallback(
-    async (id) => {
-      id = props.animeId;
-      try {
-        let temp = await fetch(
-          `https://api.jikan.moe/v4/anime/${id}/relations`,
-        ).then((res) => res.json());
-
-        let results = temp.data;
-        console.log("RelatedAnime", temp.data);
-        setAnimeRelations(results);
-        return results;
-      } catch (error) {
-        console.log("Anime Data not found");
-      }
-    },
-    [props.animeId],
-  );
-
-  const getAnimeCharacters = useCallback(async (id) => {
-    id = props.animeId;
-    try {
-      let temp = await fetch(
-        `https://api.jikan.moe/v4/anime/${id}/characters`,
-      ).then((res) => res.json());
-      let results = temp.data;
-      console.log("Chatacters", temp.data);
-
-      setAnimeCharacterList(results);
-
-      return Promise.resolve(results);
-    } catch (error) {
-      console.log("Anime Data not found");
-    }
-  }, []);
-
-  const getAnimeRecs = useCallback(async (id) => {
-    id = props.animeId;
-    try {
-      let temp = await fetch(
-        `https://api.jikan.moe/v4/anime/${id}/recommendations`,
-      ).then((res) => res.json());
-      let results = temp.data;
-
-      console.log("Recs", temp.data);
-      setAnimeRecommendationsList(results);
-
-      return results;
-    } catch (error) {
-      console.log("Anime Data not found");
-    }
-  }, []);
-
   useEffect(() => {
-    if (!info) {
+    if (
+      !info &&
+      !animeRelations &&
+      !animeCharacterList &&
+      !animeRecommendationsList
+    ) {
       getAnime(props.animeId).catch(console.error);
-    }
-
-    if (!animeRelations) {
-      getRelatedAnime(props.animeId).catch(console.error);
-    }
-    if (!animeCharacterList) {
-      getAnimeCharacters(props.animeId).catch(console.error);
-    }
-    if (!animeRecommendationsList) {
-      getAnimeRecs(props.animeId).catch(console.error);
     }
   }, [
     animeCharacterList,
     animeRecommendationsList,
     animeRelations,
     getAnime,
-    getAnimeCharacters,
-    getAnimeRecs,
-    getRelatedAnime,
     info,
     props.animeId,
   ]);
@@ -120,6 +88,7 @@ function AnimeInfoMainGuts(props: Props) {
     return (
       <div className='anime-info-content-guts'>
         <AnimeInfoAnimeDetails />
+
         <div className='anime-info-main-popularity-container'>
           <h3>Synopsis</h3>
           <Typography>{info.synopsis}</Typography>
@@ -130,7 +99,7 @@ function AnimeInfoMainGuts(props: Props) {
 
           <h3>Related Anime</h3>
           <div className='anime-info-related-anime-container'>
-            {animeRelations.map((info: any) => {
+            {animeRelations.map((info) => {
               let relatedAnime = info.entry;
               let relatedAnimeType = info.relation;
 
@@ -145,8 +114,8 @@ function AnimeInfoMainGuts(props: Props) {
 
           <h3>Characters</h3>
           <div className='anime-info-character-list'>
-            {animeCharacterList.slice(0, 5).map((character: any) => {
-              let characterEntry: any = character.character;
+            {animeCharacterList.slice(0, 5).map((character) => {
+              let characterEntry = character.character;
               // console.log(characterEntry);
 
               return (
@@ -162,10 +131,9 @@ function AnimeInfoMainGuts(props: Props) {
           </div>
 
           <Divider sx={{ pb: 4 }} />
-
           <h3>Recommended Anime</h3>
           <div className='anime-info-rec-anime-container'>
-            {animeRecommendationsList.slice(0, 5).map((info: any) => {
+            {animeRecommendationsList.slice(0, 5).map((info) => {
               let recAnime = info.entry;
 
               return (
@@ -173,6 +141,14 @@ function AnimeInfoMainGuts(props: Props) {
                   <img
                     src={recAnime.images.jpg.image_url}
                     alt={recAnime.title}
+                    onClick={(e) => {
+                      navigate(`/anime-info`, {
+                        state: {
+                          animeId: recAnime.mal_id,
+                        },
+                      });
+                      window.location.reload();
+                    }}
                   />
                   <Typography>{recAnime.title}</Typography>
                 </div>
@@ -194,7 +170,7 @@ function AnimeInfoMainGuts(props: Props) {
       </div>
     );
   } else {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 }
 

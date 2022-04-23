@@ -24,7 +24,6 @@ const HomepageContent = () => {
       `https://api.jikan.moe/v4/seasons/2022/spring`,
       //   `https://api.jikan.moe/v3/season/2022/spring`,
     ).then((res) => res.json());
-    console.log(temp.data.slice(0, 5));
 
     setSpringAnime(temp.data.slice(0, 5));
   };
@@ -35,7 +34,6 @@ const HomepageContent = () => {
       `https://api.jikan.moe/v4/seasons/2022/summer`,
       //   `https://api.jikan.moe/v3/season/2022/spring`,
     ).then((res) => res.json());
-    console.log(temp.data.slice(0, 5));
 
     setSummerAnime(temp.data.slice(0, 5));
   };
@@ -44,7 +42,6 @@ const HomepageContent = () => {
     const temp = await fetch(`https://api.jikan.moe/v4/watch/promos`).then(
       (res) => res.json(),
     );
-    console.log(temp.data);
 
     setRecentPromos(temp.data.slice(0, 5));
   };
@@ -53,7 +50,6 @@ const HomepageContent = () => {
     const temp = await fetch(
       `https://api.jikan.moe/v4/watch/promos/popular`,
     ).then((res) => res.json());
-    console.log(temp.data);
 
     setPopularPromos(temp.data.slice(0, 5));
   };

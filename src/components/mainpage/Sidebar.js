@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -19,7 +19,7 @@ const Sidebar = () => {
   const [mostPopularAnime, setMostPopularAnime] = useState([]);
   // const [topManga, setTopManga] = useState([]);
 
-  const GetMostPopularAnime = async () => {
+  const GetMostPopularAnime = useCallback(async () => {
     const temp = await jikanjsV3.loadTop("anime", 1, "bypopularity");
     // const temp = await fetch(
     //   `https://api.jikan.moe/v4/top/anime`,
@@ -29,7 +29,19 @@ const Sidebar = () => {
     // console.log(temp.data);
 
     setMostPopularAnime(temp.top.slice(0, 5));
-  };
+  }, [jikanjsV3]);
+
+  //  const GetMostPopularAnime = async () => {
+  //    const temp = await jikanjsV3.loadTop("anime", 1, "bypopularity");
+  //    // const temp = await fetch(
+  //    //   `https://api.jikan.moe/v4/top/anime`,
+  //    //   // `https://api.jikan.moe/v3/top/anime/1/bypopularity`,
+  //    // ).then((res) => res.json());
+
+  //    // console.log(temp.data);
+
+  //    setMostPopularAnime(temp.top.slice(0, 5));
+  //  }
 
   // const GetTopManga = async () => {
   //   const temp = await jikanjsV3.loadTop("manga", 1, "bypopularity");
@@ -37,17 +49,29 @@ const Sidebar = () => {
   //   setTopManga(temp.top.slice(0, 5));
   // };
 
-  const GetTopAiringAnime = async () => {
+  const GetTopAiringAnime = useCallback(async () => {
     const temp = await jikanjsV3.loadTop("anime", 1, "airing");
 
     setTopAiringAnime(temp.top.slice(0, 5));
-  };
+  }, [jikanjsV3]);
 
-  const GetTopUpcomingAnime = async () => {
+  // const GetTopAiringAnime = async () => {
+  //   const temp = await jikanjsV3.loadTop("anime", 1, "airing");
+
+  //   setTopAiringAnime(temp.top.slice(0, 5));
+  // }
+
+  const GetTopUpcomingAnime = useCallback(async () => {
     const temp = await jikanjsV3.loadTop("anime", 1, "upcoming");
 
     setTopUpcomingAnime(temp.top.slice(0, 5));
-  };
+  }, [jikanjsV3]);
+
+  //  const GetTopUpcomingAnime = async () => {
+  //    const temp = await jikanjsV3.loadTop("anime", 1, "upcoming");
+
+  //    setTopUpcomingAnime(temp.top.slice(0, 5));
+  //  };
 
   useEffect(() => {
     GetMostPopularAnime();

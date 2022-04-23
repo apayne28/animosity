@@ -228,6 +228,17 @@
   width: 50%;
   background-color: white;
 }
+.search-page-anime-entry {
+  /* display: flex; */
+  /* flex-direction: row; */
+  margin: auto;
+  width: 50%;
+  background-color: white;
+}
+
+.search-bar-conteiner {
+  display: flex;
+}
 /* * {
   margin: 0;
   padding: 0;

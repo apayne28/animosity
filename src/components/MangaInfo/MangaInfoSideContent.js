@@ -1,23 +1,15 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 
-interface Props {
-  animeId: number;
-
-  // animeRequest?: string;
-  // animeParameters?: any;
-}
-
-const AnimeInfoSideContent = (props: Props) => {
+const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
   const [externalLinks, setExternalLinks] = useState();
 
-  const getAnime = useCallback(async (id) => {
-    id = props.animeId;
+  const getManga = useCallback(async (id) => {
+    id = props.mangaId;
     try {
-      const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}`).then(
+      const temp = await fetch(`https://api.jikan.moe/v4/manga/${id}`).then(
         (res) => res.json(),
       );
 
@@ -26,28 +18,28 @@ const AnimeInfoSideContent = (props: Props) => {
       setInfo(results);
       return results;
     } catch (error) {
-      console.log("Anime not found");
+      console.log("Manga not found");
     }
   }, []);
 
-  const getExternalAnimeLinks = useCallback(async (id) => {
-    id = props.animeId;
+  // const getExternalAnimeLinks = useCallback(async (id) => {
+  //   id = props.animeId;
 
-    const temp = await fetch(
-      `https://api.jikan.moe/v4/anime/${id}/external`,
-    ).then((res) => res.json());
+  //   const temp = await fetch(
+  //     `https://api.jikan.moe/v4/anime/${id}/external`,
+  //   ).then((res) => res.json());
 
-    setExternalLinks(temp.data);
-    return temp.data;
-  }, []);
+  //   setExternalLinks(temp.data);
+  //   return temp.data;
+  // }, []);
 
   useEffect(() => {
     if (!info) {
-      getAnime(props.animeId).catch(console.error);
+      getManga(props.mangaId).catch(console.error);
     }
 
-    getExternalAnimeLinks(50265).catch(console.error);
-  }, [getAnime, getExternalAnimeLinks, info, props.animeId]);
+    // getExternalAnimeLinks(50265).catch(console.error);
+  }, [getManga, info, props.mangaId]);
 
   if (info) {
     return (
@@ -84,28 +76,14 @@ const AnimeInfoSideContent = (props: Props) => {
         <div className='anime-info-information'>
           <h3>Information</h3>
           <Typography>{`Type: ${info.type}`}</Typography>
-          <Typography>{`Episodes: ${
-            info.episodes ? info.episodes : "N/A"
+          <Typography>{`Volumes: ${
+            info.volumes ? info.volumes : "N/A"
+          }`}</Typography>
+          <Typography>{`Chapters: ${
+            info.chapters ? info.chapters : "N/A"
           }`}</Typography>
           <Typography>{`Status: ${info.status}`}</Typography>
-          <Typography>{`Aired: ${info.aired.string}`}</Typography>
-          <Typography>{`Premiered: ${info.season}. ${info.year}`}</Typography>
-          <Typography>{`Broadcast: ${info.broadcast.string}`}</Typography>
-          <Typography>{`Producers: ${info.producers.map((producers) =>
-            producers ? ` ${producers.name} ` : "N/A",
-          )}`}</Typography>
-          <Typography>{`Licensors: ${info.licensors.map((licensors) =>
-            licensors ? ` ${licensors.name} ` : "N/A",
-          )}`}</Typography>
-
-          <Typography>{`Studios: ${
-            info.studios > 0
-              ? info.studios.map((studios) =>
-                  studios ? ` ${studios.name} ` : "N/A",
-                )
-              : "N/A"
-          }`}</Typography>
-
+          <Typography>{`Published: ${info.published.string}`}</Typography>
           <Typography>{`Genres: ${info.genres.map((genres) =>
             genres ? ` ${genres.name} ` : "N/A",
           )}`}</Typography>
@@ -123,8 +101,13 @@ const AnimeInfoSideContent = (props: Props) => {
                 )
               : "N/A"
           }`}</Typography>
-          <Typography>{`Duration: ${info.duration}`}</Typography>
-          <Typography>{`Rating: ${info.rating}`}</Typography>
+          <Typography>{`Serializations: ${info.serializations.map(
+            (serialization) =>
+              serialization ? ` ${serialization.name} ` : "N/A",
+          )}`}</Typography>
+          <Typography>{`Author(s): ${info.authors.map((authors) =>
+            authors ? ` ${authors.name} ` : "N/A",
+          )}`}</Typography>
         </div>
         <div className='anime-info-statistics'>
           <h3>Statistics</h3>
@@ -141,4 +124,4 @@ const AnimeInfoSideContent = (props: Props) => {
   }
 };
 
-export default AnimeInfoSideContent;
+export default MangaInfoSideContent;

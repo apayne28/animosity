@@ -6,10 +6,12 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import AnimeInfo from "./components/AnimeInfo/AnimeInfo.tsx";
-import MangaInfo from "./components/MangaInfo/MangaInfo.tsx";
+import AnimeInfo from "./components/AnimeInfo/AnimeInfo.js";
+import MangaInfo from "./components/MangaInfo/MangaInfo.js";
 import Mainpage from "./components/mainpage/Mainpage";
-import TopAnime from "./components/TopAnimePage/TopAnime.tsx";
+import TopAnime from "./components/TopAnimePage/TopAnime.js";
+import SearchPage from "./components/Search/SearchPage.js";
+import TopManga from "./components/TopMangaPage/TopManga.js";
 
 // import { Routes } from "react-router";
 
@@ -81,6 +83,8 @@ const App = () => {
         <Route path='/anime-info' element={<AnimeInfo />}></Route>
         <Route path='/manga-info' element={<MangaInfo />}></Route>
         <Route path='/top-anime' element={<TopAnime />}></Route>
+        <Route path='/top-manga' element={<TopManga />}></Route>
+        <Route path='/search-page' element={<SearchPage />}></Route>
       </Routes>
     </div>
   );
