@@ -26,6 +26,10 @@ const NavigationBar = () => {
   //   e.preventDefault();
 
   //   FetchAnime(search);
+
+  // navigate(`/search-page`, {
+  //   state: { searchQuery: search, searchType: type },
+  // });
   //   console.log(search);
   // };
 

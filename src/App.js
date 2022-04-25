@@ -12,6 +12,11 @@ import Mainpage from "./components/mainpage/Mainpage";
 import TopAnime from "./components/TopAnimePage/TopAnime.js";
 import SearchPage from "./components/Search/SearchPage.js";
 import TopManga from "./components/TopMangaPage/TopManga.js";
+import AnimeCharacterPage from "./components/CharacterPage/AnimeCharacterPage.js";
+import AnimeCharacterListPage from "./components/CharacterListPage/AnimeCharacterListPage.js";
+import MangaCharacterList from "./components/CharacterListPage/MangaCharacterList.js";
+import AnimeRecPage from "./components/RecommendePages/AnimeRecPage.js";
+import MangaRecPage from "./components/RecommendePages/MangaRecPage.js";
 
 // import { Routes } from "react-router";
 
@@ -85,6 +90,20 @@ const App = () => {
         <Route path='/top-anime' element={<TopAnime />}></Route>
         <Route path='/top-manga' element={<TopManga />}></Route>
         <Route path='/search-page' element={<SearchPage />}></Route>
+        <Route
+          path='/character-profile'
+          element={<AnimeCharacterPage />}
+        ></Route>
+        <Route
+          path='/anime-character-list-page'
+          element={<AnimeCharacterListPage />}
+        ></Route>
+        <Route
+          path='/manga-character-list-page'
+          element={<MangaCharacterList />}
+        ></Route>
+        <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
+        <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
       </Routes>
     </div>
   );

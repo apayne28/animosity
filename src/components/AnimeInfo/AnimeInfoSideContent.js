@@ -46,6 +46,11 @@ const AnimeInfoSideContent = (props) => {
       <div className='anime-info-side-content'>
         <Typography className='anime-info-title-header'>
           {info.title}
+          {info.title !== info.title_english && (
+            <Typography
+              sx={{ paddingTop: 1 }}
+            >{`(${info.title_english})`}</Typography>
+          )}
         </Typography>
         <img src={info.images.jpg.image_url} alt={info.title} />
         <div className='anime-info-alternative-titles-container'>

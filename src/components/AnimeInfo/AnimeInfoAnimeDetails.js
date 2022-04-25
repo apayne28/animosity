@@ -1,19 +1,53 @@
+import { Typography, Link as MuiLink } from "@mui/material";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import React from "react";
 
-function AnimeInfoAnimeDetails() {
+function AnimeInfoAnimeDetails(props) {
+  let navigate = useNavigate();
+  const location = useLocation();
+
+  console.log(props, location);
   return (
     <div className='anime-info-content-navbar'>
-      <div className='anime-info-content-navbar-items'>Details</div>
-      <div className='anime-info-content-navbar-items'>Characters & Staff</div>
-      <div className='anime-info-content-navbar-items'>Episodes</div>
-      <div className='anime-info-content-navbar-items'>Videos</div>
-      <div className='anime-info-content-navbar-items'>Stats</div>
-      <div className='anime-info-content-navbar-items'>Reviews</div>
-      <div className='anime-info-content-navbar-items'>Recommendations</div>
-      <div className='anime-info-content-navbar-items'>News</div>
-      <div className='anime-info-content-navbar-items'>Forum</div>
-      <div className='anime-info-content-navbar-items'>Clubs</div>
-      <div className='anime-info-content-navbar-items'>Pictures</div>
+      <MuiLink
+        onClick={(e) => {
+          navigate("/anime-info", {
+            state: { animeId: location.state.animeId },
+          });
+          window.location.reload();
+        }}
+      >
+        <Typography className='anime-info-content-navbar-items'>
+          Details
+        </Typography>
+      </MuiLink>
+
+      <Link
+        to='/anime-character-list-page'
+        state={{
+          animeId: props.animeId,
+          animeRecList: props.animeRecList,
+          charList: props.charList,
+        }}
+      >
+        <Typography className='anime-info-content-navbar-items'>
+          Characters & Staff
+        </Typography>
+      </Link>
+      <Link
+        to='/anime-recs-page'
+        state={{
+          animeId: props.animeId,
+          animeRecList: props.animeRecList,
+          charList: props.charList,
+        }}
+        onClick={(e) => console.log(location, props)}
+      >
+        <Typography className='anime-info-content-navbar-items'>
+          Recommendations
+        </Typography>
+      </Link>
     </div>
   );
 }

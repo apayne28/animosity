@@ -11,7 +11,9 @@ import { useLocation } from "react-router-dom";
 const MangaInfo = (props) => {
   const location = useLocation();
 
-  const id = location.state.mangaId;
+  // const id = location.state.mangaId;
+  const id = props.mangaId ? props.mangaId : location.state.mangaId;
+
   console.log(location.state.mangaId);
 
   return (

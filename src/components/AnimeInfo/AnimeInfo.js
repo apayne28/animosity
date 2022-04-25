@@ -5,11 +5,13 @@ import AnimeInfoSideContent from "./AnimeInfoSideContent.js";
 import AnimeInfoMainGuts from "./AnimeInfoMainGuts.js";
 import { useLocation } from "react-router-dom";
 
-const AnimeInfo = () => {
+const AnimeInfo = (props) => {
   const location = useLocation();
 
-  const id = location.state.animeId;
-  console.log(location.state.animeId);
+  const id =
+    props.animeId !== undefined ? props.animeId : location.state.animeId;
+  console.log(props.animeId, location, id);
+
   return (
     <div className='anime-info-container'>
       <div className='header-content'>

@@ -41,6 +41,12 @@
   margin: 0 auto;
 }
 
+.homepage-guts {
+  background-color: greenyellow;
+  height: 100%;
+  width: 100%;
+}
+
 .homepage-sidebar {
   display: flex;
   justify-content: right;
@@ -71,9 +77,6 @@
   display: grid;
   background-color: aqua;
   justify-content: right;
-
-  /* justify-content: end; */
-  /* width: 50%; */
 }
 .sidebar-top-anime-content a {
   word-wrap: break-word;
@@ -91,12 +94,6 @@
   background-color: aliceblue;
   word-wrap: break-word;
   justify-content: left;
-}
-
-.homepage-guts {
-  background-color: greenyellow;
-  height: 100%;
-  width: 100%;
 }
 
 .featured-anime-container {
@@ -239,6 +236,12 @@
 .search-bar-conteiner {
   display: flex;
 }
+
+.character-profile-container {
+  display: flex;
+  flex-direction: row;
+}
+
 /* * {
   margin: 0;
   padding: 0;

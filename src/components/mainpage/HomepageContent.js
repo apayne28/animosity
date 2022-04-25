@@ -8,6 +8,7 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
+import ReactPlayer from "react-player";
 
 const HomepageContent = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
