@@ -2,7 +2,15 @@ import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import { Grid, Typography, Box, Card } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Box,
+  Card,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
@@ -66,36 +74,43 @@ function AnimeCharacterListPage(props) {
         />
         <Box sx={{ display: "flex" }}>
           <AnimeInfoSideContent animeId={animeId} />
+          <Box sx={{ flexFlow: 1 }}>
+            <Grid container>
+              <ImageList cols={10} rowHeight={400}>
+                {characterList.map((character) => {
+                  let characterEntry = character.character;
+                  // console.log(characterEntry);
 
-          <Grid container>
-            {characterList.map((character) => {
-              let characterEntry = character.character;
-              // console.log(characterEntry);
-
-              return (
-                <Card
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "70%",
-                    margin: "auto",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <Link
-                    to='/character-profile'
-                    state={{ characterId: characterEntry.mal_id }}
-                  >
-                    <img
-                      src={characterEntry.images.jpg.image_url}
-                      alt={characterEntry.name}
-                    />
-                    <Typography>{characterEntry.name} </Typography>
-                  </Link>
-                </Card>
-              );
-            })}
-          </Grid>
+                  return (
+                    <Grid
+                      item
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        // width: "70%",
+                        margin: "auto",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Link
+                        to='/character-profile'
+                        state={{ characterId: characterEntry.mal_id }}
+                      >
+                        <ImageListItem>
+                          <img
+                            src={characterEntry.images.jpg.image_url}
+                            alt={characterEntry.name}
+                          />
+                          <ImageListItemBar title={characterEntry.name} />
+                        </ImageListItem>
+                        {/* <Typography>{characterEntry.name} </Typography> */}
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </ImageList>
+            </Grid>
+          </Box>
         </Box>
       </Box>
     );

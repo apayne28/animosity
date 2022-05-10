@@ -1,4 +1,9 @@
-import { Grid } from "@mui/material";
+import {
+  Grid,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 import React, { useCallback } from "react";
 import { useState, useEffect } from "react";
 import {
@@ -84,95 +89,112 @@ const Sidebar = () => {
       <nav>
         <h3 className='sidebar-top-headers'>Most Popular Anime</h3>
 
-        {mostPopularAnime.map((anime) => (
-          <div item className='sidebar-top-anime-content'>
-            {anime.rank}
-            <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
-              <img
-                className='sidebar-top-image'
-                src={anime.image_url}
-                alt={anime.title}
-              />
-            </Link>
+        <ImageList cols={1}>
+          {mostPopularAnime.map((anime) => (
+            <Grid item className='sidebar-top-anime-content'>
+              {anime.rank}
+              <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                <ImageListItem>
+                  <img
+                    className='sidebar-top-image'
+                    src={anime.image_url}
+                    alt={anime.title}
+                  />
 
-            <div className='name-and-info'>
-              <a
-                href={anime.url}
-                target='_blank'
-                key={anime.mal_id}
-                rel='noreferrer'
-              >
-                <div className='sidebar-top-anime-title'>{anime.title}</div>
-              </a>
-              <Grid>
-                {`${anime.type}, ${anime.episodes} eps, scored ${anime.score}`}
-              </Grid>
-              {`${anime.members} members`}
-            </div>
-          </div>
-        ))}
+                  <ImageListItemBar
+                    title={anime.title}
+                    subtitle={`${anime.type}, ${anime.episodes} eps`}
+                  />
+                </ImageListItem>
+              </Link>
+
+              <div className='name-and-info'>
+                {/* <a
+                  href={anime.url}
+                  target='_blank'
+                  key={anime.mal_id}
+                  rel='noreferrer'
+                >
+                  <div className='sidebar-top-anime-title'>{anime.title}</div>
+                </a> */}
+                <Grid>{`scored ${anime.score}`}</Grid>
+                {`${anime.members} fans`}
+              </div>
+            </Grid>
+          ))}
+        </ImageList>
       </nav>
       <nav>
         <h3 className='sidebar-top-headers'>Top Airing Anime</h3>
-        {topAiringAnime.map((anime) => (
-          <div className='sidebar-top-anime-content'>
-            {anime.rank}
-            <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
-              <img
-                className='sidebar-top-image'
-                src={anime.image_url}
-                alt={anime.title}
-              />
-            </Link>
+        <ImageList cols={1}>
+          {topAiringAnime.map((anime) => (
+            <div className='sidebar-top-anime-content'>
+              {anime.rank}
+              <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                <ImageListItem>
+                  <img
+                    className='sidebar-top-image'
+                    src={anime.image_url}
+                    alt={anime.title}
+                  />
+                  <ImageListItemBar title={anime.title} />
+                </ImageListItem>
+              </Link>
 
-            <div className='name-and-info'>
-              <a
-                href={anime.url}
-                target='_blank'
-                key={anime.mal_id}
-                rel='noreferrer'
-              >
-                <div className='sidebar-top-anime-title'>{anime.title}</div>
-              </a>
-              <div>
-                {`${anime.type}, ${
-                  anime.episodes !== null ? anime.episodes : "N/A"
-                } eps, scored ${anime.score}`}
+              <div className='name-and-info'>
+                {/* <a
+                  href={anime.url}
+                  target='_blank'
+                  key={anime.mal_id}
+                  rel='noreferrer'
+                >
+                  <div className='sidebar-top-anime-title'>{anime.title}</div>
+                </a> */}
+                <div>
+                  {`${anime.type}, ${
+                    anime.episodes !== null ? anime.episodes : "N/A"
+                  } eps, scored ${anime.score}`}
+                </div>
+                {`${anime.members} members`}
               </div>
-              {`${anime.members} members`}
             </div>
-          </div>
-        ))}
+          ))}
+        </ImageList>
       </nav>
       <nav>
         <h3 className='sidebar-top-headers'>Top Upcoming Anime</h3>
-        {topUpcomingAnime.map((anime) => (
-          <div className='sidebar-top-anime-content'>
-            {anime.rank}
-            <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
-              <img
-                className='sidebar-top-image'
-                src={anime.image_url}
-                alt={anime.title}
-              />
-            </Link>
+        <ImageList cols={1}>
+          {topUpcomingAnime.map((anime) => (
+            <div className='sidebar-top-anime-content'>
+              {anime.rank}
+              <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                <ImageListItem>
+                  <img
+                    className='sidebar-top-image'
+                    src={anime.image_url}
+                    alt={anime.title}
+                  />
+                  <ImageListItemBar title={anime.title} />
+                </ImageListItem>
+              </Link>
 
-            <div className='name-and-info'>
-              <a
-                href={anime.url}
-                target='_blank'
-                key={anime.mal_id}
-                rel='noreferrer'
-              >
-                <div className='sidebar-top-anime-title'>{anime.title}</div>
-              </a>
-              <div>
-                {`${anime.type}, ${anime.episodes} eps, scored ${anime.score}`}
+              <div className='name-and-info'>
+                {/* <a
+                  href={anime.url}
+                  target='_blank'
+                  key={anime.mal_id}
+                  rel='noreferrer'
+                >
+                  <div className='sidebar-top-anime-title'>{anime.title}</div>
+                </a> */}
+                <div>
+                  {`${anime.type}, ${anime.episodes} eps, scored ${anime.score}`}
+                </div>
+                {`${anime.members} members`}
               </div>
-              {`${anime.members} members`}
             </div>
-          </div>
-        ))}
+          ))}
+        </ImageList>
       </nav>
       {/* <nav>
         <h3 className='sidebar-top-headers'>Top Manga</h3>

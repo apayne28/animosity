@@ -1,4 +1,11 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -39,27 +46,32 @@ function MangaInfoCharacters(props) {
           <Typography>View More</Typography>
         </Link>
         <div className='anime-info-character-list'>
-          {mangaCharacterList.length > 0
-            ? mangaCharacterList.slice(0, 5).map((character) => {
-                let characterEntry = character.character;
-                // console.log(characterEntry);
+          <ImageList cols={5} rowHeight={400}>
+            {mangaCharacterList.length > 0
+              ? mangaCharacterList.slice(0, 5).map((character) => {
+                  let characterEntry = character.character;
+                  // console.log(characterEntry);
 
-                return (
-                  <Grid item>
-                    <Link
-                      to='/character-profile'
-                      state={{ characterId: characterEntry.mal_id }}
-                    >
-                      <img
-                        src={characterEntry.images.jpg.image_url}
-                        alt={characterEntry.name}
-                      />
-                      <Typography>{characterEntry.name} </Typography>
-                    </Link>
-                  </Grid>
-                );
-              })
-            : "N/A"}
+                  return (
+                    <Grid item>
+                      <Link
+                        to='/character-profile'
+                        state={{ characterId: characterEntry.mal_id }}
+                      >
+                        <ImageListItem>
+                          <img
+                            src={characterEntry.images.jpg.image_url}
+                            alt={characterEntry.name}
+                          />
+                          <ImageListItemBar title={characterEntry.name} />
+                        </ImageListItem>
+                        {/* <Typography>{characterEntry.name} </Typography> */}
+                      </Link>
+                    </Grid>
+                  );
+                })
+              : "N/A"}
+          </ImageList>
         </div>
       </div>
     );

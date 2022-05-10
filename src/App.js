@@ -17,6 +17,7 @@ import AnimeCharacterListPage from "./components/CharacterListPage/AnimeCharacte
 import MangaCharacterList from "./components/CharacterListPage/MangaCharacterList.js";
 import AnimeRecPage from "./components/RecommendePages/AnimeRecPage.js";
 import MangaRecPage from "./components/RecommendePages/MangaRecPage.js";
+import GenreListPage from "./components/Genres/GenreListPage.js";
 
 // import { Routes } from "react-router";
 
@@ -104,6 +105,7 @@ const App = () => {
         ></Route>
         <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
         <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
+        <Route path='genre-list-page' element={<GenreListPage />}></Route>
       </Routes>
     </div>
   );

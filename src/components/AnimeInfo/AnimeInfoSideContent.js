@@ -65,9 +65,12 @@ const AnimeInfoSideContent = (props) => {
               {`Japanese: ${info.title_japanese}`}
             </Typography>
           )}
+          <Divider sx={{ paddingBottom: "1%", marginBottom: "5%" }} />
+
           {info.title_synonyms && (
             <div>
               <h3>Synonyms</h3>
+
               {info.title_synonyms > 0
                 ? info.title_synonyms.map((altTitles) => (
                     <Typography className='anime-info-title-synonyms'>
@@ -77,6 +80,7 @@ const AnimeInfoSideContent = (props) => {
                 : "N/A"}
             </div>
           )}
+          <Divider sx={{ paddingBottom: "1%", marginBottom: "5%" }} />
         </div>
         <div className='anime-info-information'>
           <h3>Information</h3>
@@ -123,6 +127,7 @@ const AnimeInfoSideContent = (props) => {
           <Typography>{`Duration: ${info.duration}`}</Typography>
           <Typography>{`Rating: ${info.rating}`}</Typography>
         </div>
+
         <div className='anime-info-statistics'>
           <h3>Statistics</h3>
           <Typography>{`Score: ${info.score ? info.score : "N/A"}`}</Typography>

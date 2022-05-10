@@ -1,4 +1,13 @@
-import { Divider, Typography, Grid, Stack, Pagination } from "@mui/material";
+import {
+  Divider,
+  Typography,
+  Grid,
+  Stack,
+  Pagination,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import Header from "../mainpage/Header";
@@ -98,55 +107,72 @@ const TopManga = () => {
         </Stack>
         <div className='top-anime-top-category-container'>
           <Grid>
-            {topScoredManga.map((entry) => {
-              //   console.log(entry);
-              return (
-                <article className='top-anime-top-category-items'>
-                  <div className='top-anime-top-category-title-container'>
-                    <figure>
-                      <Typography className='top-anime-top-category-item-rank'>
-                        {entry.rank}
-                      </Typography>
-                    </figure>
-                    <figure>
-                      <Link to='/manga-info' state={{ mangaId: entry.mal_id }}>
-                        {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
-                        <img src={entry.image_url} alt={entry.title} />
-                      </Link>
-                    </figure>
-                    <figure>
-                      <Typography>{entry.title}</Typography>
-                    </figure>
-                    <figure>
-                      <Typography>{`${entry.type} (${
-                        entry.volumes
-                          ? `${entry.volumes} vols`
-                          : `${
-                              entry.chapters ? `${entry.chapters} vols` : "N/A"
-                            }`
-                      })`}</Typography>
-                      {/* <Typography>{entry.aired.string}</Typography> */}
-                      <Typography>{`${entry.start_date} - ${entry.end_date}`}</Typography>
-                    </figure>
-                    <figure>
-                      {/* <Typography>{entry.aired.members}</Typography> */}
-                      <Typography>{entry.members}</Typography>
-                    </figure>
-                    <figure>
-                      <div className='top-anime-top-category-item-status'>
-                        <Typography>{entry.status}</Typography>
-                        <div className='top-anime-top-category-item-score'>
-                          <Typography>{entry.score}</Typography>
-                        </div>
-                        {/* <div className='top-anime-top-category-item-status'>
+            <ImageList cols={1} rowHeight={400}>
+              {topScoredManga.map((entry) => {
+                //   console.log(entry);
+                return (
+                  <article className='top-anime-top-category-items'>
+                    <div className='top-anime-top-category-title-container'>
+                      <figure>
+                        <Typography className='top-anime-top-category-item-rank'>
+                          {entry.rank}
+                        </Typography>
+                      </figure>
+                      <figure>
+                        <Link
+                          to='/manga-info'
+                          state={{ mangaId: entry.mal_id }}
+                        >
+                          {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
+                          <ImageListItem>
+                            <img src={entry.image_url} alt={entry.title} />
+                            <ImageListItemBar
+                              title={entry.title}
+                              subtitle={`${entry.start_date} - ${
+                                entry.end_date === null
+                                  ? "Current"
+                                  : `${entry.end_date}`
+                              }`}
+                            />
+                          </ImageListItem>
+                        </Link>
+                      </figure>
+                      {/* <figure>
+                        <Typography>{entry.title}</Typography>
+                      </figure> */}
+                      <figure>
+                        <Typography>{`${entry.type} (${
+                          entry.volumes
+                            ? `${entry.volumes} vols`
+                            : `${
+                                entry.chapters
+                                  ? `${entry.chapters} vols`
+                                  : "N/A"
+                              }`
+                        })`}</Typography>
+                        {/* <Typography>{entry.aired.string}</Typography> */}
+                        {/* <Typography>{`${entry.start_date} - ${entry.end_date}`}</Typography> */}
+                      </figure>
+                      <figure>
+                        {/* <Typography>{entry.aired.members}</Typography> */}
+                        <Typography>{`${entry.members} fans`}</Typography>
+                      </figure>
+                      <figure>
+                        <div className='top-anime-top-category-item-status'>
+                          <Typography>{entry.status}</Typography>
+                          <div className='top-anime-top-category-item-score'>
+                            <Typography>{`Score: ${entry.score}`}</Typography>
+                          </div>
+                          {/* <div className='top-anime-top-category-item-status'>
                         <Typography>{entry.status}</Typography>
                       </div> */}
-                      </div>
-                    </figure>
-                  </div>
-                </article>
-              );
-            })}
+                        </div>
+                      </figure>
+                    </div>
+                  </article>
+                );
+              })}
+            </ImageList>
           </Grid>
           <div className='buttons'>
             <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>

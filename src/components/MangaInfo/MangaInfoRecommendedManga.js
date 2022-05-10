@@ -1,4 +1,11 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -35,34 +42,36 @@ function MangaInfoRecommendedManga(props) {
   if (mangaRecommendationsList) {
     return (
       <div className='anime-info-rec-anime-container'>
-        {mangaRecommendationsList.length > 0
-          ? mangaRecommendationsList.slice(0, 5).map((info) => {
-              let recAnime = info.entry;
+        <ImageList cols={5} rowHeight={400}>
+          {mangaRecommendationsList.length > 0
+            ? mangaRecommendationsList.slice(0, 5).map((info) => {
+                let recAnime = info.entry;
 
-              return (
-                <div className='anime-info-rec-anime-item'>
-                  {/* <Link
-                        to='/manga-info'
-                        state={{ mangaId: recAnime.mal_id }}
-                      > */}
-                  <img
-                    src={recAnime.images.jpg.image_url}
-                    alt={recAnime.title}
-                    onClick={(e) => {
-                      navigate(`/manga-info`, {
-                        state: {
-                          mangaId: recAnime.mal_id,
-                        },
-                      });
-                      window.location.reload();
-                    }}
-                  />
-                  <Typography>{recAnime.title}</Typography>
-                  {/* </Link> */}
-                </div>
-              );
-            })
-          : "N/A"}
+                return (
+                  <div className='anime-info-rec-anime-item'>
+                    <Link to='/manga-info' state={{ mangaId: recAnime.mal_id }}>
+                      <ImageListItem>
+                        <img
+                          src={recAnime.images.jpg.image_url}
+                          alt={recAnime.title}
+                          onClick={(e) => {
+                            navigate(`/manga-info`, {
+                              state: {
+                                mangaId: recAnime.mal_id,
+                              },
+                            });
+                            window.location.reload();
+                          }}
+                        />
+                        <ImageListItemBar title={recAnime.title} />
+                      </ImageListItem>
+                      {/* <Typography>{recAnime.title}</Typography> */}
+                    </Link>
+                  </div>
+                );
+              })
+            : "N/A"}
+        </ImageList>
       </div>
     );
   } else {

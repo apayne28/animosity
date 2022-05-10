@@ -1,4 +1,12 @@
-import { Divider, Grid, Typography, Box } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Typography,
+  Box,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 import { useNavigate, Link } from "react-router-dom";
@@ -43,30 +51,35 @@ function AnimeInfoRecommendedAnime(props) {
           <Typography>View More</Typography>
         </Link>
         <div className='anime-info-rec-anime-container'>
-          {animeRecommendationsList.slice(0, 5).map((info) => {
-            let recAnime = info.entry;
+          <ImageList cols={5} rowHeight={400}>
+            {animeRecommendationsList.slice(0, 5).map((info) => {
+              let recAnime = info.entry;
 
-            return (
-              <div>
-                <div className='anime-info-rec-anime-item'>
-                  <img
-                    src={recAnime.images.jpg.image_url}
-                    alt={recAnime.title}
-                    onClick={(e) => {
-                      navigate(`/anime-info`, {
-                        state: {
-                          animeId: recAnime.mal_id,
-                          animeRecList: animeRecommendationsList,
-                        },
-                      });
-                      window.location.reload();
-                    }}
-                  />
-                  <Typography>{recAnime.title}</Typography>
+              return (
+                <div>
+                  <div className='anime-info-rec-anime-item'>
+                    <ImageListItem>
+                      <img
+                        src={recAnime.images.jpg.image_url}
+                        alt={recAnime.title}
+                        onClick={(e) => {
+                          navigate(`/anime-info`, {
+                            state: {
+                              animeId: recAnime.mal_id,
+                              animeRecList: animeRecommendationsList,
+                            },
+                          });
+                          window.location.reload();
+                        }}
+                      />
+                      <ImageListItemBar title={recAnime.title} />
+                    </ImageListItem>
+                    {/* <Typography>{recAnime.title}</Typography> */}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </ImageList>
         </div>
       </div>
     );

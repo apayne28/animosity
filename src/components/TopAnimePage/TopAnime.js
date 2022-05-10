@@ -5,6 +5,9 @@ import {
   Button,
   Stack,
   Pagination,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
@@ -14,7 +17,7 @@ import TopAnimeBar from "./TopAnimeBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 
-const TopAnime = () => {
+const TopAnime = (props) => {
   const location = useLocation();
   let navigate = useNavigate();
   let buttonValue = location.state.page ? location.state.page : 1;
@@ -22,8 +25,10 @@ const TopAnime = () => {
   const [topScoredAnime, setTopScoredAnime] = useState();
   const buttonCounter = buttonValue;
 
-  console.log(location);
+  console.log(location, props);
   let category = location.state.topFilter;
+  let homepageAnime = location.state.animeList;
+  let testCon = topScoredAnime ? topScoredAnime : homepageAnime;
 
   //   let type = location.state.animeType
 
@@ -65,12 +70,12 @@ const TopAnime = () => {
   }, [buttonCounter, category]);
 
   useEffect(() => {
-    if (!topScoredAnime) {
+    if (!topScoredAnime && !homepageAnime) {
       getTopScoredAnime();
     }
-  }, [getTopScoredAnime, topScoredAnime]);
+  }, [getTopScoredAnime, homepageAnime, topScoredAnime]);
 
-  if (topScoredAnime) {
+  if (testCon) {
     return (
       <div className='top-anime-page-container'>
         <div className='header-content'>
@@ -104,71 +109,77 @@ const TopAnime = () => {
         </Stack>
         <div className='top-anime-top-category-container'>
           <Grid>
-            {topScoredAnime.map((entry) => {
-              //   console.log(entry);
-              return (
-                <article className='top-anime-top-category-items'>
-                  <div className='top-anime-top-category-title-container'>
-                    <figure>
-                      <Typography className='top-anime-top-category-item-rank'>
-                        {entry.rank}
-                      </Typography>
-                    </figure>
-                    <figure>
-                      <Link to='/anime-info' state={{ animeId: entry.mal_id }}>
-                        {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
-                        <img src={entry.image_url} alt={entry.title} />
-                      </Link>
-                    </figure>
-                    <figure>
-                      <Typography>{entry.title}</Typography>
-                    </figure>
-                    <figure>
-                      <Typography>{`${entry.type} (${entry.episodes} eps)`}</Typography>
-                      {/* <Typography>{entry.aired.string}</Typography> */}
-                      <Typography>{`${entry.start_date} - ${entry.end_date}`}</Typography>
-                    </figure>
-                    <figure>
-                      {/* <Typography>{entry.aired.members}</Typography> */}
-                      <Typography>{entry.members}</Typography>
-                    </figure>
-                    <figure>
-                      <div className='top-anime-top-category-item-status'>
-                        <Typography>{entry.status}</Typography>
-                        <div className='top-anime-top-category-item-score'>
-                          <Typography>{entry.score}</Typography>
-                        </div>
-                        {/* <div className='top-anime-top-category-item-status'>
+            <ImageList cols={1}>
+              {testCon.map((entry) => {
+                //   console.log(entry);
+                return (
+                  <article className='top-anime-top-category-items'>
+                    <div className='top-anime-top-category-title-container'>
+                      <figure>
+                        <Typography className='top-anime-top-category-item-rank'>
+                          {entry.rank}
+                        </Typography>
+                      </figure>
+                      <figure>
+                        <Link
+                          to='/anime-info'
+                          state={{ animeId: entry.mal_id }}
+                        >
+                          {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
+                          <ImageListItem>
+                            <img
+                              src={
+                                topScoredAnime
+                                  ? entry.image_url
+                                  : entry.images.jpg.image_url
+                              }
+                              alt={entry.title}
+                            />
+                            <ImageListItemBar
+                              title={entry.title}
+                              subtitle={`${
+                                topScoredAnime
+                                  ? `${entry.start_date} - ${entry.end_date}}`
+                                  : `${entry.aired.string}`
+                              }`}
+                            />
+                          </ImageListItem>
+                        </Link>
+                      </figure>
+                      {/* <figure>
+                        <Typography>{entry.title}</Typography>
+                      </figure> */}
+                      <figure>
+                        <Typography>{`${entry.type} (${entry.episodes} eps)`}</Typography>
+                        {/* <Typography>{entry.aired.string}</Typography> */}
+                        {/* <Typography>{`${
+                          topScoredAnime
+                            ? `${entry.start_date} - ${entry.end_date}}`
+                            : `${entry.aired.string}`
+                        }`}</Typography> */}
+                      </figure>
+                      <figure>
+                        {/* <Typography>{entry.aired.members}</Typography> */}
+                        <Typography>{entry.members}</Typography>
+                      </figure>
+                      <figure>
+                        <div className='top-anime-top-category-item-status'>
+                          <Typography>{entry.status}</Typography>
+                          <div className='top-anime-top-category-item-score'>
+                            <Typography>{entry.score}</Typography>
+                          </div>
+                          {/* <div className='top-anime-top-category-item-status'>
                         <Typography>{entry.status}</Typography>
                       </div> */}
-                      </div>
-                    </figure>
-                  </div>
-                </article>
-              );
-            })}
+                        </div>
+                      </figure>
+                    </div>
+                  </article>
+                );
+              })}
+            </ImageList>
           </Grid>
           <div className='buttons'>
-            {/* <Button
-              onClick={() => {
-                console.log(buttonCounter);
-                return buttonCounter > 1
-                  ? setButtonCounter((prevState) => prevState - 1)
-                  : setButtonCounter(1);
-              }}
-            >
-              Previous
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(buttonCounter);
-                return buttonCounter < 401
-                  ? setButtonCounter((prevState) => prevState + 1)
-                  : setButtonCounter(25);
-              }}
-            >
-              Next
-            </Button> */}
             <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
               <Pagination
                 count={401}

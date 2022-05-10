@@ -1,7 +1,12 @@
-.App {
-  background-color: beige;
+html,
+body {
+  margin: 0;
   height: 100%;
-  width: 100%;
+  padding: 0;
+}
+
+.App {
+  background-color: #f5f5dc;
 }
 
 .app-content {
@@ -41,11 +46,11 @@
   margin: 0 auto;
 }
 
-.homepage-guts {
+/* .homepage-guts {
   background-color: greenyellow;
   height: 100%;
   width: 100%;
-}
+} */
 
 .homepage-sidebar {
   display: flex;
@@ -56,9 +61,10 @@
 
 .homepage-sidebar-content {
   background-color: palegoldenrod;
-  width: 20%;
+  width: 50%;
   height: 100%;
   word-break: keep-all;
+  margin-left: 5%;
 }
 
 .sidebar-top-headers {
@@ -74,7 +80,8 @@
 }
 
 .sidebar-top-anime-content {
-  display: grid;
+  display: flex;
+  padding-left: 15%;
   background-color: aqua;
   justify-content: right;
 }
@@ -87,6 +94,8 @@
   background-color: red;
   display: flex;
   flex-direction: column;
+  padding-top: 5%;
+  padding-right: 50%;
   text-align: left;
 }
 
@@ -167,7 +176,8 @@
   display: flex;
   flex-direction: column;
   height: 10%;
-  width: 10%;
+  width: 20%;
+  padding-right: 0.5%;
 }
 
 .anime-info-alternative-titles-container {

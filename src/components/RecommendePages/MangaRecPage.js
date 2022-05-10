@@ -1,6 +1,15 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import { Divider, Grid, Typography, Link as MuiLink, Box } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Typography,
+  Link as MuiLink,
+  Box,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
@@ -86,30 +95,38 @@ function MangaRecPage(props) {
             backgroundColor: "white",
           }}
         >
-          {originMangaRecList.map((entry) => {
-            // console.log(test);
-            return (
-              <Grid item sx={{ display: "flex", margin: "auto" }}>
-                <Link to='/manga-info' state={{ mangaId: entry.entry.mal_id }}>
-                  <img
-                    src={entry.entry.images.jpg.image_url}
-                    alt={entry.entry.title}
-                  />
-                  <div>
-                    <Typography
-                      sx={{
-                        wordWrap: "break-word",
-                        // backgroundColor: "black",
-                        // color: "white",
-                      }}
-                    >
-                      {entry.entry.title}
-                    </Typography>
-                  </div>
-                </Link>
-              </Grid>
-            );
-          })}
+          <ImageList cols={10} rowHeight={400}>
+            {originMangaRecList.map((entry) => {
+              // console.log(test);
+              return (
+                <Grid item sx={{ display: "flex", margin: "auto" }}>
+                  <Link
+                    to='/manga-info'
+                    state={{ mangaId: entry.entry.mal_id }}
+                  >
+                    <ImageListItem>
+                      <img
+                        src={entry.entry.images.jpg.image_url}
+                        alt={entry.entry.title}
+                      />
+                      <ImageListItemBar title={entry.entry.title} />
+                    </ImageListItem>
+                    <div>
+                      {/* <Typography
+                        sx={{
+                          wordWrap: "break-word",
+                          // backgroundColor: "black",
+                          // color: "white",
+                        }}
+                      >
+                        {entry.entry.title}
+                      </Typography> */}
+                    </div>
+                  </Link>
+                </Grid>
+              );
+            })}
+          </ImageList>
         </Grid>
       </Box>
     );

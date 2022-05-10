@@ -46,6 +46,9 @@ const NavigationBar = () => {
           <Link to='/top-manga' state={{ topFilter: " ", type: "manga" }}>
             <Typography>Top Manga</Typography>
           </Link>
+          {/* <Link to='/genre-list-page'>
+            <Typography>Genres</Typography>
+          </Link> */}
           <Typography>Genres</Typography>
         </div>
         <div className='navigation-bar-search-bar'>

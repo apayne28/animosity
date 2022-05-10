@@ -1,4 +1,12 @@
-import { Divider, Grid, Typography, Box } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Typography,
+  Box,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+} from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
@@ -9,6 +17,7 @@ import ReactPlayer from "react-player";
 
 function AnimeInfoCharacters(props) {
   const [animeCharacterList, setAnimeCharacterList] = useState();
+  const [isCharLoaded, setIsCharLoader] = useState();
   let navigate = useNavigate();
   console.log(props.animeId);
   const getAnimeCharacters = useCallback(async (id) => {
@@ -38,25 +47,30 @@ function AnimeInfoCharacters(props) {
         </Link>
 
         <Grid xs={1} md={12} container className='anime-info-character-list'>
-          {animeCharacterList.slice(0, 5).map((character) => {
-            let characterEntry = character.character;
-            // console.log(characterEntry);
+          <ImageList cols={5} rowHeight={400}>
+            {animeCharacterList.slice(0, 5).map((character) => {
+              let characterEntry = character.character;
+              // console.log(characterEntry);
 
-            return (
-              <Grid item>
-                <Link
-                  to='/character-profile'
-                  state={{ characterId: characterEntry.mal_id }}
-                >
-                  <img
-                    src={characterEntry.images.jpg.image_url}
-                    alt={characterEntry.name}
-                  />
-                  <Typography>{characterEntry.name} </Typography>
-                </Link>
-              </Grid>
-            );
-          })}
+              return (
+                <Grid item>
+                  <Link
+                    to='/character-profile'
+                    state={{ characterId: characterEntry.mal_id }}
+                  >
+                    <ImageListItem>
+                      <img
+                        src={characterEntry.images.jpg.image_url}
+                        alt={characterEntry.name}
+                      />
+                      <ImageListItemBar title={characterEntry.name} />
+                    </ImageListItem>
+                    {/* <Typography>{characterEntry.name} </Typography> */}
+                  </Link>
+                </Grid>
+              );
+            })}
+          </ImageList>
         </Grid>
       </Box>
     );
