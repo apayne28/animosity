@@ -30,7 +30,7 @@ function MangaInfoMangaDetails(props) {
         }}
       >
         <Typography className='anime-info-content-navbar-items'>
-          Characters & Staff
+          Characters
         </Typography>
       </Link>
       <Link

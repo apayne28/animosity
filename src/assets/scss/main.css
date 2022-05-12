@@ -6,11 +6,16 @@ body {
 }
 
 .App {
-  background-color: #f5f5dc;
+  /* background-color: #f5f5dc; */
+  background-color: #2a1f2d;
+
+  position: relative;
 }
 
 .app-content {
-  background-color: cornsilk;
+  /* background-color: cornsilk; */
+  background-color: #2a1f2d;
+
   height: 100%;
   width: 100%;
   overflow: auto;
@@ -19,11 +24,27 @@ body {
 }
 
 .page-header {
-  background-color: cadetblue;
+  /* background-color: cornsilk;
+  background-color: #2a1f2d;
+   */
+
   overflow: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10000;
+  background: blue; */
+}
+
+.header-nav {
 }
 
 .header-navigation-buttons {
@@ -35,6 +56,7 @@ body {
   display: flex;
   overflow: auto;
   justify-content: space-around;
+  padding-bottom: 1.5%;
 }
 
 .homepage-content {
@@ -169,7 +191,49 @@ body {
 
 .anime-info-main {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+}
+
+.anime-info-main-info-container {
+  /* display: flex; */
+
+  margin: auto;
+  background-color: white;
+  /* border: 4px solid black; */
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-top: 0.5%;
+  width: 80%;
+  margin: auto;
+  border-radius: 5px;
+}
+/* .anime-info-content-guts {
+  background-color: white;
+  border: 4px solid black;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-top: 0.5%;
+  width: 80%;
+  margin: auto;
+} */
+.anime-info-content-guts h3 {
+  background-color: #56e39f;
+
+  font-size: 26px;
+}
+/* .anime-info-main-synopsis {
+  margin: auto;
+  background-color: white;
+  margin-bottom: 5%;
+  width: 50%;
+} */
+.anime-info-main-synopsis h3 {
+  background-color: #56e39f;
+  font-size: 26px;
+}
+
+.anime-info-trailer {
+  display: flex;
 }
 
 .anime-info-side-content {
@@ -178,22 +242,38 @@ body {
   height: 10%;
   width: 20%;
   padding-right: 0.5%;
+  padding-left: 0.5%;
+  /* background-color: aliceblue; */
 }
 
 .anime-info-alternative-titles-container {
-  background-color: pink;
+  background-color: green;
+  margin-bottom: 5%;
+  border-radius: 5px;
 }
-.anime-info-information {
-  display: flex;
-  flex-direction: column;
-  background-color: pink;
+
+.anime-info-score {
+  /* background-color: blueviolet; */
+  background-color: #59c9a5;
+  margin-bottom: 5%;
+  border-radius: 5px;
 }
 
 .anime-info-statistics {
   display: flex;
   flex-direction: column;
-  background-color: pink;
+  background-color: orange;
+  margin-bottom: 5%;
+  border-radius: 5px;
 }
+.anime-info-information {
+  display: flex;
+  flex-direction: column;
+  background-color: pink;
+  margin-bottom: 5%;
+  border-radius: 5px;
+}
+
 /* .anime-info-content-navbar {
 
 } */
@@ -219,6 +299,33 @@ body {
   display: flex;
 }
 
+.anime-character-list-contents {
+  margin-top: 1%;
+  margin-left: 1%;
+  width: 75%;
+}
+
+.anime-character-list-contents img {
+  transition: 1s ease;
+  -webkit-filter: brightness(100%);
+  background-color: black;
+}
+
+.anime-character-list-contents img:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
+  -webkit-filter: brightness(50%);
+  /* opacity: 0.3; */
+  border-radius: 50px;
+}
+
+/* .anime-character-list-details-button {
+  z-index: 1;
+  padding-bottom: ;
+} */
+
 .top-anime-navigation-bar-items {
   display: flex;
   justify-content: space-between;
@@ -235,13 +342,26 @@ body {
   width: 50%;
   background-color: white;
 }
-.search-page-anime-entry {
-  /* display: flex; */
-  /* flex-direction: row; */
+/* .search-page-anime-entry {
+  display: flex;
+  flex-direction: row;
   margin: auto;
-  width: 50%;
+
   background-color: white;
+} */
+
+.search-page-contents {
+  /* display: flex;
+  justify-content: space-between; */
+  margin: auto;
+  width: 90%;
 }
+
+/* .search-page-card {
+  max-width: 90%;
+  max-height: 100%;
+  padding-bottom: 35px;
+} */
 
 .search-bar-conteiner {
   display: flex;
@@ -250,6 +370,19 @@ body {
 .character-profile-container {
   display: flex;
   flex-direction: row;
+}
+
+.anime-recs-page {
+  margin: 0 auto;
+}
+.anime-recs-content {
+  width: 80%;
+  margin: auto;
+}
+
+.footer {
+  background-color: #59c9a5;
+  flex-shrink: 0;
 }
 
 /* * {

@@ -17,6 +17,7 @@ import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
 
 import MangaInfoSideContent from "../MangaInfo/MangaInfoSideContent";
 import MangaInfoMangaDetails from "../MangaInfo/MangaInfoMangaDetails";
+import MangaInfoSideContentSingle from "../MangaInfo/MangaInfoSideContentSingle";
 
 function MangaCharacterList(props) {
   const location = useLocation();
@@ -87,32 +88,35 @@ function MangaCharacterList(props) {
         />
         <Box sx={{ display: "flex" }}>
           {/* <MangaInfoSideContent animeId={animeId} /> */}
-          <MangaInfoSideContent mangaId={mangaId} />
+          <MangaInfoSideContentSingle mangaId={mangaId} />
+          <div className='anime-character-list-contents'>
+            <Grid container>
+              <ImageList cols={10} rowHeight={400}>
+                {characterList.map((character) => {
+                  let characterEntry = character.character;
+                  // console.log(characterEntry);
 
-          <Grid container>
-            <ImageList cols={10} rowHeight={400}>
-              {characterList.map((character) => {
-                let characterEntry = character.character;
-                // console.log(characterEntry);
-
-                return (
-                  <Link
-                    to='/character-profile'
-                    state={{ characterId: characterEntry.mal_id }}
-                  >
-                    <ImageListItem>
-                      <img
-                        src={characterEntry.images.jpg.image_url}
-                        alt={characterEntry.name}
-                      />
-                      <ImageListItemBar title={characterEntry.name} />
-                    </ImageListItem>
-                    {/* <Typography>{characterEntry.name} </Typography>å */}
-                  </Link>
-                );
-              })}
-            </ImageList>
-          </Grid>
+                  return (
+                    <Link
+                      to='/character-profile'
+                      state={{ characterId: characterEntry.mal_id }}
+                    >
+                      <ImageListItem>
+                        <Box
+                          component='img'
+                          src={characterEntry.images.jpg.image_url}
+                          alt={characterEntry.name}
+                          sx={{ width: "100%", height: "100%" }}
+                        />
+                        <ImageListItemBar title={characterEntry.name} />
+                      </ImageListItem>
+                      {/* <Typography>{characterEntry.name} </Typography>å */}
+                    </Link>
+                  );
+                })}
+              </ImageList>
+            </Grid>
+          </div>
         </Box>
       </Box>
     );

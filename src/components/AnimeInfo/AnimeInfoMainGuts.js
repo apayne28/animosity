@@ -1,4 +1,12 @@
-import { Divider, Grid, Typography, Link as MuiLink } from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Typography,
+  Link as MuiLink,
+  Box,
+  Paper,
+  Card,
+} from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
@@ -63,71 +71,90 @@ function AnimeInfoMainGuts(props) {
 
   if (info && animeRelations && animeRecommendationsList) {
     return (
-      <div className='anime-info-content-guts'>
+      <div>
         <AnimeInfoAnimeDetails
           animeId={info.mal_id}
           animeRecList={animeRecommendationsList}
         />
-
-        <div className='anime-info-main-popularity-container'>
-          <h3>Synopsis</h3>
-          <Typography>{info.synopsis}</Typography>
-          <Divider sx={{ pb: 4 }} />
-          <h3>Background</h3>
-          <Typography>{info.background ? info.background : "N/A"}</Typography>
-          <Divider sx={{ pb: 4 }} />
-
-          <h3>Related Anime</h3>
-          <div className='anime-info-related-anime-container'>
-            {animeRelations.map((info) => {
-              let relatedAnime = info.entry;
-              let relatedAnimeType = info.relation;
-
-              return relatedAnime.map((single) => {
-                return (
-                  <div>
-                    <MuiLink
-                      onClick={(e) => {
-                        navigate(
-                          single.type === "anime"
-                            ? "/anime-info"
-                            : "/manga-info",
-
-                          single.type === "anime"
-                            ? { state: { animeId: single.mal_id } }
-                            : { state: { mangaId: single.mal_id } },
-                        );
-                        window.location.reload();
-                      }}
-                    >
-                      <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
-                    </MuiLink>
-                  </div>
-                );
-              });
-            })}
-          </div>
-          <Divider sx={{ pb: 4 }} />
-          <AnimeInfoCharacters animeId={info.mal_id} />
-
-          <Divider sx={{ pb: 4 }} />
-          <h3>Recommended Anime</h3>
-          <AnimeInfoRecommendedAnime animeId={info.mal_id} />
-
-          <Divider sx={{ pb: 4 }} />
-          {info.trailer.url && (
-            <div>
-              <h3>Trailers</h3>
-              {/* <a href={info.trailer.url} target='_blank' rel='noreferrer'>
+        {info.trailer.url && (
+          <div>
+            {/* <a href={info.trailer.url} target='_blank' rel='noreferrer'>
             <img
               className='anime-info-promo-image'
               src={info.trailer.images.small_image_url}
               alt={`${info.title}`}
             />
           </a> */}
-              <ReactPlayer url={info.trailer.url} />
+            <ReactPlayer
+              url={info.trailer.url}
+              style={{ display: "flex", margin: "auto", marginTop: "1%" }}
+            />
+          </div>
+        )}
+
+        <div className='anime-info-main-synopsis'>
+          <h3>Synopsis</h3>
+          <Typography paragraph>{info.synopsis}</Typography>
+        </div>
+        <div className='anime-info-content-guts'>
+          <div className='anime-info-main-popularity-container'>
+            <Divider sx={{ pb: 4 }} />
+            <h3>Background</h3>
+            <Typography>{info.background ? info.background : "N/A"}</Typography>
+            <Divider sx={{ pb: 4 }} />
+
+            <h3>Related Anime</h3>
+            <div className='anime-info-related-anime-container'>
+              {animeRelations.map((info) => {
+                let relatedAnime = info.entry;
+                let relatedAnimeType = info.relation;
+
+                return relatedAnime.map((single) => {
+                  return (
+                    <div>
+                      <MuiLink
+                        onClick={(e) => {
+                          navigate(
+                            single.type === "anime"
+                              ? "/anime-info"
+                              : "/manga-info",
+
+                            single.type === "anime"
+                              ? { state: { animeId: single.mal_id } }
+                              : { state: { mangaId: single.mal_id } },
+                          );
+                          window.location.reload();
+                        }}
+                      >
+                        <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
+                      </MuiLink>
+                    </div>
+                  );
+                });
+              })}
             </div>
-          )}
+            <Divider sx={{ pb: 4 }} />
+            <AnimeInfoCharacters animeId={info.mal_id} />
+
+            <Divider sx={{ pb: 4 }} />
+            <h3>Recommended Anime</h3>
+            <AnimeInfoRecommendedAnime animeId={info.mal_id} />
+
+            <Divider sx={{ pb: 4 }} />
+            {info.trailer.url && (
+              <div>
+                <h3>Trailers</h3>
+                {/* <a href={info.trailer.url} target='_blank' rel='noreferrer'>
+            <img
+              className='anime-info-promo-image'
+              src={info.trailer.images.small_image_url}
+              alt={`${info.title}`}
+            />
+          </a> */}
+                <ReactPlayer url={info.trailer.url} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );

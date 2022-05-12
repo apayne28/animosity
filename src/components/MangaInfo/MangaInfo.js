@@ -25,7 +25,7 @@ const MangaInfo = (props) => {
       </div>
       <div className='anime-info-main'>
         <MangaInfoSideContent mangaId={id} />
-        <MangaInfoMainGuts mangaId={id} />
+        {/* <MangaInfoMainGuts mangaId={id} /> */}
       </div>
     </Box>
   );

@@ -1,4 +1,5 @@
 import {
+  Box,
   Divider,
   Grid,
   ImageList,
@@ -51,7 +52,8 @@ function MangaInfoRecommendedManga(props) {
                   <div className='anime-info-rec-anime-item'>
                     <Link to='/manga-info' state={{ mangaId: recAnime.mal_id }}>
                       <ImageListItem>
-                        <img
+                        <Box
+                          component='img'
                           src={recAnime.images.jpg.image_url}
                           alt={recAnime.title}
                           onClick={(e) => {
@@ -62,8 +64,16 @@ function MangaInfoRecommendedManga(props) {
                             });
                             window.location.reload();
                           }}
+                          sx={{
+                            width: "100%",
+                            height: "100%",
+                            borderRadius: 1,
+                          }}
                         />
-                        <ImageListItemBar title={recAnime.title} />
+                        <ImageListItemBar
+                          title={recAnime.title}
+                          sx={{ borderRadius: 1 }}
+                        />
                       </ImageListItem>
                       {/* <Typography>{recAnime.title}</Typography> */}
                     </Link>

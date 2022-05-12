@@ -59,11 +59,17 @@ function AnimeInfoCharacters(props) {
                     state={{ characterId: characterEntry.mal_id }}
                   >
                     <ImageListItem>
-                      <img
+                      <Box
+                        component='img'
                         src={characterEntry.images.jpg.image_url}
                         alt={characterEntry.name}
+                        // sx={{ borderRadius: 1 }}
+                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                       />
-                      <ImageListItemBar title={characterEntry.name} />
+                      <ImageListItemBar
+                        title={characterEntry.name}
+                        sx={{ borderRadius: 1 }}
+                      />
                     </ImageListItem>
                     {/* <Typography>{characterEntry.name} </Typography> */}
                   </Link>

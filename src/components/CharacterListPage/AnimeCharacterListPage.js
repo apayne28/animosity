@@ -10,11 +10,13 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Button,
 } from "@mui/material";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
 import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
+import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 
 function AnimeCharacterListPage(props) {
   const location = useLocation();
@@ -73,8 +75,8 @@ function AnimeCharacterListPage(props) {
           charList={characterList}
         />
         <Box sx={{ display: "flex" }}>
-          <AnimeInfoSideContent animeId={animeId} />
-          <Box sx={{ flexFlow: 1 }}>
+          <AnimeInfoSideContentSingle animeId={animeId} />
+          <div className='anime-character-list-contents'>
             <Grid container>
               <ImageList cols={10} rowHeight={400}>
                 {characterList.map((character) => {
@@ -97,12 +99,16 @@ function AnimeCharacterListPage(props) {
                         state={{ characterId: characterEntry.mal_id }}
                       >
                         <ImageListItem>
-                          <img
+                          <Box
+                            component='img'
+                            sx={{ width: "100%", height: "100%" }}
                             src={characterEntry.images.jpg.image_url}
                             alt={characterEntry.name}
                           />
+
                           <ImageListItemBar title={characterEntry.name} />
                         </ImageListItem>
+
                         {/* <Typography>{characterEntry.name} </Typography> */}
                       </Link>
                     </Grid>
@@ -110,7 +116,7 @@ function AnimeCharacterListPage(props) {
                 })}
               </ImageList>
             </Grid>
-          </Box>
+          </div>
         </Box>
       </Box>
     );

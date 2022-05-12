@@ -4,6 +4,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoSideContent from "./AnimeInfoSideContent.js";
 import AnimeInfoMainGuts from "./AnimeInfoMainGuts.js";
 import { useLocation } from "react-router-dom";
+import { Box } from "@mui/system";
 
 const AnimeInfo = (props) => {
   const location = useLocation();
@@ -13,17 +14,18 @@ const AnimeInfo = (props) => {
   console.log(props.animeId, location, id);
 
   return (
-    <div className='anime-info-container'>
+    <Box className='anime-info-container'>
       <div className='header-content'>
         <Header />
 
         <NavigationBar />
       </div>
-      <div className='anime-info-main'>
+      {/* <div className='anime-info-main'> */}
+      <div>
         <AnimeInfoSideContent animeId={id} />
-        <AnimeInfoMainGuts animeId={id} />
+        {/* <AnimeInfoMainGuts animeId={id} /> */}
       </div>
-    </div>
+    </Box>
   );
 };
 

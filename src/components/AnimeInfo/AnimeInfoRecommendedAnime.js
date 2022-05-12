@@ -59,7 +59,8 @@ function AnimeInfoRecommendedAnime(props) {
                 <div>
                   <div className='anime-info-rec-anime-item'>
                     <ImageListItem>
-                      <img
+                      <Box
+                        component='img'
                         src={recAnime.images.jpg.image_url}
                         alt={recAnime.title}
                         onClick={(e) => {
@@ -71,8 +72,12 @@ function AnimeInfoRecommendedAnime(props) {
                           });
                           window.location.reload();
                         }}
+                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                       />
-                      <ImageListItemBar title={recAnime.title} />
+                      <ImageListItemBar
+                        title={recAnime.title}
+                        sx={{ borderRadius: 1 }}
+                      />
                     </ImageListItem>
                     {/* <Typography>{recAnime.title}</Typography> */}
                   </div>

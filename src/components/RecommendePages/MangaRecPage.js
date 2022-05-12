@@ -87,27 +87,22 @@ function MangaRecPage(props) {
           mangaId={id}
           charList={characterList}
         />
-        <Grid
-          container
-          sx={{
-            maxWidth: "80%",
-            margin: "auto",
-            backgroundColor: "white",
-          }}
-        >
+        <div className='anime-recs-content'>
           <ImageList cols={10} rowHeight={400}>
             {originMangaRecList.map((entry) => {
               // console.log(test);
               return (
-                <Grid item sx={{ display: "flex", margin: "auto" }}>
+                <div>
                   <Link
                     to='/manga-info'
                     state={{ mangaId: entry.entry.mal_id }}
                   >
                     <ImageListItem>
-                      <img
+                      <Box
+                        component='img'
                         src={entry.entry.images.jpg.image_url}
                         alt={entry.entry.title}
+                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                       />
                       <ImageListItemBar title={entry.entry.title} />
                     </ImageListItem>
@@ -123,11 +118,11 @@ function MangaRecPage(props) {
                       </Typography> */}
                     </div>
                   </Link>
-                </Grid>
+                </div>
               );
             })}
           </ImageList>
-        </Grid>
+        </div>
       </Box>
     );
   } else {

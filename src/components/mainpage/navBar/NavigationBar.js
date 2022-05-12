@@ -34,7 +34,7 @@ const NavigationBar = () => {
   // };
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' sx={{ backgroundColor: "#59C9A5" }}>
       <div>
         <div className='navigation-bar-items'>
           <Typography>Anime</Typography>
@@ -49,7 +49,7 @@ const NavigationBar = () => {
           {/* <Link to='/genre-list-page'>
             <Typography>Genres</Typography>
           </Link> */}
-          <Typography>Genres</Typography>
+          {/* <Typography>Genres</Typography> */}
         </div>
         <div className='navigation-bar-search-bar'>
           <SearchBar
