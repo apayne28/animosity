@@ -16,6 +16,7 @@ import LoadingScreen from "../LoadingScreen";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import MangaInfoMangaDetails from "../MangaInfo/MangaInfoMangaDetails";
+import MangaInfoSideContentSingle from "../MangaInfo/MangaInfoSideContentSingle";
 
 function MangaRecPage(props) {
   const location = useLocation();
@@ -87,27 +88,47 @@ function MangaRecPage(props) {
           mangaId={id}
           charList={characterList}
         />
-        <div className='anime-recs-content'>
-          <ImageList cols={10} rowHeight={400}>
-            {originMangaRecList.map((entry) => {
-              // console.log(test);
-              return (
-                <div>
-                  <Link
-                    to='/manga-info'
-                    state={{ mangaId: entry.entry.mal_id }}
-                  >
-                    <ImageListItem>
-                      <Box
-                        component='img'
-                        src={entry.entry.images.jpg.image_url}
-                        alt={entry.entry.title}
-                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
-                      />
-                      <ImageListItemBar title={entry.entry.title} />
-                    </ImageListItem>
-                    <div>
-                      {/* <Typography
+        <Box sx={{ display: "flex" }}>
+          <MangaInfoSideContentSingle mangaId={id} />
+
+          <div className='anime-character-list-contents'>
+            <Grid container>
+              <ImageList
+                cols={originMangaRecList.length >= 10 ? 10 : 6}
+                rowHeight={originMangaRecList.length >= 10 ? 400 : 550}
+              >
+                {originMangaRecList.map((entry) => {
+                  // console.log(test);
+                  return (
+                    <Grid
+                      item
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        // width: "70%",
+                        margin: "auto",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Link
+                        to='/manga-info'
+                        state={{ mangaId: entry.entry.mal_id }}
+                      >
+                        <ImageListItem>
+                          <Box
+                            component='img'
+                            src={entry.entry.images.jpg.image_url}
+                            alt={entry.entry.title}
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              borderRadius: 1,
+                            }}
+                          />
+                          <ImageListItemBar title={entry.entry.title} />
+                        </ImageListItem>
+                        <div>
+                          {/* <Typography
                         sx={{
                           wordWrap: "break-word",
                           // backgroundColor: "black",
@@ -116,13 +137,15 @@ function MangaRecPage(props) {
                       >
                         {entry.entry.title}
                       </Typography> */}
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </ImageList>
-        </div>
+                        </div>
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </ImageList>
+            </Grid>
+          </div>
+        </Box>
       </Box>
     );
   } else {

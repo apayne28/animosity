@@ -8,6 +8,9 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Card,
+  CardHeader,
+  CardContent,
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
@@ -16,6 +19,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import TopAnimeBar from "./TopAnimeBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
+import { Box } from "@mui/system";
 
 const TopAnime = (props) => {
   const location = useLocation();
@@ -74,20 +78,20 @@ const TopAnime = (props) => {
       getTopScoredAnime();
     }
   }, [getTopScoredAnime, homepageAnime, topScoredAnime]);
-
+  // console.log(testCon);
   if (testCon) {
     return (
-      <div className='top-anime-page-container'>
+      <div>
         <div className='header-content'>
           <Header />
           <NavigationBar />
         </div>
-        <div className='top-anime-top-category-title'>
-          <Typography>Top Anime</Typography>
-          <TopAnimeBar />
-        </div>
+
         <Divider />
-        <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
+        <Stack
+          spacing={2}
+          sx={{ display: "flex", alignItems: "center", marginTop: "2%" }}
+        >
           <Pagination
             count={401}
             page={buttonCounter}
@@ -107,100 +111,101 @@ const TopAnime = (props) => {
             }}
           />
         </Stack>
-        <div className='top-anime-top-category-container'>
-          <Grid>
-            <ImageList cols={1}>
+        {/* <div className='top-anime-top-category-container'> */}
+        <div className='search-page-contents'>
+          <div className='top-anime-top-category-title'>
+            {/* <Typography>Top Anime</Typography> */}
+            <TopAnimeBar />
+          </div>
+          <Grid container>
+            <ImageList cols={6} rowHeight={800}>
               {testCon.map((entry) => {
-                //   console.log(entry);
                 return (
-                  <article className='top-anime-top-category-items'>
-                    <div className='top-anime-top-category-title-container'>
-                      <figure>
-                        <Typography className='top-anime-top-category-item-rank'>
-                          {entry.rank}
-                        </Typography>
-                      </figure>
-                      <figure>
+                  //   console.log(entry);
+
+                  <Box
+                    // sx={{
+                    //   display: "flex",
+                    //   flexDirection: "row",
+                    //   // width: "70%",
+                    //   margin: "auto",
+                    //   backgroundColor: "white",
+                    // }}
+                    sx={{ width: "100%", height: "100%" }}
+                  >
+                    <ImageListItem>
+                      <Card
+                        className='search-page-card'
+                        sx={{
+                          // maxWidth: "90%",
+                          paddingBottom: 41,
+                          marginBottom: "5%",
+                          margin: "4%",
+                          // maxHeight: "100%",
+                        }}
+                      >
+                        <CardHeader
+                          title={`${entry.title} `}
+                          subheader={
+                            <Typography>{`${entry.type} (${entry.episodes} eps)`}</Typography>
+                          }
+                        />
                         <Link
                           to='/anime-info'
                           state={{ animeId: entry.mal_id }}
                         >
                           {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
-                          <ImageListItem>
-                            <img
-                              src={
-                                topScoredAnime
-                                  ? entry.image_url
-                                  : entry.images.jpg.image_url
-                              }
-                              alt={entry.title}
-                            />
-                            <ImageListItemBar
-                              title={entry.title}
-                              subtitle={`${
-                                topScoredAnime
-                                  ? `${entry.start_date} - ${entry.end_date}}`
-                                  : `${entry.aired.string}`
-                              }`}
-                            />
-                          </ImageListItem>
+
+                          <Box
+                            className='search-page-list-entry-image'
+                            component='img'
+                            src={
+                              topScoredAnime
+                                ? entry.image_url
+                                : entry.images.jpg.image_url
+                            }
+                            alt={entry.title}
+                            sx={{ width: "100%", height: "100%" }}
+                          />
                         </Link>
-                      </figure>
-                      {/* <figure>
-                        <Typography>{entry.title}</Typography>
-                      </figure> */}
-                      <figure>
-                        <Typography>{`${entry.type} (${entry.episodes} eps)`}</Typography>
-                        {/* <Typography>{entry.aired.string}</Typography> */}
-                        {/* <Typography>{`${
-                          topScoredAnime
-                            ? `${entry.start_date} - ${entry.end_date}}`
-                            : `${entry.aired.string}`
-                        }`}</Typography> */}
-                      </figure>
-                      <figure>
-                        {/* <Typography>{entry.aired.members}</Typography> */}
-                        <Typography>{entry.members}</Typography>
-                      </figure>
-                      <figure>
-                        <div className='top-anime-top-category-item-status'>
-                          <Typography>{entry.status}</Typography>
-                          <div className='top-anime-top-category-item-score'>
-                            <Typography>{entry.score}</Typography>
-                          </div>
-                          {/* <div className='top-anime-top-category-item-status'>
-                        <Typography>{entry.status}</Typography>
-                      </div> */}
-                        </div>
-                      </figure>
-                    </div>
-                  </article>
+                        <CardContent>
+                          <Typography
+                            sx={{ paddingBottom: "5%", fontSize: 30 }}
+                          >{`Rank: ${entry.rank}`}</Typography>
+                          {/* <Typography>{`Aired: ${entry.aired.string}`}</Typography> */}
+                          <Typography
+                            sx={{ fontSize: 20 }}
+                          >{`${entry.members} fans`}</Typography>
+                          <Typography>{`Score: ${entry.score}`}</Typography>
+                        </CardContent>
+                      </Card>
+                    </ImageListItem>
+                  </Box>
                 );
               })}
             </ImageList>
           </Grid>
-          <div className='buttons'>
-            <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
-              <Pagination
-                count={401}
-                page={buttonCounter}
-                onChange={(event, value) => {
-                  console.log(event, parseInt(event.target.innerText), value);
-                  // setButtonCounter(parseInt(e.target.innerText));
-                  navigate(`/top-anime`, {
-                    state: {
-                      topFilter: category,
-                      page: parseInt(value),
-                    },
-                  });
-                  // e.preventDefault();
 
-                  window.location.reload();
-                  window.scrollTo(0, 0);
-                }}
-              />
-            </Stack>
-          </div>
+          <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
+            <Pagination
+              count={401}
+              page={buttonCounter}
+              onChange={(event, value) => {
+                console.log(event, parseInt(event.target.innerText), value);
+                // setButtonCounter(parseInt(e.target.innerText));
+                navigate(`/top-anime`, {
+                  state: {
+                    topFilter: category,
+                    page: parseInt(value),
+                  },
+                });
+                // e.preventDefault();
+
+                window.location.reload();
+                window.scrollTo(0, 0);
+              }}
+            />
+          </Stack>
         </div>
       </div>
     );

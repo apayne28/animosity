@@ -111,11 +111,7 @@ const MangaInfoSideContent = (props) => {
   if (info && mangaRelations) {
     return (
       <div>
-        <MangaInfoMangaDetails
-          mangaId={info.mal_id}
-          mangaRecList={mangaRecommendationsList}
-        />
-        <div className='anime-info-main'>
+        <div className='manga-info-main'>
           <div className='anime-info-side-content'>
             <ImageList cols={1}>
               <ImageListItem>
@@ -162,6 +158,11 @@ const MangaInfoSideContent = (props) => {
                 </div>
               )}
             </div>
+            <div className='anime-info-score'>
+              <Typography>{`Score: ${
+                info.score ? info.score : "N/A"
+              }`}</Typography>
+            </div>
             <div className='anime-info-information'>
               <h3>Information</h3>
               <Typography>{`Type: ${info.type}`}</Typography>
@@ -200,9 +201,7 @@ const MangaInfoSideContent = (props) => {
             </div>
             <div className='anime-info-statistics'>
               <h3>Statistics</h3>
-              <Typography>{`Score: ${
-                info.score ? info.score : "N/A"
-              }`}</Typography>
+
               <Typography>{`Ranked: ${
                 info.rank ? info.rank : "N/A"
               }`}</Typography>
@@ -212,61 +211,67 @@ const MangaInfoSideContent = (props) => {
             </div>
           </div>
           <div className='anime-info-main-info-container'>
-            <div className='anime-info-main-popularity-container'>
-              <div className='anime-info-main-synopsis'>
-                <h3>Synopsis</h3>
-                <Typography>{info.synopsis ? info.synopsis : "N/A"}</Typography>
-              </div>
-
-              {/* <Divider sx={{ pb: 4 }} /> */}
+            <div className='anime-info-main-info-details'>
+              <MangaInfoMangaDetails
+                mangaId={info.mal_id}
+                mangaRecList={mangaRecommendationsList}
+              />
+            </div>
+            <div className='anime-info-main-info-content'>
               <div className='anime-info-content-guts'>
-                <h3>Background</h3>
-                <Typography>
-                  {info.background ? info.background : "N/A"}
-                </Typography>
-                <Divider sx={{ pb: 4 }} />
+                <div className='anime-info-main-popularity-container'>
+                  <h3>Synopsis</h3>
+                  <Typography>
+                    {info.synopsis ? info.synopsis : "N/A"}
+                  </Typography>
+                  <h3>Background</h3>
+                  <Typography>
+                    {info.background ? info.background : "N/A"}
+                  </Typography>
+                  <Divider sx={{ pb: 4 }} />
 
-                <h3>Related Manga</h3>
-                <div className='anime-info-related-anime-container'>
-                  {mangaRelations.length > 0
-                    ? mangaRelations.map((info) => {
-                        let relatedAnime = info.entry;
-                        let relatedAnimeType = info.relation;
-                        console.log(info);
-                        return relatedAnime.map((single) => {
-                          console.log(single);
-                          return (
-                            <div>
-                              <MuiLink
-                                onClick={(e) => {
-                                  navigate(
-                                    single.type === "anime"
-                                      ? "/anime-info"
-                                      : "/manga-info",
+                  <h3>Related Manga</h3>
+                  <div className='anime-info-related-anime-container'>
+                    {mangaRelations.length > 0
+                      ? mangaRelations.map((info) => {
+                          let relatedAnime = info.entry;
+                          let relatedAnimeType = info.relation;
+                          console.log(info);
+                          return relatedAnime.map((single) => {
+                            console.log(single);
+                            return (
+                              <div>
+                                <MuiLink
+                                  onClick={(e) => {
+                                    navigate(
+                                      single.type === "anime"
+                                        ? "/anime-info"
+                                        : "/manga-info",
 
-                                    single.type === "anime"
-                                      ? { state: { animeId: single.mal_id } }
-                                      : { state: { mangaId: single.mal_id } },
-                                  );
-                                  window.location.reload();
-                                }}
-                              >
-                                <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
-                              </MuiLink>
-                            </div>
-                          );
-                        });
-                      })
-                    : "N/A"}
+                                      single.type === "anime"
+                                        ? { state: { animeId: single.mal_id } }
+                                        : { state: { mangaId: single.mal_id } },
+                                    );
+                                    window.location.reload();
+                                  }}
+                                >
+                                  <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
+                                </MuiLink>
+                              </div>
+                            );
+                          });
+                        })
+                      : "N/A"}
+                  </div>
+                  <Divider sx={{ pb: 4 }} />
+
+                  <h3>Characters</h3>
+                  <MangaInfoCharacters mangaId={info.mal_id} />
+
+                  <Divider sx={{ pb: 4 }} />
+                  <h3>Recommended Manga</h3>
+                  <MangaInfoRecommendedManga mangaId={info.mal_id} />
                 </div>
-                <Divider sx={{ pb: 4 }} />
-
-                <h3>Characters</h3>
-                <MangaInfoCharacters mangaId={info.mal_id} />
-
-                <Divider sx={{ pb: 4 }} />
-                <h3>Recommended Manga</h3>
-                <MangaInfoRecommendedManga mangaId={info.mal_id} />
               </div>
             </div>
           </div>

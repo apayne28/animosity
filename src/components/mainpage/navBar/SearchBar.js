@@ -1,6 +1,13 @@
 import React from "react";
 import AnimeCard from "./AnimeCard";
-import { Button, MenuItem, Select, TextField, IconButton } from "@mui/material";
+import {
+  Button,
+  MenuItem,
+  Select,
+  TextField,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -36,32 +43,34 @@ const SearchBar = (props) => {
 
   return (
     <div className='search-bar-container'>
-      <Select
-        labelid='search-bar-type-filter'
-        value={type}
-        label='Type'
-        onChange={(e, data) => {
-          setType(data.props.value);
-          console.log(type);
-        }}
-        // sx={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   alignItems: "flex-start",
-        //   position: "absolute",
-        //   width: "126px",
-        //   height: "48px",
-        //   left: "2530px",
-        //   top: "72px",
-        //   backgroundColor: "#fff",
-        // }}
-      >
-        <MenuItem value='anime'>Anime</MenuItem>
-        <MenuItem value='manga'>Manga</MenuItem>
-      </Select>
+      <div className='search-bar-select-button'>
+        <Select
+          labelid='search-bar-type-filter'
+          value={type}
+          label='Type'
+          onChange={(e, data) => {
+            setType(data.props.value);
+            console.log(type);
+          }}
+          // sx={{
+          //   display: "flex",
+          //   flexDirection: "column",
+          //   alignItems: "flex-start",
+          //   position: "absolute",
+          //   width: "126px",
+          //   height: "48px",
+          //   left: "2530px",
+          //   top: "72px",
+          //   backgroundColor: "#fff",
+          // }}
+        >
+          <MenuItem value='anime'>Anime</MenuItem>
+          <MenuItem value='manga'>Manga</MenuItem>
+        </Select>
+      </div>
 
       <form
-        className='search-box'
+        className='search-bar-search-button-input'
         onSubmit={async (e) => {
           e.preventDefault();
 
@@ -79,45 +88,31 @@ const SearchBar = (props) => {
           required
           value={props.search}
           onChange={(e) => setSearch(e.target.value)}
-          // sx={{
-          //   display: "flex",
-          //   flexDirection: "column",
-          //   alignItems: "flex-start",
-          //   position: "absolute",
-          //   width: "220px",
-          //   height: "48px",
-          //   left: "2731px",
-          //   top: "70px",
-          // }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <IconButton
+                  onClick={async (e) => {
+                    e.preventDefault();
+
+                    FetchAnime(search);
+                    console.log(search, e.charCode);
+                    navigate(`/search-page`, {
+                      state: { searchQuery: search, searchType: type },
+                    });
+                    window.location.reload();
+                  }}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
         />
       </form>
 
       {/* <Link to='/search-page' state={{ list: animeList, searchQuery: search }}> */}
-      <IconButton
-        onClick={async (e) => {
-          e.preventDefault();
 
-          FetchAnime(search);
-          console.log(search, e.charCode);
-          navigate(`/search-page`, {
-            state: { searchQuery: search, searchType: type },
-          });
-          window.location.reload();
-        }}
-        // sx={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   justifyContent: "center",
-        //   alignItems: "center",
-        //   position: "absolute",
-        //   width: "220px",
-        //   height: "48px",
-        //   left: "2840px",
-        //   top: "70px",
-        // }}
-      >
-        <SearchIcon />
-      </IconButton>
       {/* </Link> */}
     </div>
   );

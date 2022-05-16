@@ -78,7 +78,10 @@ function AnimeCharacterListPage(props) {
           <AnimeInfoSideContentSingle animeId={animeId} />
           <div className='anime-character-list-contents'>
             <Grid container>
-              <ImageList cols={10} rowHeight={400}>
+              <ImageList
+                cols={characterList.length >= 10 ? 10 : 5}
+                rowHeight={characterList.length >= 10 ? 400 : 550}
+              >
                 {characterList.map((character) => {
                   let characterEntry = character.character;
                   // console.log(characterEntry);

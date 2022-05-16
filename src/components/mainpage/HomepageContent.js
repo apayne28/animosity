@@ -15,6 +15,8 @@ import {
   Link,
 } from "react-router-dom";
 import ReactPlayer from "react-player";
+import Carousel from "react-elastic-carousel";
+import { Box } from "@mui/system";
 
 const HomepageContent = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -42,7 +44,7 @@ const HomepageContent = () => {
       //   `https://api.jikan.moe/v3/season/2022/spring`,
     ).then((res) => res.json());
 
-    setSummerAnime(temp.data.slice(0, 5));
+    setSummerAnime(temp.data);
   };
 
   const GetRecentPromos = async () => {
@@ -50,7 +52,7 @@ const HomepageContent = () => {
       (res) => res.json(),
     );
 
-    setRecentPromos(temp.data.slice(0, 5));
+    setRecentPromos(temp.data);
   };
 
   const GetPopularPromos = async () => {
@@ -58,7 +60,7 @@ const HomepageContent = () => {
       `https://api.jikan.moe/v4/watch/promos/popular`,
     ).then((res) => res.json());
 
-    setPopularPromos(temp.data.slice(0, 5));
+    setPopularPromos(temp.data);
   };
 
   // const openNewPage = (url) => {
@@ -72,98 +74,202 @@ const HomepageContent = () => {
     GetPopularPromos();
   }, []);
 
-  return (
-    <div className='homepage-guts'>
-      <h3>Spring 2022 Anime</h3>
-      <Link to='/top-anime' state={{ animeList: springAnime }}>
-        <Typography>View More</Typography>
-      </Link>
-      <Grid container className='featured-anime-container'>
-        <ImageList cols={5}>
-          {springAnime.slice(0, 5).map((anime) => (
-            // <Grid item className='individual-featured-anime-container'>
-            <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
-              <ImageListItem key={anime.id} cols={1} rows={1}>
-                <img
-                  className='featured-anime-image'
-                  src={anime.images.jpg.image_url}
-                  alt={anime.title}
-                />
-                <ImageListItemBar title={anime.title} />
-              </ImageListItem>
-              {/* <div className='featured-anime-text'>{anime.title}</div> */}
-            </Link>
-            // </Grid>
-          ))}
-        </ImageList>
-      </Grid>
-      <h3>Upcoming Summer 2022 Anime</h3>
-      <Link to='/top-anime' state={{ animeList: summerAnime }}>
-        <Typography>View More</Typography>
-      </Link>
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
+    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
 
-      {/* <Grid container className='featured-anime-container'> */}
-      <ImageList cols={5}>
-        {summerAnime.map((anime) => (
-          <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
-            <ImageListItem key={anime.id} title={anime.title} cols={1} rows={1}>
-              <img
-                className='featured-anime-image'
-                src={anime.images.jpg.image_url}
-                alt={anime.title}
-              />
-              <ImageListItemBar title={anime.title} />
-            </ImageListItem>
-            {/* <div className='featured-anime-text'>{anime.title}</div> */}
-          </Link>
-        ))}
-      </ImageList>
-      {/* </Grid> */}
+    { width: 1200, itemsToShow: 10, itemsToScroll: 8 },
+  ];
+  const promoBreakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 1, itemsToScroll: 1 },
+    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 1100, itemsToShow: 2, itemsToScroll: 2 },
+
+    { width: 1200, itemsToShow: 4, itemsToScroll: 4 },
+  ];
+
+  return (
+    <div className='homepage-content'>
+      <div className='homepage-header-content'>
+        <h3>Spring 2022 Anime</h3>
+        <Link to='/top-anime' state={{ animeList: springAnime }}>
+          <Typography>View More</Typography>
+        </Link>
+      </div>
+      <Box sx={{ paddingBottom: "3%" }}>
+        <Carousel breakPoints={breakPoints}>
+          {springAnime.map((anime, aniKey) => {
+            console.log(anime, aniKey);
+
+            return (
+              // <Grid item className='individual-featured-anime-container'>
+              <div key={aniKey}>
+                <ImageList cols={1}>
+                  <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                    <ImageListItem key={anime.id}>
+                      <Box
+                        component='img'
+                        className='featured-anime-image'
+                        src={anime.images.jpg.image_url}
+                        alt={anime.title}
+                      />
+                      <ImageListItemBar title={anime.title} />
+                    </ImageListItem>
+                    {/* <div className='featured-anime-text'>{anime.title}</div> */}
+                  </Link>
+                </ImageList>
+              </div>
+              // </Grid>
+            );
+          })}
+        </Carousel>
+      </Box>
+
+      <div className='homepage-header-content'>
+        <h3>Upcoming Summer 2022 Anime</h3>
+        <Link to='/top-anime' state={{ animeList: summerAnime }}>
+          <Typography>View More</Typography>
+        </Link>
+      </div>
+      <Box sx={{ paddingBottom: "3%" }}>
+        <Carousel breakPoints={breakPoints}>
+          {summerAnime.map((anime, aniKey) => {
+            console.log(anime, aniKey);
+
+            return (
+              // <Grid item className='individual-featured-anime-container'>
+              <div key={aniKey}>
+                <ImageList cols={1}>
+                  <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                    <ImageListItem key={anime.id} cols={1} rows={1}>
+                      <img
+                        className='featured-anime-image'
+                        src={anime.images.jpg.image_url}
+                        alt={anime.title}
+                      />
+                      <ImageListItemBar title={anime.title} />
+                    </ImageListItem>
+                    {/* <div className='featured-anime-text'>{anime.title}</div> */}
+                  </Link>
+                </ImageList>
+              </div>
+              // </Grid>
+            );
+          })}
+        </Carousel>
+      </Box>
+
       <h3>Watch Recent Promos</h3>
-      <Grid container className='featured-promo-container'>
-        <ImageList cols={5}>
-          {recentPromos.map((anime) => (
-            <div className='individual-featured-promo-container'>
-              <ImageListItem
-                key={anime.id}
-                title={anime.title}
-                cols={1}
-                rows={1}
-              >
-                <a href={anime.trailer.url} target='_blank' rel='noreferrer'>
-                  <img
-                    className='promo-image'
-                    src={anime.trailer.images.large_image_url}
-                    alt={`${anime.entry.title}: ${anime.title}`}
-                  />
-                </a>
-                <ImageListItemBar title={anime.title} />
-              </ImageListItem>
-              {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
-            </div>
-          ))}
-        </ImageList>
-      </Grid>
+      <Box sx={{ paddingBottom: "3%" }}>
+        <Carousel breakPoints={promoBreakPoints}>
+          {recentPromos.map((anime, aniKey) => {
+            console.log(anime);
+            return (
+              <div key={aniKey}>
+                {/* <ImageList cols={1}>
+                  <Link to={anime.trailer.url} target='_blank' rel='noreferrer'>
+                    <img
+                      className='promo-image'
+                      src={anime.trailer.images.large_image_url}
+                      alt={`${anime.entry.title}: ${anime.title}`}
+                    />
+                    <ImageListItem
+                      key={anime.id}
+                      title={anime.title}
+                      cols={1}
+                      rows={1}
+                    >
+                      <ImageListItemBar
+                        title={anime.entry.title}
+                        subtitle={anime.title}
+                      />
+                    </ImageListItem>
+                  </Link>
+                </ImageList> */}
+                <ImageList cols={1} rowHeight={420}>
+                  <ImageListItem>
+                    <ReactPlayer
+                      url={anime.trailer.url}
+                      style={
+                        {
+                          // display: "flex",
+                          // margin: "auto",
+                          // marginTop: "1%",
+                          // marginLeft: "10%",
+                          // marginRight: "10%",
+                        }
+                      }
+                    />
+                    <ImageListItemBar
+                      title={anime.entry.title}
+                      subtitle={anime.title}
+                    />
+                  </ImageListItem>
+                </ImageList>
+
+                {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
+              </div>
+            );
+          })}
+        </Carousel>
+      </Box>
+
       <h3>Watch Popular Promos</h3>
-      <Grid container className='featured-promo-container'>
-        <ImageList cols={5}>
-          {popularPromos.map((anime) => (
-            <div className='individual-featured-promo-container'>
-              <ImageListItem>
-                <a href={anime.trailer.url} target='_blank' rel='noreferrer'>
-                  <img
-                    className='promo-image'
-                    src={anime.trailer.images.large_image_url}
-                    alt={`${anime.entry.title}: ${anime.title}`}
-                  />
-                </a>
-                <ImageListItemBar title={anime.title} />
-              </ImageListItem>
-              {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
-            </div>
-          ))}
-        </ImageList>
-      </Grid>
+      <Box sx={{ paddingBottom: "3%" }}>
+        <Carousel breakPoints={promoBreakPoints}>
+          {popularPromos.map((anime, aniKey) => {
+            console.log(anime);
+            return (
+              <div key={aniKey}>
+                {/* <ImageList cols={1}>
+                  <Link to={anime.trailer.url} target='_blank' rel='noreferrer'>
+                    <img
+                      className='promo-image'
+                      src={anime.trailer.images.large_image_url}
+                      alt={`${anime.entry.title}: ${anime.title}`}
+                    />
+                    <ImageListItem
+                      key={anime.id}
+                      title={anime.title}
+                      cols={1}
+                      rows={1}
+                    >
+                      <ImageListItemBar
+                        title={anime.entry.title}
+                        subtitle={anime.title}
+                      />
+                    </ImageListItem>
+                  </Link>
+                </ImageList> */}
+                <ImageList cols={1} rowHeight={420}>
+                  <ImageListItem>
+                    <ReactPlayer
+                      url={anime.trailer.url}
+                      style={
+                        {
+                          // display: "flex",
+                          // margin: "auto",
+                          // marginTop: "1%",
+                          // marginLeft: "10%",
+                          // marginRight: "10%",
+                        }
+                      }
+                    />
+                    <ImageListItemBar
+                      title={anime.entry.title}
+                      subtitle={anime.title}
+                    />
+                  </ImageListItem>
+                </ImageList>
+                {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
+              </div>
+            );
+          })}
+        </Carousel>
+      </Box>
     </div>
   );
 };

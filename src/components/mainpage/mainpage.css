@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 100px;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+}
+
+.logo {
+  font-size: 25px;
+  padding: 50px;
+  margin-left: 50px;
+}
+
+.logo Link {
+  /* color: #000; */
+  text-decoration: none;
+}
+
+.nav_bar {
+  font-size: 20px;
+  float: right;
+  list-style: none;
+  /* padding: 15px; */
+}

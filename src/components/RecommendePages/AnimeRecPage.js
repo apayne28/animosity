@@ -16,6 +16,7 @@ import LoadingScreen from "../LoadingScreen";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
+import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 
 function AnimeRecPage(props) {
   const location = useLocation();
@@ -87,7 +88,7 @@ function AnimeRecPage(props) {
 
   if (originAnimeRecList) {
     return (
-      <Box className='anime-recs-page'>
+      <Box>
         <Header />
         <NavigationBar />
         <AnimeInfoAnimeDetails
@@ -95,27 +96,46 @@ function AnimeRecPage(props) {
           animeId={id}
           charList={animeCharacterList}
         />
-        <div className='anime-recs-content'>
-          <ImageList cols={10} rowHeight={400}>
-            {originAnimeRecList.map((entry) => {
-              // console.log(test);
-              return (
-                <div>
-                  <Link
-                    to='/anime-info'
-                    state={{ animeId: entry.entry.mal_id }}
-                  >
-                    <ImageListItem>
-                      <Box
-                        component='img'
-                        src={entry.entry.images.jpg.image_url}
-                        alt={entry.entry.title}
-                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
-                      />
-                      <ImageListItemBar title={entry.entry.title} />
-                    </ImageListItem>
-                    <div>
-                      {/* <Typography
+        <Box sx={{ display: "flex" }}>
+          <AnimeInfoSideContentSingle animeId={id} />
+          <div className='anime-character-list-contents'>
+            <Grid container>
+              <ImageList
+                cols={originAnimeRecList.length >= 10 ? 10 : 6}
+                rowHeight={originAnimeRecList.length >= 10 ? 400 : 550}
+              >
+                {originAnimeRecList.map((entry) => {
+                  // console.log(test);
+                  return (
+                    <Grid
+                      item
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        // width: "70%",
+                        margin: "auto",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Link
+                        to='/anime-info'
+                        state={{ animeId: entry.entry.mal_id }}
+                      >
+                        <ImageListItem>
+                          <Box
+                            component='img'
+                            src={entry.entry.images.jpg.image_url}
+                            alt={entry.entry.title}
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              borderRadius: 1,
+                            }}
+                          />
+                          <ImageListItemBar title={entry.entry.title} />
+                        </ImageListItem>
+                        <div>
+                          {/* <Typography
                         sx={{
                           wordWrap: "break-word",
                           // backgroundColor: "black",
@@ -124,13 +144,15 @@ function AnimeRecPage(props) {
                       >
                         {entry.entry.title}
                       </Typography> */}
-                    </div>
-                  </Link>
-                </div>
-              );
-            })}
-          </ImageList>
-        </div>
+                        </div>
+                      </Link>
+                    </Grid>
+                  );
+                })}
+              </ImageList>
+            </Grid>
+          </div>
+        </Box>
         <footer class='footer' />
       </Box>
     );

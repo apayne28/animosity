@@ -39,7 +39,7 @@ function AnimeInfoRecommendedAnime(props) {
   }, [animeRecommendationsList, getAnimeRecs, props.animeId]);
 
   if (animeRecommendationsList) {
-    return (
+    return animeRecommendationsList.length > 1 ? (
       <div>
         <Link
           to='/anime-recs-page'
@@ -50,8 +50,12 @@ function AnimeInfoRecommendedAnime(props) {
         >
           <Typography>View More</Typography>
         </Link>
+
         <div className='anime-info-rec-anime-container'>
-          <ImageList cols={5} rowHeight={400}>
+          <ImageList
+            cols={animeRecommendationsList.length >= 10 ? 10 : 5}
+            rowHeight={animeRecommendationsList.length >= 10 ? 400 : 550}
+          >
             {animeRecommendationsList.slice(0, 5).map((info) => {
               let recAnime = info.entry;
 
@@ -72,7 +76,11 @@ function AnimeInfoRecommendedAnime(props) {
                           });
                           window.location.reload();
                         }}
-                        sx={{ width: "100%", height: "100%", borderRadius: 1 }}
+                        sx={{
+                          width: "100%",
+                          height: "100%",
+                          borderRadius: 1,
+                        }}
                       />
                       <ImageListItemBar
                         title={recAnime.title}
@@ -87,6 +95,8 @@ function AnimeInfoRecommendedAnime(props) {
           </ImageList>
         </div>
       </div>
+    ) : (
+      <Typography sx={{ fontSize: 20 }}>N/A</Typography>
     );
   } else {
     return <LoadingScreen />;

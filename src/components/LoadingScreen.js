@@ -10,10 +10,11 @@ function LoadingScreen() {
         alignItems: "center",
         flexDirection: "column",
         margin: "auto",
-        borderStyle: "solid",
+        // borderStyle: "solid",
         backgroundColor: "white",
         height: "auto",
         width: "auto",
+        paddingTop: "15%",
       }}
     >
       <img src={ZeroTwoSpin} alt='Loading...' />

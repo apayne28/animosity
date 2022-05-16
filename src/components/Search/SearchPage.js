@@ -68,13 +68,14 @@ const SearchPage = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            marginBottom: "3%",
+            // marginBottom: "3%",
             marginTop: "1%",
           }}
         >
           <Pagination
             count={lastPage}
             page={buttonCounter}
+            size='large'
             onChange={(event, value) => {
               console.log(event);
               // setButtonCounter(parseInt(e.target.innerText));
@@ -112,16 +113,16 @@ const SearchPage = () => {
                     <Card
                       className='search-page-card'
                       sx={{
-                        maxWidth: "90%",
-                        paddingBottom: 35,
+                        // maxWidth: "90%",
+                        paddingBottom: 41,
                         marginBottom: "5%",
+                        margin: "4%",
                         // maxHeight: "100%",
                       }}
                     >
                       <CardHeader
-                        title={`${anime.title}`}
-                        subheader={`Scored: ${anime.score}\
-                          ${anime.members} fans`}
+                        title={`${anime.title} `}
+                        // subheader={`${anime.members} fans`}
                       />
 
                       <Link
@@ -136,9 +137,10 @@ const SearchPage = () => {
                       >
                         {/* <ImageListItem> */}
                         {/* <img src={anime.image_url} alt={anime.title} /> */}
-                        <CardMedia
+                        <Box
+                          className='search-page-list-entry-image'
                           component='img'
-                          image={anime.image_url}
+                          src={anime.image_url}
                           alt={anime.title}
                           sx={{ width: "100%", height: "100%" }}
                         />
@@ -196,7 +198,7 @@ const SearchPage = () => {
                           sx={{ paddingTop: "5%" }}
                         >{`${anime.members} fans`}</Typography>
                       </CardContent>
-                      <CardActions>
+                      {/* <CardActions>
                         <Button
                           size='small'
                           onClick={(event, value) => {
@@ -218,7 +220,7 @@ const SearchPage = () => {
                         >
                           Details
                         </Button>
-                      </CardActions>
+                      </CardActions> */}
                     </Card>
                   </ImageListItem>
 

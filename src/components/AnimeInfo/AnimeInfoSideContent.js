@@ -107,21 +107,8 @@ const AnimeInfoSideContent = (props) => {
   if (info && animeRelations && animeRecommendationsList) {
     return (
       <div>
-        <AnimeInfoAnimeDetails
-          animeId={info.mal_id}
-          animeRecList={animeRecommendationsList}
-        />
         <div className='anime-info-main'>
           <div className='anime-info-side-content'>
-            {/* <Typography className='anime-info-title-header'>
-          {info.title}
-          {info.title !== info.title_english && (
-            <Typography
-              sx={{ paddingTop: 1 }}
-            >{`(${info.title_english})`}</Typography>
-          )}
-        </Typography> */}
-
             <ImageList cols={1}>
               <ImageListItem>
                 <Box
@@ -134,9 +121,9 @@ const AnimeInfoSideContent = (props) => {
                   title={info.title}
                   subtitle={
                     info.title !== info.title_english && (
-                      <Typography
-                        sx={{ paddingTop: 1 }}
-                      >{`(${info.title_english})`}</Typography>
+                      <Typography sx={{ paddingTop: 1 }}>{`${
+                        info.title_english ? info.title_english : ""
+                      }`}</Typography>
                     )
                   }
                 />
@@ -160,7 +147,7 @@ const AnimeInfoSideContent = (props) => {
                 <div>
                   <h3>Synonyms</h3>
 
-                  {info.title_synonyms > 0
+                  {info.title_synonyms.length > 0
                     ? info.title_synonyms.map((altTitles) => (
                         <Typography className='anime-info-title-synonyms'>
                           {altTitles}
@@ -169,7 +156,6 @@ const AnimeInfoSideContent = (props) => {
                     : "N/A"}
                 </div>
               )}
-              {/* <Divider sx={{ paddingBottom: "1%", marginBottom: "5%" }} /> */}
             </div>
             <div className='anime-info-score'>
               <Typography>{`Score: ${
@@ -194,125 +180,135 @@ const AnimeInfoSideContent = (props) => {
               }`}</Typography>
               <Typography>{`Status: ${info.status}`}</Typography>
               <Typography>{`Aired: ${info.aired.string}`}</Typography>
-              <Typography>{`Premiered: ${info.season}. ${info.year}`}</Typography>
-              <Typography>{`Broadcast: ${info.broadcast.string}`}</Typography>
-              <Typography>{`Producers: ${info.producers.map((producers) =>
-                producers ? ` ${producers.name} ` : "N/A",
-              )}`}</Typography>
-              <Typography>{`Licensors: ${info.licensors.map((licensors) =>
-                licensors ? ` ${licensors.name} ` : "N/A",
-              )}`}</Typography>
+              <Typography>{`Premiered: ${
+                info.season && info.year
+                  ? `${info.season}. ${info.year}`
+                  : "Unknown"
+              }`}</Typography>
+              <Typography>
+                {`Broadcast: ${
+                  info.broadcast.string ? info.broadcast.string : "Unknown"
+                }`}{" "}
+              </Typography>
+              <Typography>{`Producers: ${
+                info.producers.length > 0
+                  ? info.producers.map((producers) =>
+                      producers ? ` ${producers.name} ` : "N/A",
+                    )
+                  : "Unknown"
+              }`}</Typography>
+              <Typography>{`Licensors: ${
+                info.licensors.length
+                  ? info.licensors.map((licensors) =>
+                      licensors ? ` ${licensors.name} ` : "N/A",
+                    )
+                  : "Unknown"
+              }`}</Typography>
 
               <Typography>{`Studios: ${
-                info.studios > 0
+                info.studios.length > 0
                   ? info.studios.map((studios) =>
                       studios ? ` ${studios.name} ` : "N/A",
                     )
-                  : "N/A"
+                  : "Unknown"
               }`}</Typography>
 
               <Typography>{`Genres: ${info.genres.map((genres) =>
-                genres ? ` ${genres.name} ` : "N/A",
+                genres ? ` ${genres.name} ` : "Unknown",
               )}`}</Typography>
               <Typography>{`Theme: ${
-                info.themes > 0
+                info.themes.length > 0
                   ? info.themes.map((themes) =>
                       themes ? ` ${themes.name} ` : "N/A",
                     )
-                  : "N/A"
+                  : "Unknown"
               }`}</Typography>
               <Typography>{`Demographics: ${
-                info.demographics > 0
+                info.demographics.length > 0
                   ? info.demographics.map((demographics) =>
                       demographics ? ` ${demographics.name} ` : "N/A",
                     )
-                  : "N/A"
+                  : "Unknown"
               }`}</Typography>
-              <Typography>{`Duration: ${info.duration}`}</Typography>
-              <Typography>{`Rating: ${info.rating}`}</Typography>
+              <Typography>{`Duration: ${
+                info.duration ? info.duration : "Unknown"
+              }`}</Typography>
+              <Typography>{`Rating: ${
+                info.rating ? info.rating : "Unknown"
+              }`}</Typography>
             </div>
           </div>
           <div className='anime-info-main-info-container'>
-            {info.trailer.url && (
-              <div>
-                {/* <a href={info.trailer.url} target='_blank' rel='noreferrer'>
-            <img
-              className='anime-info-promo-image'
-              src={info.trailer.images.small_image_url}
-              alt={`${info.title}`}
-            />
-          </a> */}
-                <ReactPlayer
-                  url={info.trailer.url}
-                  style={{ display: "flex", margin: "auto", marginTop: "1%" }}
-                />
-              </div>
-            )}
-
-            <div className='anime-info-main-synopsis'>
-              <h3>Synopsis</h3>
-              <Typography paragraph>{info.synopsis}</Typography>
+            <div className='anime-info-main-info-details'>
+              <AnimeInfoAnimeDetails
+                animeId={info.mal_id}
+                animeRecList={animeRecommendationsList}
+              />
             </div>
-            <div className='anime-info-content-guts'>
-              <div className='anime-info-main-popularity-container'>
-                <Divider sx={{ pb: 4 }} />
-                <h3>Background</h3>
-                <Typography>
-                  {info.background ? info.background : "N/A"}
-                </Typography>
-                <Divider sx={{ pb: 4 }} />
-
-                <h3>Related Anime</h3>
-                <div className='anime-info-related-anime-container'>
-                  {animeRelations.map((info) => {
-                    let relatedAnime = info.entry;
-                    let relatedAnimeType = info.relation;
-
-                    return relatedAnime.map((single) => {
-                      return (
-                        <div>
-                          <MuiLink
-                            onClick={(e) => {
-                              navigate(
-                                single.type === "anime"
-                                  ? "/anime-info"
-                                  : "/manga-info",
-
-                                single.type === "anime"
-                                  ? { state: { animeId: single.mal_id } }
-                                  : { state: { mangaId: single.mal_id } },
-                              );
-                              window.location.reload();
-                            }}
-                          >
-                            <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
-                          </MuiLink>
-                        </div>
-                      );
-                    });
-                  })}
+            <div className='anime-info-main-info-content'>
+              {info.trailer.url && (
+                <div>
+                  <ReactPlayer
+                    url={info.trailer.url}
+                    style={{ display: "flex", margin: "auto", marginTop: "1%" }}
+                  />
                 </div>
-                <Divider sx={{ pb: 4 }} />
-                <AnimeInfoCharacters animeId={info.mal_id} />
+              )}
 
-                <Divider sx={{ pb: 4 }} />
-                <h3>Recommended Anime</h3>
-                <AnimeInfoRecommendedAnime animeId={info.mal_id} />
+              <div className='anime-info-main-synopsis'>
+                <h3>Synopsis</h3>
+                <Typography paragraph>
+                  {info.synopsis ? info.synopsis : "N/A"}
+                </Typography>
+              </div>
+              <div className='anime-info-content-guts'>
+                <div className='anime-info-main-popularity-container'>
+                  <Divider sx={{ pb: 4 }} />
+                  <h3>Background</h3>
+                  <Typography>
+                    {info.background ? info.background : "N/A"}
+                  </Typography>
+                  <Divider sx={{ pb: 4 }} />
 
-                <Divider sx={{ pb: 4 }} />
-                {info.trailer.url && (
-                  <div>
-                    <h3>Trailers</h3>
-                    {/* <a href={info.trailer.url} target='_blank' rel='noreferrer'>
-            <img
-              className='anime-info-promo-image'
-              src={info.trailer.images.small_image_url}
-              alt={`${info.title}`}
-            />
-          </a> */}
-                    <ReactPlayer url={info.trailer.url} />
+                  <h3>Related Anime</h3>
+                  <div className='anime-info-related-anime-container'>
+                    {animeRelations.length > 0
+                      ? animeRelations.map((info) => {
+                          let relatedAnime = info.entry;
+                          let relatedAnimeType = info.relation;
+
+                          return relatedAnime.map((single) => {
+                            return (
+                              <div>
+                                <MuiLink
+                                  onClick={(e) => {
+                                    navigate(
+                                      single.type === "anime"
+                                        ? "/anime-info"
+                                        : "/manga-info",
+
+                                      single.type === "anime"
+                                        ? { state: { animeId: single.mal_id } }
+                                        : { state: { mangaId: single.mal_id } },
+                                    );
+                                    window.location.reload();
+                                  }}
+                                >
+                                  <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
+                                </MuiLink>
+                              </div>
+                            );
+                          });
+                        })
+                      : "N/A"}
                   </div>
-                )}
+                  <Divider sx={{ pb: 4 }} />
+                  <AnimeInfoCharacters animeId={info.mal_id} />
+
+                  <Divider sx={{ pb: 4 }} />
+                  <h3>Recommended Anime</h3>
+                  <AnimeInfoRecommendedAnime animeId={info.mal_id} />
+                </div>
               </div>
             </div>
           </div>

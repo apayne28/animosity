@@ -6,6 +6,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import AnimeInfo from "./components/AnimeInfo/AnimeInfo.js";
 import MangaInfo from "./components/MangaInfo/MangaInfo.js";
 import Mainpage from "./components/mainpage/Mainpage";
