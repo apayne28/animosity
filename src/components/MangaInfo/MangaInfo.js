@@ -19,7 +19,7 @@ const MangaInfo = (props) => {
   return (
     <Box className='anime-info-container'>
       <div className='header-content'>
-        <Header />
+        {/* <Header /> */}
 
         <NavigationBar />
       </div>

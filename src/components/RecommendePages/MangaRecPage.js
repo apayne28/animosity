@@ -81,17 +81,18 @@ function MangaRecPage(props) {
   if (originMangaRecList) {
     return (
       <Box>
-        <Header />
+        {/* <Header /> */}
         <NavigationBar />
-        <MangaInfoMangaDetails
-          mangaRecList={mangaRecommendationsList}
-          mangaId={id}
-          charList={characterList}
-        />
-        <Box sx={{ display: "flex" }}>
+
+        <Box sx={{ display: "flex", marginTop: "2%" }}>
           <MangaInfoSideContentSingle mangaId={id} />
 
           <div className='anime-character-list-contents'>
+            <MangaInfoMangaDetails
+              mangaRecList={mangaRecommendationsList}
+              mangaId={id}
+              charList={characterList}
+            />
             <Grid container>
               <ImageList
                 cols={originMangaRecList.length >= 10 ? 10 : 6}

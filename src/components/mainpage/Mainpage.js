@@ -92,7 +92,7 @@ const Mainpage = () => {
     <div className='mainpage-container'>
       {/* <div className='header-content'> */}
       <div>
-        <Header />
+        {/* <Header /> */}
 
         <NavigationBar />
       </div>
@@ -113,7 +113,7 @@ const Mainpage = () => {
                   }}
                 />
                 <Carousel.Caption>
-                  <Typography variant='h3'>Death Note</Typography>
+                  <Typography variant='h3'>Welcome</Typography>
                 </Carousel.Caption>
               </ImageListItem>
             </ImageList>

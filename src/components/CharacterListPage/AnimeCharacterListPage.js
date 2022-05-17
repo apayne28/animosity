@@ -67,16 +67,17 @@ function AnimeCharacterListPage(props) {
   if (characterList) {
     return (
       <Box>
-        <Header />
+        {/* <Header /> */}
         <NavigationBar />
-        <AnimeInfoAnimeDetails
-          animeId={animeId}
-          animeRecList={animeRecommendationsList}
-          charList={characterList}
-        />
-        <Box sx={{ display: "flex" }}>
+
+        <Box sx={{ display: "flex", marginTop: "2%" }}>
           <AnimeInfoSideContentSingle animeId={animeId} />
           <div className='anime-character-list-contents'>
+            <AnimeInfoAnimeDetails
+              animeId={animeId}
+              animeRecList={animeRecommendationsList}
+              charList={characterList}
+            />
             <Grid container>
               <ImageList
                 cols={characterList.length >= 10 ? 10 : 5}

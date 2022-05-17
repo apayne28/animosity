@@ -89,16 +89,17 @@ function AnimeRecPage(props) {
   if (originAnimeRecList) {
     return (
       <Box>
-        <Header />
+        {/* <Header /> */}
         <NavigationBar />
-        <AnimeInfoAnimeDetails
-          animeRecList={animeRecommendationsList}
-          animeId={id}
-          charList={animeCharacterList}
-        />
-        <Box sx={{ display: "flex" }}>
+
+        <Box sx={{ display: "flex", marginTop: "2%" }}>
           <AnimeInfoSideContentSingle animeId={id} />
           <div className='anime-character-list-contents'>
+            <AnimeInfoAnimeDetails
+              animeRecList={animeRecommendationsList}
+              animeId={id}
+              charList={animeCharacterList}
+            />
             <Grid container>
               <ImageList
                 cols={originAnimeRecList.length >= 10 ? 10 : 6}

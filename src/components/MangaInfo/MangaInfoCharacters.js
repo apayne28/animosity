@@ -12,6 +12,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
+import Carousel from "react-elastic-carousel";
 
 function MangaInfoCharacters(props) {
   const [info, setInfo] = useState();
@@ -36,54 +37,85 @@ function MangaInfoCharacters(props) {
       getMangaCharacters(props.mangaId);
     }
   }, [getMangaCharacters, mangaCharacterList, props.mangaId]);
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
+    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
 
+    { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
+  ];
   if (mangaCharacterList) {
     return (
-      <div>
-        <Link
-          to='/manga-character-list-page'
-          state={{ mangaId: props.mangaId }}
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: "#56e39f",
+            display: "flex",
+            justifyContent: "space-between",
+            paddingRight: "2.5%",
+          }}
         >
-          <Typography>View More</Typography>
-        </Link>
+          <h3>Characters</h3>
+          <Link
+            to='/manga-character-list-page'
+            state={{ mangaId: props.mangaId }}
+          >
+            <Typography
+              sx={{
+                // padding: "0.5%",
+                fontSize: 29,
+                // display: "flex",
+                // justifyContent: "flex-end",
+                marginTop: "17%",
+                // marginRight: "1%",
+              }}
+            >
+              View More
+            </Typography>
+          </Link>
+        </Box>
+
         <div className='anime-info-character-list'>
-          <ImageList cols={5} rowHeight={400}>
+          <Carousel breakPoints={breakPoints}>
             {mangaCharacterList.length > 0
-              ? mangaCharacterList.slice(0, 5).map((character) => {
+              ? mangaCharacterList.map((character) => {
                   let characterEntry = character.character;
                   // console.log(characterEntry);
 
                   return (
-                    <Grid item>
-                      <Link
-                        to='/character-profile'
-                        state={{ characterId: characterEntry.mal_id }}
-                      >
-                        <ImageListItem>
-                          <Box
-                            component='img'
-                            src={characterEntry.images.jpg.image_url}
-                            alt={characterEntry.name}
-                            sx={{
-                              width: "100%",
-                              height: "100%",
-                              borderRadius: 1,
-                            }}
-                          />
-                          <ImageListItemBar
-                            title={characterEntry.name}
-                            sx={{ borderRadius: 1 }}
-                          />
-                        </ImageListItem>
-                        {/* <Typography>{characterEntry.name} </Typography> */}
-                      </Link>
-                    </Grid>
+                    <div>
+                      <ImageList cols={1} rowHeight={400}>
+                        <Link
+                          to='/character-profile'
+                          state={{ characterId: characterEntry.mal_id }}
+                        >
+                          <ImageListItem>
+                            <Box
+                              component='img'
+                              src={characterEntry.images.jpg.image_url}
+                              alt={characterEntry.name}
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                borderRadius: 1,
+                              }}
+                            />
+                            <ImageListItemBar
+                              title={characterEntry.name}
+                              sx={{ borderRadius: 1 }}
+                            />
+                          </ImageListItem>
+                          {/* <Typography>{characterEntry.name} </Typography> */}
+                        </Link>
+                      </ImageList>
+                    </div>
                   );
                 })
               : "N/A"}
-          </ImageList>
+          </Carousel>
         </div>
-      </div>
+      </Box>
     );
   } else {
     return <LoadingScreen />;

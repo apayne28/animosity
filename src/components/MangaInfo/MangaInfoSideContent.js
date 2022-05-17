@@ -119,7 +119,7 @@ const MangaInfoSideContent = (props) => {
                   component='img'
                   src={info.images.jpg.image_url}
                   alt={info.title}
-                  sx={{ width: "100%", height: "100%" }}
+                  sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                 />
                 <ImageListItemBar
                   title={info.title}
@@ -134,83 +134,182 @@ const MangaInfoSideContent = (props) => {
               </ImageListItem>
             </ImageList>
             <div className='anime-info-alternative-titles-container'>
-              <h3>Alternate Titles:</h3>
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Alternate Titles:
+              </Typography>
               {info.title_english && (
-                <Typography className='anime-info-alternative-english'>
+                <Typography
+                  className='anime-info-alternative-english'
+                  sx={{ padding: "2%", fontSize: 19 }}
+                >
                   {`English: ${info.title_english}`}
                 </Typography>
               )}
               {info.title_japanese && (
-                <Typography className='anime-info-alternative-japanese'>
+                <Typography
+                  className='anime-info-alternative-japanese'
+                  sx={{ padding: "2%", fontSize: 19 }}
+                >
                   {`Japanese: ${info.title_japanese}`}
                 </Typography>
               )}
               {info.title_synonyms && (
                 <div>
-                  <h3>Synonyms</h3>
-                  {info.title_synonyms > 0
-                    ? info.title_synonyms.map((altTitles) => (
-                        <Typography className='anime-info-title-synonyms'>
-                          {altTitles}
-                        </Typography>
-                      ))
-                    : "N/A"}
+                  <Typography
+                    variant='h3'
+                    sx={{
+                      backgroundColor: "#59C9A5",
+                      padding: "2%",
+                      borderRadius: "1%",
+                      fontSize: 23,
+                      opacity: "80%",
+                    }}
+                  >
+                    Synonyms
+                  </Typography>
+
+                  {info.title_synonyms.length > 0 ? (
+                    info.title_synonyms.map((altTitles) => (
+                      <Typography
+                        className='anime-info-title-synonyms'
+                        sx={{ padding: "2%", fontSize: 19 }}
+                      >
+                        {altTitles}
+                      </Typography>
+                    ))
+                  ) : (
+                    <Typography sx={{ padding: "2%", fontSize: 19 }}>
+                      N/A
+                    </Typography>
+                  )}
                 </div>
               )}
             </div>
             <div className='anime-info-score'>
-              <Typography>{`Score: ${
+              <Typography
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >{`Score: `}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
                 info.score ? info.score : "N/A"
               }`}</Typography>
             </div>
+
+            <div className='anime-info-score'>
+              <Typography
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >{`Rank: `}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
+                info.rank ? info.rank : "N/A"
+              }`}</Typography>
+            </div>
+
             <div className='anime-info-information'>
-              <h3>Information</h3>
-              <Typography>{`Type: ${info.type}`}</Typography>
-              <Typography>{`Volumes: ${
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Information
+              </Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Type: ${info.type}`}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Volumes: ${
                 info.volumes ? info.volumes : "N/A"
               }`}</Typography>
-              <Typography>{`Chapters: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Chapters: ${
                 info.chapters ? info.chapters : "N/A"
               }`}</Typography>
-              <Typography>{`Status: ${info.status}`}</Typography>
-              <Typography>{`Published: ${info.published.string}`}</Typography>
-              <Typography>{`Genres: ${info.genres.map((genres) =>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Status: ${info.status}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Published: ${info.published.string}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Genres: ${info.genres.map((genres) =>
                 genres ? ` ${genres.name} ` : "N/A",
               )}`}</Typography>
-              <Typography>{`Theme: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Theme: ${
                 info.themes > 0
                   ? info.themes.map((themes) =>
                       themes ? ` ${themes.name} ` : "N/A",
                     )
                   : "N/A"
               }`}</Typography>
-              <Typography>{`Demographics: ${
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Demographics: ${
                 info.demographics > 0
                   ? info.demographics.map((demographics) =>
                       demographics ? ` ${demographics.name} ` : "N/A",
                     )
                   : "N/A"
               }`}</Typography>
-              <Typography>{`Serializations: ${info.serializations.map(
-                (serialization) =>
-                  serialization ? ` ${serialization.name} ` : "N/A",
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Serializations: ${info.serializations.map((serialization) =>
+                serialization ? ` ${serialization.name} ` : "N/A",
               )}`}</Typography>
-              <Typography>{`Author(s): ${info.authors.map((authors) =>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Author(s): ${info.authors.map((authors) =>
                 authors ? ` ${authors.name} ` : "N/A",
               )}`}</Typography>
             </div>
             <div className='anime-info-statistics'>
-              <h3>Statistics</h3>
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Statistics:
+              </Typography>
 
-              <Typography>{`Ranked: ${
-                info.rank ? info.rank : "N/A"
-              }`}</Typography>
-              <Typography>{`Popularity: ${info.popularity}`}</Typography>
-              <Typography>{`Members: ${info.members}`}</Typography>
-              <Typography>{`Favorites: ${info.favorites}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Popularity: ${info.popularity}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Members: ${info.members}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Favorites: ${info.favorites}`}</Typography>
             </div>
           </div>
-          <div className='anime-info-main-info-container'>
+          <div className='manga-info-main-info-container'>
             <div className='anime-info-main-info-details'>
               <MangaInfoMangaDetails
                 mangaId={info.mal_id}
@@ -220,12 +319,16 @@ const MangaInfoSideContent = (props) => {
             <div className='anime-info-main-info-content'>
               <div className='anime-info-content-guts'>
                 <div className='anime-info-main-popularity-container'>
-                  <h3>Synopsis</h3>
-                  <Typography>
-                    {info.synopsis ? info.synopsis : "N/A"}
-                  </Typography>
+                  <Box sx={{ marginTop: "0%" }}>
+                    <h3>Synopsis</h3>
+                    <Typography paragraph sx={{ padding: "1%", fontSize: 19 }}>
+                      {info.synopsis ? info.synopsis : "N/A"}
+                    </Typography>
+                  </Box>
                   <h3>Background</h3>
-                  <Typography>
+                  <Typography
+                    sx={{ padding: "1%", fontSize: 19, paddingLeft: "1%" }}
+                  >
                     {info.background ? info.background : "N/A"}
                   </Typography>
                   <Divider sx={{ pb: 4 }} />
@@ -255,7 +358,14 @@ const MangaInfoSideContent = (props) => {
                                     window.location.reload();
                                   }}
                                 >
-                                  <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
+                                  <Typography
+                                    className='anime-info-related-anime-item'
+                                    sx={{
+                                      padding: "0.5%",
+                                      fontSize: 19,
+                                      paddingLeft: "1%",
+                                    }}
+                                  >{`${relatedAnimeType}: ${single.name}`}</Typography>
                                 </MuiLink>
                               </div>
                             );
@@ -265,11 +375,9 @@ const MangaInfoSideContent = (props) => {
                   </div>
                   <Divider sx={{ pb: 4 }} />
 
-                  <h3>Characters</h3>
                   <MangaInfoCharacters mangaId={info.mal_id} />
 
                   <Divider sx={{ pb: 4 }} />
-                  <h3>Recommended Manga</h3>
                   <MangaInfoRecommendedManga mangaId={info.mal_id} />
                 </div>
               </div>

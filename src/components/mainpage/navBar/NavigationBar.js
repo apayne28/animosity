@@ -15,6 +15,7 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import { Box } from "@mui/system";
 import logo from "../../../logo2.png";
+import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 const NavigationBar = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -64,39 +65,77 @@ const NavigationBar = () => {
   };
 
   return (
-    <AppBar position='static' sx={{ backgroundColor: "#59C9A5" }}>
-      <div>
-        {/* <Box>
-          <Link to='/'>
-            <Box component='img' src={logo} alt='Animosity Logo' />
-          </Link>
-        </Box> */}
-        <div className='navigation-bar-items'>
-          {/* <Typography>Anime</Typography> */}
-          <Link to='/top-anime' state={{ topFilter: " ", type: "anime" }}>
-            <Typography>Anime</Typography>
-          </Link>
+    <Navbar className='rb-navbar' variant='light' expand='lg'>
+      <Navbar.Brand>
+        <Link to='/'>
+          <Box component='img' src={logo} alt='Animosity Logo' />
+        </Link>
+      </Navbar.Brand>
 
-          {/* <Typography>Manga</Typography> */}
-          <Link to='/top-manga' state={{ topFilter: " ", type: "manga" }}>
-            <Typography>Manga</Typography>
-          </Link>
-          {/* <Link to='/genre-list-page'>
-            <Typography>Genres</Typography>
-          </Link> */}
-          {/* <Typography>Genres</Typography> */}
-          <SearchBar
-          // HandleSearch={HandleSearch}
-          // search={search}
-          // SetSearch={setSearch}
-          // animeList={animeList}
-          />
+      <Navbar.Toggle aria-controls='navbarScroll' />
+      <Navbar.Collapse id='navbarScroll'>
+        <Nav>
+          <NavDropdown title='Anime' id='navbarScrollingDropdown'>
+            <NavDropdown.Item>
+              <Link
+                to='/top-anime'
+                style={{ textDecoration: "none" }}
+                state={{ topFilter: " ", type: "anime" }}
+              >
+                Top Anime
+              </Link>
+            </NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown title='Manga'>
+            <NavDropdown.Item>
+              <Link
+                to='/top-manga '
+                style={{ textDecoration: "none" }}
+                state={{ topFilter: " ", type: "manga" }}
+              >
+                Top Manga
+              </Link>
+            </NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
+      </Navbar.Collapse>
+      <Nav>
+        <SearchBar />
+      </Nav>
+    </Navbar>
+    // <AppBar position='static' sx={{ backgroundColor: "#59C9A5" }}>
+    //   <div>
+    //     {/* <Box>
+    //       <Link to='/'>
+    //         <Box component='img' src={logo} alt='Animosity Logo' />
+    //       </Link>
+    //     </Box> */}
+    //     <div className='navigation-bar-items'>
+    //       {/* <Typography>Anime</Typography> */}
+    //       <Link to='/top-anime' state={{ topFilter: " ", type: "anime" }}>
+    //         <Typography>Anime</Typography>
+    //       </Link>
 
-          {/* </Link> */}
-        </div>
-        <div className='navigation-bar-search-bar'></div>
-      </div>
-    </AppBar>
+    //       {/* <Typography>Manga</Typography> */}
+    //       <Link to='/top-manga' state={{ topFilter: " ", type: "manga" }}>
+    //         <Typography>Manga</Typography>
+    //       </Link>
+    //       {/* <Link to='/genre-list-page'>
+    //         <Typography>Genres</Typography>
+    //       </Link> */}
+    //       {/* <Typography>Genres</Typography> */}
+    //       <SearchBar
+    //       // HandleSearch={HandleSearch}
+    //       // search={search}
+    //       // SetSearch={setSearch}
+    //       // animeList={animeList}
+    //       />
+
+    //       {/* </Link> */}
+    //     </div>
+    //     <div className='navigation-bar-search-bar'></div>
+    //   </div>
+    // </AppBar>
 
     //  <Select
     //         labelid='search-bar-type-filter'

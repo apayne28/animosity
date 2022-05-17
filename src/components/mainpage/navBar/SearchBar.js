@@ -11,6 +11,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Dropdown, Form, Form as RBForm, FormControl } from "react-bootstrap";
+import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
 
 const SearchBar = (props) => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -44,7 +46,7 @@ const SearchBar = (props) => {
   return (
     <div className='search-bar-container'>
       <div className='search-bar-select-button'>
-        <Select
+        {/* <Select
           labelid='search-bar-type-filter'
           value={type}
           label='Type'
@@ -66,10 +68,72 @@ const SearchBar = (props) => {
         >
           <MenuItem value='anime'>Anime</MenuItem>
           <MenuItem value='manga'>Manga</MenuItem>
-        </Select>
-      </div>
+        </Select> */}
+        {/* <Dropdown
+          onChange={(e, data) => {
+            setType(data.props.value);
+            console.log(type);
+          }}
+        >
+          <DropdownToggle variant='success'>{type}</DropdownToggle>
+          <Dropdown.Menu>
+            <Dropdown.Item value={type}>Anime</Dropdown.Item>
+            <Dropdown.Item value={type}>Manga</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown> */}
+        <RBForm.Select
+          onChange={(e, data) => {
+            console.log(e.target.value);
 
-      <form
+            setType(e.target.value);
+            console.log(type);
+          }}
+        >
+          <option value='anime'>Anime</option>
+          <option value='manga'>Manga</option>
+        </RBForm.Select>
+      </div>
+      <RBForm
+        className='d-flex'
+        aria-label='Search'
+        value={props.search}
+        validated={search.length >= 3}
+        onSubmit={async (e) => {
+          e.preventDefault();
+
+          FetchAnime(search);
+          console.log(search, type);
+          navigate(`/search-page`, {
+            state: { searchQuery: search, searchType: type },
+          });
+          window.location.reload();
+        }}
+        onChange={(e) => {
+          setSearch(e.target.value);
+        }}
+      >
+        <FormControl
+          type='search'
+          placeholder='Search for an anime...'
+          className='me-2'
+        />
+
+        <IconButton
+          onClick={async (e) => {
+            e.preventDefault();
+
+            FetchAnime(search);
+            console.log(search, e.charCode);
+            navigate(`/search-page`, {
+              state: { searchQuery: search, searchType: type },
+            });
+            window.location.reload();
+          }}
+        >
+          <SearchIcon />
+        </IconButton>
+      </RBForm>
+      {/* <form
         className='search-bar-search-button-input'
         onSubmit={async (e) => {
           e.preventDefault();
@@ -109,7 +173,7 @@ const SearchBar = (props) => {
             ),
           }}
         />
-      </form>
+      </form> */}
 
       {/* <Link to='/search-page' state={{ list: animeList, searchQuery: search }}> */}
 

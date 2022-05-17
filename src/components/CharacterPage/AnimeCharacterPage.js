@@ -12,6 +12,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
+import Carousel from "react-elastic-carousel";
+import { Accordion } from "react-bootstrap";
 
 function AnimeCharacterPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -46,12 +48,21 @@ function AnimeCharacterPage(props) {
     }
   }, [animeCharacter, characterValue, getAnimeCharacter, props.characterId]);
 
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
+    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
+
+    { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
+  ];
+
   if (animeCharacter) {
     return (
       <div>
         <Box>
           <div className='header-content'>
-            <Header />
+            {/* <Header /> */}
             <NavigationBar />
           </div>
         </Box>
@@ -80,9 +91,23 @@ function AnimeCharacterPage(props) {
             <div className='anime-characters-nickname-container'>
               {animeCharacter.nicknames.length > 0 ? (
                 <Grid item sx={{ paddingBottom: 5 }}>
-                  <Typography>Nicknames:</Typography>
+                  <Typography
+                    sx={{
+                      backgroundColor: "#59C9A5",
+                      padding: "2%",
+                      borderRadius: "1%",
+                      fontSize: 23,
+                      opacity: "80%",
+                    }}
+                  >
+                    Nicknames:
+                  </Typography>
                   {animeCharacter.nicknames.map((nicknames) => {
-                    return <Typography>{nicknames}</Typography>;
+                    return (
+                      <Typography sx={{ padding: "2%", fontSize: 19 }}>
+                        {nicknames}
+                      </Typography>
+                    );
                   })}
                 </Grid>
               ) : (
@@ -90,7 +115,20 @@ function AnimeCharacterPage(props) {
               )}
             </div>
             <div className='anime-character-members-number'>
-              <Typography>{`Member Favorites: ${animeCharacter.member_favorites}`}</Typography>
+              <Typography
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Member Favorites:
+              </Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 25 }}
+              >{`${animeCharacter.member_favorites}`}</Typography>
             </div>
           </div>
           <div className='anime-character-main-info-container'>
@@ -101,21 +139,44 @@ function AnimeCharacterPage(props) {
                 })`}</Typography> */}
                 <Typography
                   variant='h3'
-                  sx={{ fontSize: 26, marginTop: "1%" }}
-                >{`${animeCharacter.name} (${
-                  animeCharacter.name_kanji ? animeCharacter.name_kanji : ""
-                })`}</Typography>
+                  sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
+                >{`${animeCharacter.name} ${
+                  animeCharacter.name_kanji
+                    ? `(${animeCharacter.name_kanji})`
+                    : ""
+                }`}</Typography>
               </div>
 
               <div className='anime-info-content-guts'>
                 <div className='anime-info-main-popularity-container'>
+                  {/* <Accordion flush>
+                    <Accordion.Item>
+                      <Accordion.Header>
+                        <Typography variant='h3'>Background</Typography>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            fontSize: 18,
+                            width: "90%",
+                            padding: "2%",
+                            whiteSpace: "pre-line",
+                            // margin: "auto",
+                          }}
+                        >
+                          {animeCharacter.about}
+                        </Typography>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion> */}
                   <h3>Background</h3>
                   <Typography
                     variant='body2'
                     sx={{
                       fontSize: 18,
                       width: "90%",
-                      paddingLeft: "1%",
+                      padding: "2%",
                       whiteSpace: "pre-line",
                       // margin: "auto",
                     }}
@@ -125,6 +186,7 @@ function AnimeCharacterPage(props) {
                   <Divider sx={{ paddingTop: 2 }} />
 
                   <h3>Voice Actors</h3>
+
                   <div
                     className='anime-character-voice-actors'
                     style={{
@@ -144,45 +206,53 @@ function AnimeCharacterPage(props) {
                       // className='anime-info-character-list'
                       // sx={{ display: "flex", margin: "auto" }}
                     >
-                      <ImageList
-                        cols={animeCharacter.voice_actors.length >= 10 ? 10 : 8}
-                        rowHeight={350}
-                      >
+                      <Carousel breakPoints={breakPoints}>
                         {animeCharacter.voice_actors.map((actor) => {
                           return (
-                            <Grid
-                              item
-                              //  classname='character-profile-anime-appearance-entry'
-                            >
-                              <ImageListItem>
-                                <Box
-                                  component='img'
-                                  src={actor.image_url}
-                                  alt={actor.name}
-                                  sx={{
-                                    width: "100%",
-                                    height: "100%",
-                                    borderRadius: 1,
-                                  }}
-                                />
-                                <ImageListItemBar
-                                  title={<Typography>{actor.name}</Typography>}
-                                  subtitle={
-                                    <Typography>{`Language: ${actor.language}`}</Typography>
-                                  }
-                                />
-                              </ImageListItem>
-                            </Grid>
+                            <div>
+                              <ImageList cols={1} rowHeight={400}>
+                                <ImageListItem>
+                                  <Box
+                                    component='img'
+                                    src={actor.image_url}
+                                    alt={actor.name}
+                                    sx={{
+                                      width: "100%",
+                                      height: "100%",
+                                      borderRadius: 1,
+                                    }}
+                                  />
+                                  <ImageListItemBar
+                                    title={
+                                      <Typography>{actor.name}</Typography>
+                                    }
+                                    subtitle={
+                                      <Typography>{`Language: ${actor.language}`}</Typography>
+                                    }
+                                  />
+                                </ImageListItem>
+                              </ImageList>
+                            </div>
                           );
                         })}
-                      </ImageList>
+                      </Carousel>
                     </Grid>
                   </div>
 
                   <Divider />
 
                   <h3>Animeography</h3>
-                  <div anime-character-animeography>
+                  <div
+                    className='anime-character-voice-actors'
+                    style={{
+                      width: `${
+                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
+                      }`,
+                      margin: `${
+                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
+                      }`,
+                    }}
+                  >
                     <Grid
                       container
                       xs={1}
@@ -191,57 +261,59 @@ function AnimeCharacterPage(props) {
 
                       // className='anime-info-character-list'
                     >
-                      <ImageList
-                        cols={animeCharacter.animeography.length >= 10 ? 10 : 6}
-                        rowHeight={
-                          animeCharacter.animeography.length >= 10 ? 350 : 550
-                        }
-                      >
+                      <Carousel breakPoints={breakPoints}>
                         {animeCharacter.animeography.map((appearances) => {
                           return (
-                            <Grid item>
+                            <div>
                               <Link
                                 to='/anime-info'
                                 state={{ animeId: appearances.mal_id }}
                               >
-                                <ImageListItem>
-                                  <Box
-                                    component='img'
-                                    src={appearances.image_url}
-                                    alt={appearances.name}
-                                    sx={{
-                                      width: "100%",
-                                      height: "100%",
-                                      borderRadius: 1,
-                                    }}
-                                  />
-                                  <ImageListItemBar
-                                    title={appearances.name}
-                                    subtitle={`Role: ${appearances.role}`}
-                                  />
-                                </ImageListItem>
+                                <ImageList cols={1} rowHeight={400}>
+                                  <ImageListItem>
+                                    <Box
+                                      component='img'
+                                      src={appearances.image_url}
+                                      alt={appearances.name}
+                                      sx={{
+                                        width: "100%",
+                                        height: "100%",
+                                        borderRadius: 1,
+                                      }}
+                                    />
+                                    <ImageListItemBar
+                                      title={appearances.name}
+                                      subtitle={`Role: ${appearances.role}`}
+                                    />
+                                  </ImageListItem>
+                                </ImageList>
                               </Link>
-                            </Grid>
+                            </div>
                           );
                         })}
-                      </ImageList>
+                      </Carousel>
                     </Grid>
                   </div>
                   <h3>Mangaography</h3>
 
-                  <div className='anime-info-rec-anime-container'>
+                  <div
+                    className='anime-character-voice-actors'
+                    style={{
+                      width: `${
+                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
+                      }`,
+                      margin: `${
+                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
+                      }`,
+                    }}
+                  >
                     <Grid
                       container
                       xs={1}
                       md={12}
                       // className='anime-info-character-list'
                     >
-                      <ImageList
-                        cols={animeCharacter.mangaography.length >= 10 ? 10 : 6}
-                        rowHeight={
-                          animeCharacter.mangaography.length >= 10 ? 350 : 550
-                        }
-                      >
+                      <Carousel breakPoints={breakPoints}>
                         {animeCharacter.mangaography.map((appearances) => {
                           return (
                             //  <Grid
@@ -251,29 +323,31 @@ function AnimeCharacterPage(props) {
                             //  >
                             <div>
                               <div className='anime-info-rec-anime-item'>
-                                <Grid item>
+                                <div>
                                   <Link
                                     to='/manga-info'
                                     state={{ mangaId: appearances.mal_id }}
                                   >
-                                    <ImageListItem>
-                                      <Box
-                                        component='img'
-                                        src={appearances.image_url}
-                                        alt={appearances.name}
-                                        sx={{
-                                          width: "100%",
-                                          height: "100%",
-                                          borderRadius: 1,
-                                        }}
-                                      />
-                                      <ImageListItemBar
-                                        title={appearances.name}
-                                        subtitle={`Role: ${appearances.role}`}
-                                      />
-                                    </ImageListItem>
+                                    <ImageList cols={1} rowHeight={400}>
+                                      <ImageListItem>
+                                        <Box
+                                          component='img'
+                                          src={appearances.image_url}
+                                          alt={appearances.name}
+                                          sx={{
+                                            width: "100%",
+                                            height: "100%",
+                                            borderRadius: 1,
+                                          }}
+                                        />
+                                        <ImageListItemBar
+                                          title={appearances.name}
+                                          subtitle={`Role: ${appearances.role}`}
+                                        />
+                                      </ImageListItem>
+                                    </ImageList>
                                   </Link>
-                                </Grid>
+                                </div>
 
                                 {/* <Divider /> */}
                                 {/*</Grid>*/}
@@ -281,7 +355,7 @@ function AnimeCharacterPage(props) {
                             </div>
                           );
                         })}
-                      </ImageList>
+                      </Carousel>
                     </Grid>
                   </div>
                   <Divider />

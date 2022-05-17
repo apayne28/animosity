@@ -96,14 +96,23 @@ const HomepageContent = () => {
       <div className='homepage-header-content'>
         <h3>Spring 2022 Anime</h3>
         <Link to='/top-anime' state={{ animeList: springAnime }}>
-          <Typography>View More</Typography>
+          <Typography
+            sx={{
+              // padding: "0.5%",
+              fontSize: 29,
+              // display: "flex",
+              // justifyContent: "flex-end",
+              // marginTop: "17%",
+              // marginRight: "1%",
+            }}
+          >
+            View More
+          </Typography>
         </Link>
       </div>
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={breakPoints}>
           {springAnime.map((anime, aniKey) => {
-            console.log(anime, aniKey);
-
             return (
               // <Grid item className='individual-featured-anime-container'>
               <div key={aniKey}>
@@ -131,14 +140,23 @@ const HomepageContent = () => {
       <div className='homepage-header-content'>
         <h3>Upcoming Summer 2022 Anime</h3>
         <Link to='/top-anime' state={{ animeList: summerAnime }}>
-          <Typography>View More</Typography>
+          <Typography
+            sx={{
+              // padding: "0.5%",
+              fontSize: 29,
+              // display: "flex",
+              // justifyContent: "flex-end",
+              // marginTop: "17%",
+              // marginRight: "1%",
+            }}
+          >
+            View More
+          </Typography>
         </Link>
       </div>
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={breakPoints}>
           {summerAnime.map((anime, aniKey) => {
-            console.log(anime, aniKey);
-
             return (
               // <Grid item className='individual-featured-anime-container'>
               <div key={aniKey}>
@@ -166,7 +184,6 @@ const HomepageContent = () => {
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={promoBreakPoints}>
           {recentPromos.map((anime, aniKey) => {
-            console.log(anime);
             return (
               <div key={aniKey}>
                 {/* <ImageList cols={1}>
@@ -221,7 +238,6 @@ const HomepageContent = () => {
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={promoBreakPoints}>
           {popularPromos.map((anime, aniKey) => {
-            console.log(anime);
             return (
               <div key={aniKey}>
                 {/* <ImageList cols={1}>

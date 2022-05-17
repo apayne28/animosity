@@ -60,7 +60,7 @@ const SearchPage = () => {
     return (
       <div>
         <div className='header-content'>
-          <Header />
+          {/* <Header /> */}
           <NavigationBar />
         </div>
         <Stack
@@ -96,7 +96,7 @@ const SearchPage = () => {
         {/* <div className='anime-character-list-contents'> */}
         <div className='search-page-contents'>
           <Grid container>
-            <ImageList cols={6} rowHeight={800}>
+            <ImageList cols={6} rowHeight={980}>
               {animeList.map((anime, key) => (
                 <Box
                   // sx={{

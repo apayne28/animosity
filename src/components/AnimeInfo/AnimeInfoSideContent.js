@@ -130,14 +130,31 @@ const AnimeInfoSideContent = (props) => {
               </ImageListItem>
             </ImageList>
             <div className='anime-info-alternative-titles-container'>
-              <h3>Alternate Titles:</h3>
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Alternate Titles:
+              </Typography>
               {info.title_english && (
-                <Typography className='anime-info-alternative-english'>
+                <Typography
+                  className='anime-info-alternative-english'
+                  sx={{ padding: "2%", fontSize: 19 }}
+                >
                   {`English: ${info.title_english}`}
                 </Typography>
               )}
               {info.title_japanese && (
-                <Typography className='anime-info-alternative-japanese'>
+                <Typography
+                  className='anime-info-alternative-japanese'
+                  sx={{ padding: "2%", fontSize: 19 }}
+                >
                   {`Japanese: ${info.title_japanese}`}
                 </Typography>
               )}
@@ -145,59 +162,108 @@ const AnimeInfoSideContent = (props) => {
 
               {info.title_synonyms && (
                 <div>
-                  <h3>Synonyms</h3>
+                  <Typography
+                    variant='h3'
+                    sx={{
+                      backgroundColor: "#59C9A5",
+                      padding: "2%",
+                      borderRadius: "1%",
+                      fontSize: 23,
+                      opacity: "80%",
+                    }}
+                  >
+                    Synonyms
+                  </Typography>
 
-                  {info.title_synonyms.length > 0
-                    ? info.title_synonyms.map((altTitles) => (
-                        <Typography className='anime-info-title-synonyms'>
-                          {altTitles}
-                        </Typography>
-                      ))
-                    : "N/A"}
+                  {info.title_synonyms.length > 0 ? (
+                    info.title_synonyms.map((altTitles) => (
+                      <Typography
+                        className='anime-info-title-synonyms'
+                        sx={{ padding: "2%", fontSize: 19 }}
+                      >
+                        {altTitles}
+                      </Typography>
+                    ))
+                  ) : (
+                    <Typography sx={{ padding: "2%", fontSize: 19 }}>
+                      N/A
+                    </Typography>
+                  )}
                 </div>
               )}
             </div>
             <div className='anime-info-score'>
-              <Typography>{`Score: ${
+              <Typography
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >{`Rank: `}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
+                info.rank ? info.rank : "N/A"
+              }`}</Typography>
+            </div>
+            <div className='anime-info-score'>
+              <Typography
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >{`Score: `}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
                 info.score ? info.score : "N/A"
               }`}</Typography>
             </div>
-            <div className='anime-info-statistics'>
-              <h3>Statistics</h3>
 
-              <Typography>{`Ranked: ${
-                info.rank ? info.rank : "N/A"
-              }`}</Typography>
-              <Typography>{`Popularity: ${info.popularity}`}</Typography>
-              <Typography>{`Members: ${info.members}`}</Typography>
-              <Typography>{`Favorites: ${info.favorites}`}</Typography>
-            </div>
             <div className='anime-info-information'>
-              <h3>Information</h3>
-              <Typography>{`Type: ${info.type}`}</Typography>
-              <Typography>{`Episodes: ${
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Information
+              </Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Type: ${info.type}`}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Episodes: ${
                 info.episodes ? info.episodes : "N/A"
               }`}</Typography>
-              <Typography>{`Status: ${info.status}`}</Typography>
-              <Typography>{`Aired: ${info.aired.string}`}</Typography>
-              <Typography>{`Premiered: ${
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Status: ${info.status}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Aired: ${info.aired.string}`}</Typography>
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Premiered: ${
                 info.season && info.year
                   ? `${info.season}. ${info.year}`
                   : "Unknown"
               }`}</Typography>
-              <Typography>
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>
                 {`Broadcast: ${
                   info.broadcast.string ? info.broadcast.string : "Unknown"
                 }`}{" "}
               </Typography>
-              <Typography>{`Producers: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Producers: ${
                 info.producers.length > 0
                   ? info.producers.map((producers) =>
                       producers ? ` ${producers.name} ` : "N/A",
                     )
                   : "Unknown"
               }`}</Typography>
-              <Typography>{`Licensors: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Licensors: ${
                 info.licensors.length
                   ? info.licensors.map((licensors) =>
                       licensors ? ` ${licensors.name} ` : "N/A",
@@ -205,7 +271,7 @@ const AnimeInfoSideContent = (props) => {
                   : "Unknown"
               }`}</Typography>
 
-              <Typography>{`Studios: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Studios: ${
                 info.studios.length > 0
                   ? info.studios.map((studios) =>
                       studios ? ` ${studios.name} ` : "N/A",
@@ -213,29 +279,57 @@ const AnimeInfoSideContent = (props) => {
                   : "Unknown"
               }`}</Typography>
 
-              <Typography>{`Genres: ${info.genres.map((genres) =>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Genres: ${info.genres.map((genres) =>
                 genres ? ` ${genres.name} ` : "Unknown",
               )}`}</Typography>
-              <Typography>{`Theme: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Theme: ${
                 info.themes.length > 0
                   ? info.themes.map((themes) =>
                       themes ? ` ${themes.name} ` : "N/A",
                     )
                   : "Unknown"
               }`}</Typography>
-              <Typography>{`Demographics: ${
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Demographics: ${
                 info.demographics.length > 0
                   ? info.demographics.map((demographics) =>
                       demographics ? ` ${demographics.name} ` : "N/A",
                     )
                   : "Unknown"
               }`}</Typography>
-              <Typography>{`Duration: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Duration: ${
                 info.duration ? info.duration : "Unknown"
               }`}</Typography>
-              <Typography>{`Rating: ${
+              <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Rating: ${
                 info.rating ? info.rating : "Unknown"
               }`}</Typography>
+            </div>
+            <div className='anime-info-statistics'>
+              <Typography
+                variant='h3'
+                sx={{
+                  backgroundColor: "#59C9A5",
+                  padding: "2%",
+                  borderRadius: "1%",
+                  fontSize: 23,
+                  opacity: "80%",
+                }}
+              >
+                Statistics:
+              </Typography>
+
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Popularity: ${info.popularity}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Members: ${info.members}`}</Typography>
+              <Typography
+                sx={{ padding: "2%", fontSize: 19 }}
+              >{`Favorites: ${info.favorites}`}</Typography>
             </div>
           </div>
           <div className='anime-info-main-info-container'>
@@ -250,14 +344,19 @@ const AnimeInfoSideContent = (props) => {
                 <div>
                   <ReactPlayer
                     url={info.trailer.url}
-                    style={{ display: "flex", margin: "auto", marginTop: "1%" }}
+                    style={{
+                      display: "flex",
+                      margin: "auto",
+                      marginTop: "1%",
+                      marginBottom: "2%",
+                    }}
                   />
                 </div>
               )}
 
               <div className='anime-info-main-synopsis'>
                 <h3>Synopsis</h3>
-                <Typography paragraph>
+                <Typography paragraph sx={{ padding: "1%", fontSize: 19 }}>
                   {info.synopsis ? info.synopsis : "N/A"}
                 </Typography>
               </div>
@@ -265,7 +364,9 @@ const AnimeInfoSideContent = (props) => {
                 <div className='anime-info-main-popularity-container'>
                   <Divider sx={{ pb: 4 }} />
                   <h3>Background</h3>
-                  <Typography>
+                  <Typography
+                    sx={{ padding: "1%", fontSize: 19, paddingLeft: "1%" }}
+                  >
                     {info.background ? info.background : "N/A"}
                   </Typography>
                   <Divider sx={{ pb: 4 }} />
@@ -294,7 +395,14 @@ const AnimeInfoSideContent = (props) => {
                                     window.location.reload();
                                   }}
                                 >
-                                  <Typography className='anime-info-related-anime-item'>{`${relatedAnimeType}: ${single.name}`}</Typography>
+                                  <Typography
+                                    className='anime-info-related-anime-item'
+                                    sx={{
+                                      padding: "0.5%",
+                                      fontSize: 19,
+                                      paddingLeft: "1%",
+                                    }}
+                                  >{`${relatedAnimeType}: ${single.name}`}</Typography>
                                 </MuiLink>
                               </div>
                             );
@@ -306,7 +414,6 @@ const AnimeInfoSideContent = (props) => {
                   <AnimeInfoCharacters animeId={info.mal_id} />
 
                   <Divider sx={{ pb: 4 }} />
-                  <h3>Recommended Anime</h3>
                   <AnimeInfoRecommendedAnime animeId={info.mal_id} />
                 </div>
               </div>

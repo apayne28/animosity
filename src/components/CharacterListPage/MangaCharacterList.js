@@ -79,17 +79,18 @@ function MangaCharacterList(props) {
   if (characterList) {
     return (
       <Box>
-        <Header />
+        {/* <Header /> */}
         <NavigationBar />
-        <MangaInfoMangaDetails
-          mangaId={mangaId}
-          mangaRecList={mangaRecommendationsList}
-          charList={characterList}
-        />
-        <Box sx={{ display: "flex" }}>
+
+        <Box sx={{ display: "flex", marginTop: "2%" }}>
           {/* <MangaInfoSideContent animeId={animeId} /> */}
           <MangaInfoSideContentSingle mangaId={mangaId} />
           <div className='anime-character-list-contents'>
+            <MangaInfoMangaDetails
+              mangaId={mangaId}
+              mangaRecList={mangaRecommendationsList}
+              charList={characterList}
+            />
             <Grid container>
               <ImageList cols={10} rowHeight={400}>
                 {characterList.map((character) => {

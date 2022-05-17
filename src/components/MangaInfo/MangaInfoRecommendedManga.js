@@ -14,6 +14,7 @@ import MangaCharacterList from "../CharacterListPage/MangaCharacterList";
 import LoadingScreen from "../LoadingScreen";
 import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
+import Carousel from "react-elastic-carousel";
 
 function MangaInfoRecommendedManga(props) {
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
@@ -39,64 +40,97 @@ function MangaInfoRecommendedManga(props) {
       getMangaRecs(props.mangaId);
     }
   }, [getMangaRecs, mangaRecommendationsList, props.mangaId]);
+  const breakPoints = [
+    { width: 1, itemsToShow: 1 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
+    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
 
+    { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
+  ];
   if (mangaRecommendationsList) {
     return (
-      <div>
-        <Link
-          to='/manga-recs-page'
-          state={{
-            mangaId: props.mangaId,
-            mangaRecList: mangaRecommendationsList,
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: "#56e39f",
+            display: "flex",
+            justifyContent: "space-between",
+            paddingRight: "2.5%",
           }}
         >
-          <Typography>View More</Typography>
-        </Link>
+          <h3>Recommended Manga</h3>
+          <Link
+            to='/manga-recs-page'
+            state={{
+              mangaId: props.mangaId,
+              mangaRecList: mangaRecommendationsList,
+            }}
+            style={{ textDecoration: "none" }}
+          >
+            <Typography
+              sx={{
+                // padding: "0.5%",
+                fontSize: 29,
+                // display: "flex",
+                // justifyContent: "flex-end",
+                marginTop: "17%",
+                // marginRight: "1%",
+              }}
+            >
+              View More
+            </Typography>
+          </Link>
+        </Box>
+
         <div className='anime-info-rec-anime-container'>
-          <ImageList cols={5} rowHeight={400}>
+          <Carousel breakPoints={breakPoints}>
             {mangaRecommendationsList.length > 0
-              ? mangaRecommendationsList.slice(0, 5).map((info) => {
+              ? mangaRecommendationsList.map((info) => {
                   let recAnime = info.entry;
 
                   return (
-                    <div className='anime-info-rec-anime-item'>
-                      <Link
-                        to='/manga-info'
-                        state={{ mangaId: recAnime.mal_id }}
-                      >
-                        <ImageListItem>
-                          <Box
-                            component='img'
-                            src={recAnime.images.jpg.image_url}
-                            alt={recAnime.title}
-                            onClick={(e) => {
-                              navigate(`/manga-info`, {
-                                state: {
-                                  mangaId: recAnime.mal_id,
-                                },
-                              });
-                              window.location.reload();
-                            }}
-                            sx={{
-                              width: "100%",
-                              height: "100%",
-                              borderRadius: 1,
-                            }}
-                          />
-                          <ImageListItemBar
-                            title={recAnime.title}
-                            sx={{ borderRadius: 1 }}
-                          />
-                        </ImageListItem>
-                        {/* <Typography>{recAnime.title}</Typography> */}
-                      </Link>
+                    <div>
+                      <ImageList cols={1} rowHeight={400}>
+                        <Link
+                          to='/manga-info'
+                          state={{ mangaId: recAnime.mal_id }}
+                        >
+                          <ImageListItem>
+                            <Box
+                              component='img'
+                              src={recAnime.images.jpg.image_url}
+                              alt={recAnime.title}
+                              onClick={(e) => {
+                                navigate(`/manga-info`, {
+                                  state: {
+                                    mangaId: recAnime.mal_id,
+                                  },
+                                });
+                                window.location.reload();
+                              }}
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                borderRadius: 1,
+                              }}
+                            />
+                            <ImageListItemBar
+                              title={recAnime.title}
+                              sx={{ borderRadius: 1 }}
+                            />
+                          </ImageListItem>
+
+                          {/* <Typography>{recAnime.title}</Typography> */}
+                        </Link>
+                      </ImageList>
                     </div>
                   );
                 })
               : "N/A"}
-          </ImageList>
+          </Carousel>
         </div>
-      </div>
+      </Box>
     );
   } else {
     return <LoadingScreen />;

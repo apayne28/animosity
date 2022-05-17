@@ -65,12 +65,15 @@ const TopManga = () => {
     return (
       <div>
         <div className='header-content'>
-          <Header />
+          {/* <Header /> */}
           <NavigationBar />
         </div>
 
         <Divider />
-        <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
+        <Stack
+          spacing={2}
+          sx={{ display: "flex", alignItems: "center", marginTop: "8%" }}
+        >
           <Pagination
             count={401}
             page={buttonCounter}
@@ -91,13 +94,14 @@ const TopManga = () => {
           />
         </Stack>
         {/* <div className='top-anime-top-category-container'> */}
+        <TopMangaBar />
+
         <div className='search-page-contents'>
           <div className='top-anime-top-category-title'>
             {/* <Typography>Top Anime</Typography> */}
-            <TopMangaBar />
           </div>
           <Grid container>
-            <ImageList cols={6} rowHeight={800}>
+            <ImageList cols={6} rowHeight={980}>
               {topScoredManga.map((entry) => {
                 // const entryInfo = getManga(entry.mal_id);
                 // console.log(entryInfo);
