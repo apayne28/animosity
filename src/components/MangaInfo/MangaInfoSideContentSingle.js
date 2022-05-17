@@ -64,9 +64,9 @@ const MangaInfoSideContent = (props) => {
               title={info.title}
               subtitle={
                 info.title !== info.title_english && (
-                  <Typography
-                    sx={{ paddingTop: 1 }}
-                  >{`(${info.title_english})`}</Typography>
+                  <Typography sx={{ paddingTop: 1 }}>{`${
+                    info.title_english ? info.title_english : ""
+                  }`}</Typography>
                 )
               }
             />

@@ -15,38 +15,51 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
 import { Accordion } from "react-bootstrap";
 
-function AnimeCharacterPage(props) {
+function CharacterVoiceActorPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
-  let characterValue = location.state.characterId;
+  let characterValue = location.state.characterValue;
 
-  const [animeCharacter, setAnimeCharacter] = useState();
+  const [voiceActor, setVoiceActor] = useState();
+  const [voiceRoles, setVoiceRoles] = useState();
 
-  const getAnimeCharacter = useCallback(
-    async (id) => {
-      // id = props.characterId;
+  const getVoiceActor = useCallback(async () => {
+    // id = props.characterId;
 
-      try {
-        const characterData = await fetch(
-          `https://api.jikan.moe/v3/character/${characterValue}`,
-        ).then((res) => res.json());
+    try {
+      const voiceActorData = await fetch(
+        `https://api.jikan.moe/v4/people/${characterValue}`,
+      ).then((res) => res.json());
 
-        console.log(characterData);
-        let characterResults = characterData;
-        setAnimeCharacter(characterResults);
-        console.log(animeCharacter);
-      } catch (error) {
-        console.log("Character not found");
-      }
-    },
-    [animeCharacter, characterValue],
-  );
+      console.log(voiceActorData);
+      let voiceActorResults = voiceActorData;
+      setVoiceActor(voiceActorResults.data);
+      console.log(voiceActor);
+    } catch (error) {
+      console.log("Character not found");
+    }
+
+    //Get Voice Roles
+
+    try {
+      const voiceActorRoleData = await fetch(
+        `https://api.jikan.moe/v4/people/${characterValue}/voices`,
+      ).then((res) => res.json());
+
+      console.log(voiceActorRoleData);
+      let voiceActorRoleResults = voiceActorRoleData.data;
+      setVoiceRoles(voiceActorRoleResults);
+      console.log(voiceRoles);
+    } catch (error) {
+      console.log("Character not found");
+    }
+  }, [characterValue, voiceActor, voiceRoles]);
 
   useEffect(() => {
-    if (!animeCharacter) {
-      getAnimeCharacter(characterValue);
+    if (!voiceActor && !voiceRoles) {
+      getVoiceActor(characterValue);
     }
-  }, [animeCharacter, characterValue, getAnimeCharacter, props.characterId]);
+  }, [characterValue, getVoiceActor, voiceActor, voiceRoles]);
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -57,7 +70,32 @@ function AnimeCharacterPage(props) {
     { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
   ];
 
-  if (animeCharacter) {
+  let filteredVoiceRoles;
+  let filteredAnime;
+
+  if (voiceRoles) {
+    filteredVoiceRoles = voiceRoles.filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) =>
+            t.character.name === value.character.name &&
+            t.name === value.character.anime,
+        ),
+    );
+
+    filteredAnime = filteredVoiceRoles.filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) =>
+            t.anime.title === value.anime.title &&
+            t.anime.title === value.anime.title,
+        ),
+    );
+  }
+  console.log(filteredVoiceRoles, filteredAnime);
+  if (voiceActor && filteredVoiceRoles) {
     return (
       <div>
         <Box>
@@ -72,24 +110,24 @@ function AnimeCharacterPage(props) {
               <ImageListItem>
                 <Box
                   component='img'
-                  src={animeCharacter.image_url}
-                  alt={animeCharacter.name}
+                  src={voiceActor.images.jpg.image_url}
+                  alt={voiceActor.name}
                 />
                 <ImageListItemBar
-                  title={<Typography>{animeCharacter.name}</Typography>}
-                  subtitle={
-                    <Typography>{`${
-                      animeCharacter.name_kanji
-                        ? `${animeCharacter.name_kanji}`
-                        : ""
-                    }`}</Typography>
-                  }
+                  title={<Typography>{voiceActor.name}</Typography>}
+                  //   subtitle={
+                  //     <Typography>{`${
+                  //       animeCharacter.name_kanji
+                  //         ? `${animeCharacter.name_kanji}`
+                  //         : ""
+                  //     }`}</Typography>
+                  //   }
                 />
               </ImageListItem>
             </ImageList>
 
             <div className='anime-characters-nickname-container'>
-              {animeCharacter.nicknames.length > 0 ? (
+              {voiceActor.alternate_names.length > 0 ? (
                 <Grid item sx={{ paddingBottom: 5 }}>
                   <Typography
                     sx={{
@@ -102,7 +140,7 @@ function AnimeCharacterPage(props) {
                   >
                     Nicknames:
                   </Typography>
-                  {animeCharacter.nicknames.map((nicknames) => {
+                  {voiceActor.alternate_names.map((nicknames) => {
                     return (
                       <Typography sx={{ padding: "2%", fontSize: 19 }}>
                         {nicknames}
@@ -128,7 +166,7 @@ function AnimeCharacterPage(props) {
               </Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 25 }}
-              >{`${animeCharacter.member_favorites}`}</Typography>
+              >{`${voiceActor.favorites}`}</Typography>
             </div>
           </div>
           <div className='anime-character-main-info-container'>
@@ -140,11 +178,7 @@ function AnimeCharacterPage(props) {
                 <Typography
                   variant='h3'
                   sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
-                >{`${animeCharacter.name} ${
-                  animeCharacter.name_kanji
-                    ? `(${animeCharacter.name_kanji})`
-                    : ""
-                }`}</Typography>
+                >{`${voiceActor.name} `}</Typography>
               </div>
 
               <div className='anime-info-content-guts'>
@@ -171,31 +205,81 @@ function AnimeCharacterPage(props) {
                     </Accordion.Item>
                   </Accordion> */}
                   <h3>Background</h3>
-                  <Typography
-                    variant='body2'
+                  {voiceActor.about ? (
+                    <div>
+                      <Typography
+                        variant='body2'
+                        sx={{
+                          fontSize: 18,
+                          width: "90%",
+                          padding: "2%",
+                          whiteSpace: "pre-line",
+                          // margin: "auto",
+                        }}
+                      >
+                        {voiceActor.about}
+                      </Typography>
+                      <Divider sx={{ paddingTop: 2 }} />
+                    </div>
+                  ) : (
+                    <Box
+                      sx={{
+                        backgroundColor: "#ffffff",
+                        // display: "flex",
+                        // justifyContent: "space-between",
+                        // paddingRight: "2.5%",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: 20,
+                          paddingBottom: "2%",
+                          marginLeft: " 1%",
+                          marginTop: " 2%",
+                        }}
+                      >
+                        N/A
+                      </Typography>
+                    </Box>
+                  )}
+
+                  <Box
                     sx={{
-                      fontSize: 18,
-                      width: "90%",
-                      padding: "2%",
-                      whiteSpace: "pre-line",
-                      // margin: "auto",
+                      backgroundColor: "#56e39f",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      paddingRight: "2.5%",
                     }}
                   >
-                    {animeCharacter.about}
-                  </Typography>
-                  <Divider sx={{ paddingTop: 2 }} />
-
-                  <h3>Voice Actors</h3>
+                    <h3>Roles</h3>
+                    <Link
+                      to='/voice-actor-role-list-page'
+                      state={{ roleList: filteredVoiceRoles }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography
+                        sx={{
+                          // padding: "0.5%",
+                          fontSize: 29,
+                          // display: "flex",
+                          // justifyContent: "flex-end",
+                          marginTop: "17%",
+                          // marginRight: "1%",
+                        }}
+                      >
+                        {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
+                        View More
+                      </Typography>
+                    </Link>
+                  </Box>
 
                   <div
                     className='anime-character-voice-actors'
                     style={{
                       width: `${
-                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
+                        filteredVoiceRoles.length >= 1 ? "95%" : "50%"
                       }`,
-                      margin: `${
-                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
-                      }`,
+                      margin: `${filteredVoiceRoles.length >= 5 ? "auto" : ""}`,
                     }}
                   >
                     <Grid
@@ -207,19 +291,21 @@ function AnimeCharacterPage(props) {
                       // sx={{ display: "flex", margin: "auto" }}
                     >
                       <Carousel breakPoints={breakPoints}>
-                        {animeCharacter.voice_actors.map((actor) => {
+                        {filteredVoiceRoles.map((actor) => {
                           return (
                             <div>
-                              <Link
-                                to='/character-voice-actor-page'
-                                state={{ characterValue: actor.mal_id }}
-                              >
-                                <ImageList cols={1} rowHeight={400}>
+                              <ImageList cols={1} rowHeight={400}>
+                                <Link
+                                  to='/character-profile'
+                                  state={{
+                                    characterId: actor.character.mal_id,
+                                  }}
+                                >
                                   <ImageListItem>
                                     <Box
                                       component='img'
-                                      src={actor.image_url}
-                                      alt={actor.name}
+                                      src={actor.character.images.jpg.image_url}
+                                      alt={actor.character.name}
                                       sx={{
                                         width: "100%",
                                         height: "100%",
@@ -228,15 +314,17 @@ function AnimeCharacterPage(props) {
                                     />
                                     <ImageListItemBar
                                       title={
-                                        <Typography>{actor.name}</Typography>
+                                        <Typography>
+                                          {actor.character.name}
+                                        </Typography>
                                       }
                                       subtitle={
-                                        <Typography>{`Language: ${actor.language}`}</Typography>
+                                        <Typography>{`Role: ${actor.role}`}</Typography>
                                       }
                                     />
                                   </ImageListItem>
-                                </ImageList>
-                              </Link>
+                                </Link>
+                              </ImageList>
                             </div>
                           );
                         })}
@@ -247,16 +335,15 @@ function AnimeCharacterPage(props) {
                   <Divider />
 
                   <h3>Animeography</h3>
+
                   <div
                     className='anime-character-voice-actors'
-                    style={{
-                      width: `${
-                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
-                      }`,
-                      margin: `${
-                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
-                      }`,
-                    }}
+                    style={
+                      {
+                        //   width: `${filteredVoiceRoles.anime.length >= 1 ? "95%" : "50%"}`,
+                        //   margin: `${filteredVoiceRoles.anime.length >= 5 ? "auto" : ""}`,
+                      }
+                    }
                   >
                     <Grid
                       container
@@ -267,19 +354,21 @@ function AnimeCharacterPage(props) {
                       // className='anime-info-character-list'
                     >
                       <Carousel breakPoints={breakPoints}>
-                        {animeCharacter.animeography.map((appearances) => {
+                        {filteredAnime.map((appearances) => {
                           return (
                             <div>
                               <Link
                                 to='/anime-info'
-                                state={{ animeId: appearances.mal_id }}
+                                state={{ animeId: appearances.anime.mal_id }}
                               >
                                 <ImageList cols={1} rowHeight={400}>
                                   <ImageListItem>
                                     <Box
                                       component='img'
-                                      src={appearances.image_url}
-                                      alt={appearances.name}
+                                      src={
+                                        appearances.anime.images.jpg.image_url
+                                      }
+                                      alt={appearances.anime.title}
                                       sx={{
                                         width: "100%",
                                         height: "100%",
@@ -287,8 +376,8 @@ function AnimeCharacterPage(props) {
                                       }}
                                     />
                                     <ImageListItemBar
-                                      title={appearances.name}
-                                      subtitle={`Role: ${appearances.role}`}
+                                      title={appearances.anime.title}
+                                      //   subtitle={`Role: ${appearances.role}`}
                                     />
                                   </ImageListItem>
                                 </ImageList>
@@ -299,70 +388,7 @@ function AnimeCharacterPage(props) {
                       </Carousel>
                     </Grid>
                   </div>
-                  <h3>Mangaography</h3>
 
-                  <div
-                    className='anime-character-voice-actors'
-                    style={{
-                      width: `${
-                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
-                      }`,
-                      margin: `${
-                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
-                      }`,
-                    }}
-                  >
-                    <Grid
-                      container
-                      xs={1}
-                      md={12}
-                      // className='anime-info-character-list'
-                    >
-                      <Carousel breakPoints={breakPoints}>
-                        {animeCharacter.mangaography.map((appearances) => {
-                          return (
-                            //  <Grid
-                            //    item
-                            //    classname='character-profile-anime-appearance-entry'
-                            //    sx={{ display: "flex" }}
-                            //  >
-                            <div>
-                              <div className='anime-info-rec-anime-item'>
-                                <div>
-                                  <Link
-                                    to='/manga-info'
-                                    state={{ mangaId: appearances.mal_id }}
-                                  >
-                                    <ImageList cols={1} rowHeight={400}>
-                                      <ImageListItem>
-                                        <Box
-                                          component='img'
-                                          src={appearances.image_url}
-                                          alt={appearances.name}
-                                          sx={{
-                                            width: "100%",
-                                            height: "100%",
-                                            borderRadius: 1,
-                                          }}
-                                        />
-                                        <ImageListItemBar
-                                          title={appearances.name}
-                                          subtitle={`Role: ${appearances.role}`}
-                                        />
-                                      </ImageListItem>
-                                    </ImageList>
-                                  </Link>
-                                </div>
-
-                                {/* <Divider /> */}
-                                {/*</Grid>*/}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </Carousel>
-                    </Grid>
-                  </div>
                   <Divider />
                 </div>
               </div>
@@ -626,4 +652,4 @@ function AnimeCharacterPage(props) {
   }
 }
 
-export default AnimeCharacterPage;
+export default CharacterVoiceActorPage;

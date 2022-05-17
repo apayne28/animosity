@@ -42,42 +42,51 @@ const AnimeInfoSideContent = (props) => {
   //   }
   // }, []);
 
-  const getAnime = useCallback(async (id) => {
-    // id = props.animeId;
-    try {
-      //Grabs Anime Data Object
-      const animeData = await fetch(
-        `https://api.jikan.moe/v4/anime/${id}`,
-      ).then((res) => res.json());
+  const getAnime = useCallback(
+    async (id) => {
+      // id = props.animeId;
+      try {
+        //Grabs Anime Data Object
+        const animeData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}`,
+        ).then((res) => res.json());
 
-      let animeResults = animeData.data;
-      console.log(animeResults);
-      setInfo(animeResults);
+        let animeResults = animeData.data;
+        console.log(animeResults);
+        setInfo(animeResults);
 
-      // Grabs Related Anime Data
-      let relatedAnimeData = await fetch(
-        `https://api.jikan.moe/v4/anime/${id}/relations`,
-      ).then((res) => res.json());
+        // await new Promise((resolve) => setTimeout(resolve, 2000));
+        // Grabs Related Anime Data
+        let relatedAnimeData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}/relations`,
+        ).then((res) => res.json());
 
-      let relatedAnimeDataResults = relatedAnimeData.data;
-      console.log("RelatedAnime", relatedAnimeDataResults);
-      setAnimeRelations(relatedAnimeDataResults);
-    } catch (error) {
-      console.log("Anime not found");
-    }
+        let relatedAnimeDataResults = relatedAnimeData.data;
+        console.log("RelatedAnime", relatedAnimeDataResults);
+        setAnimeRelations(relatedAnimeDataResults);
+      } catch (error) {
+        console.log("Anime not found");
+      }
 
-    try {
-      let animeRecommendationsData = await fetch(
-        `https://api.jikan.moe/v4/anime/${id}/recommendations`,
-      ).then((res) => res.json());
-      let animeRecommendationsDataResults = animeRecommendationsData.data;
+      if (!animeRecommendationsList) {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+      }
 
-      console.log("Recs", animeRecommendationsDataResults);
-      setAnimeRecommendationsList(animeRecommendationsDataResults);
-    } catch (error) {
-      console.log("Anime Recs not found");
-    }
-  }, []);
+      try {
+        let animeRecommendationsData = await fetch(
+          `https://api.jikan.moe/v4/anime/${id}/recommendations`,
+        ).then((res) => res.json());
+        let animeRecommendationsDataResults = animeRecommendationsData.data;
+
+        console.log("Recs", animeRecommendationsDataResults);
+        setAnimeRecommendationsList(animeRecommendationsDataResults);
+      } catch (error) {
+        console.log("Anime Recs not found");
+      }
+      // await new Promise((resolve) => setTimeout(resolve, 4000));
+    },
+    [animeRecommendationsList],
+  );
 
   useEffect(() => {
     if (!info && !animeRelations && !animeRecommendationsList) {

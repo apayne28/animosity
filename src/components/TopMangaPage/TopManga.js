@@ -70,12 +70,32 @@ const TopManga = () => {
         </div>
 
         <Divider />
+
+        {/* <div className='top-anime-top-category-container'> */}
+        <TopMangaBar />
         <Stack
           spacing={2}
-          sx={{ display: "flex", alignItems: "center", marginTop: "8%" }}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: "2%",
+            marginBottom: "1%",
+          }}
         >
           <Pagination
             count={401}
+            // classes={{ root: classes.numberLook }}
+            sx={{
+              "& .MuiButtonBase-root": {
+                color: "#ffffff",
+                fontSize: 20,
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#59c9a5",
+              },
+            }}
+            color='primary'
+            size='large'
             page={buttonCounter}
             onChange={(event, value) => {
               console.log(event, parseInt(event.target.innerText), value);
@@ -93,9 +113,6 @@ const TopManga = () => {
             }}
           />
         </Stack>
-        {/* <div className='top-anime-top-category-container'> */}
-        <TopMangaBar />
-
         <div className='search-page-contents'>
           <div className='top-anime-top-category-title'>
             {/* <Typography>Top Anime</Typography> */}
@@ -162,14 +179,55 @@ const TopManga = () => {
                           />
                         </Link>
                         <CardContent>
-                          <Typography
-                            sx={{ paddingBottom: "5%", fontSize: 30 }}
-                          >{`Rank: ${entry.rank}`}</Typography>
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                paddingBottom: "5%",
+                                fontSize: 30,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >
+                              Rank:
+                            </Typography>
+                            <Typography
+                              sx={{ paddingBottom: "5%", fontSize: 30 }}
+                            >
+                              {entry.rank}
+                            </Typography>
+                          </Box>
 
-                          <Typography
+                          <Box sx={{ display: "flex", paddingBottom: "5%" }}>
+                            <Typography
+                              sx={{
+                                fontSize: 20,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >
+                              Fans:
+                            </Typography>
+                            <Typography sx={{ fontSize: 20 }}>
+                              {entry.members}
+                            </Typography>
+                          </Box>
+                          {/* <Typography
                             sx={{ fontSize: 20 }}
-                          >{`${entry.members} fans`}</Typography>
-                          <Typography>{`Score: ${entry.score}`}</Typography>
+                          >{`${entry.members} fans`}</Typography> */}
+
+                          {/* <Typography>{`Score: ${entry.score}`}</Typography> */}
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                fontSize: 20,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >{`Score: `}</Typography>
+                            <Typography
+                              sx={{ fontSize: 20 }}
+                            >{`${entry.score}`}</Typography>
+                          </Box>
                         </CardContent>
                       </Card>
                     </ImageListItem>
@@ -182,6 +240,18 @@ const TopManga = () => {
           <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
             <Pagination
               count={401}
+              // classes={{ root: classes.numberLook }}
+              sx={{
+                "& .MuiButtonBase-root": {
+                  color: "#ffffff",
+                  fontSize: 20,
+                },
+                "& .Mui-selected": {
+                  backgroundColor: "#59c9a5",
+                },
+              }}
+              color='primary'
+              size='large'
               page={buttonCounter}
               onChange={(event, value) => {
                 console.log(event, parseInt(event.target.innerText), value);

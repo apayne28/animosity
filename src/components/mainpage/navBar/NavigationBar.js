@@ -16,6 +16,7 @@ import SearchBar from "./SearchBar";
 import { Box } from "@mui/system";
 import logo from "../../../logo2.png";
 import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavigationBar = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -74,8 +75,17 @@ const NavigationBar = () => {
 
       <Navbar.Toggle aria-controls='navbarScroll' />
       <Navbar.Collapse id='navbarScroll'>
-        <Nav>
-          <NavDropdown title='Anime' id='navbarScrollingDropdown'>
+        <Nav
+          style={{
+            // margin: "auto",
+            marginLeft: "5%",
+          }}
+        >
+          <NavDropdown
+            title='Anime'
+            id='navbarScrollingDropdown'
+            style={{ fontSize: 30, paddingRight: "50%" }}
+          >
             <NavDropdown.Item>
               <Link
                 to='/top-anime'
@@ -86,7 +96,7 @@ const NavigationBar = () => {
               </Link>
             </NavDropdown.Item>
           </NavDropdown>
-          <NavDropdown title='Manga'>
+          <NavDropdown title='Manga' style={{ fontSize: 30 }}>
             <NavDropdown.Item>
               <Link
                 to='/top-manga '

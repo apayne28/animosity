@@ -4,7 +4,7 @@ import {
   Grid,
   Button,
   Stack,
-  Pagination as MUIPagination,
+  Pagination as Pagination,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -19,10 +19,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import TopAnimeBar from "./TopAnimeBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import { Box } from "@mui/system";
-import { Pagination } from "react-bootstrap";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "styled-components";
+import { Box, fontSize } from "@mui/system";
 
 const TopAnime = (props) => {
   const location = useLocation();
@@ -37,21 +34,12 @@ const TopAnime = (props) => {
   let homepageAnime = location.state.animeList;
   let testCon = topScoredAnime ? topScoredAnime : homepageAnime;
 
-  const theme = createTheme({
-    status: {
-      danger: "#e53e3e",
-    },
-    palette: {
-      primary: {
-        main: "#0971f1",
-        darker: "#053e85",
-      },
-      neutral: {
-        main: "#64748B",
-        contrastText: "#fff",
-      },
-    },
-  });
+  // const paginationTheme = createTheme({
+  //   numberLook: {
+  //     color: "#ffffff",
+  //     fontSize: 20,
+  //   },
+  // });
 
   //   let type = location.state.animeType
 
@@ -70,6 +58,7 @@ const TopAnime = (props) => {
   //  };
 
   const getTopScoredAnime = useCallback(async () => {
+    // const paginationStyle = paginationTheme();
     try {
       //   const temp = await fetch(`https://api.jikan.moe/v4/top/anime`).then(
       //     (res) => res.json(),
@@ -98,15 +87,7 @@ const TopAnime = (props) => {
     }
   }, [getTopScoredAnime, homepageAnime, topScoredAnime]);
   // console.log(testCon);
-  let active = 1;
-  let items = [];
-  for (let number = 2; number <= 401; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>,
-    );
-  }
+
   if (testCon) {
     return (
       <div>
@@ -116,55 +97,50 @@ const TopAnime = (props) => {
         </div>
 
         <Divider />
+
+        {/* <div className='top-anime-top-category-container'> */}
+        <TopAnimeBar />
+
         <Stack
           spacing={2}
           sx={{
             display: "flex",
             alignItems: "center",
-            marginTop: "8%",
+            marginTop: "2%",
             marginBottom: "1%",
           }}
         >
-          {/* <Pagination
-            size='sm'
-            style={{ display: "flex", justifyContent: "center", width: "20%" }}
-          >
-            <Pagination.First />
-            <Pagination.Prev />
-            <Pagination.Item>{1}</Pagination.Item>
-            <Pagination.Ellipsis />
-            {items}
-          </Pagination> */}
-          <ThemeProvider theme={theme}>
-            <MUIPagination
-              count={401}
-              color='primary'
-              size='large'
-              page={buttonCounter}
-              onChange={(event, value) => {
-                console.log(event, parseInt(event.target.innerText), value);
-                // setButtonCounter(parseInt(e.target.innerText));
-                navigate(`/top-anime`, {
-                  state: {
-                    topFilter: category,
-                    page: parseInt(value),
-                  },
-                });
-                // e.preventDefault();
+          <Pagination
+            count={401}
+            // classes={{ root: classes.numberLook }}
+            sx={{
+              "& .MuiButtonBase-root": {
+                color: "#ffffff",
+                fontSize: 20,
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#59c9a5",
+              },
+            }}
+            color='primary'
+            size='large'
+            page={buttonCounter}
+            onChange={(event, value) => {
+              console.log(event, parseInt(event.target.innerText), value);
+              // setButtonCounter(parseInt(e.target.innerText));
+              navigate(`/top-anime`, {
+                state: {
+                  topFilter: category,
+                  page: parseInt(value),
+                },
+              });
+              // e.preventDefault();
 
-                window.location.reload();
-                window.scrollTo(0, 0);
-              }}
-            />
-          </ThemeProvider>
-          {/* <RBPagination>
-            <Pagination.First />
-            <Pagination.Previous />
-
-          </RBPagination> */}
+              window.location.reload();
+              window.scrollTo(0, 0);
+            }}
+          />
         </Stack>
-        {/* <div className='top-anime-top-category-container'> */}
-        <TopAnimeBar />
 
         <div className='search-page-contents'>
           <div className='top-anime-top-category-title'>
@@ -222,14 +198,55 @@ const TopAnime = (props) => {
                           />
                         </Link>
                         <CardContent>
-                          <Typography
-                            sx={{ paddingBottom: "5%", fontSize: 30 }}
-                          >{`Rank: ${entry.rank}`}</Typography>
-                          {/* <Typography>{`Aired: ${entry.aired.string}`}</Typography> */}
-                          <Typography
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                paddingBottom: "5%",
+                                fontSize: 30,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >
+                              Rank:
+                            </Typography>
+                            <Typography
+                              sx={{ paddingBottom: "5%", fontSize: 30 }}
+                            >
+                              {entry.rank}
+                            </Typography>
+                          </Box>
+
+                          <Box sx={{ display: "flex", paddingBottom: "5%" }}>
+                            <Typography
+                              sx={{
+                                fontSize: 20,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >
+                              Fans:
+                            </Typography>
+                            <Typography sx={{ fontSize: 20 }}>
+                              {entry.members}
+                            </Typography>
+                          </Box>
+                          {/* <Typography
                             sx={{ fontSize: 20 }}
-                          >{`${entry.members} fans`}</Typography>
-                          <Typography>{`Score: ${entry.score}`}</Typography>
+                          >{`${entry.members} fans`}</Typography> */}
+
+                          {/* <Typography>{`Score: ${entry.score}`}</Typography> */}
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                fontSize: 20,
+                                fontWeight: "bold",
+                                marginRight: " 5%",
+                              }}
+                            >{`Score: `}</Typography>
+                            <Typography
+                              sx={{ fontSize: 20 }}
+                            >{`${entry.score}`}</Typography>
+                          </Box>
                         </CardContent>
                       </Card>
                     </ImageListItem>
@@ -250,6 +267,18 @@ const TopAnime = (props) => {
           >
             <Pagination
               count={401}
+              // classes={{ root: classes.numberLook }}
+              sx={{
+                "& .MuiButtonBase-root": {
+                  color: "#ffffff",
+                  fontSize: 20,
+                },
+                "& .Mui-selected": {
+                  backgroundColor: "#59c9a5",
+                },
+              }}
+              color='primary'
+              size='large'
               page={buttonCounter}
               onChange={(event, value) => {
                 console.log(event, parseInt(event.target.innerText), value);

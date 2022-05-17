@@ -21,6 +21,8 @@ function AnimeInfoRecommendedAnime(props) {
   let navigate = useNavigate();
 
   const getAnimeRecs = useCallback(async (id) => {
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+
     try {
       let animeRecommendationsData = await fetch(
         `https://api.jikan.moe/v4/anime/${id}/recommendations`,
@@ -148,7 +150,22 @@ function AnimeInfoRecommendedAnime(props) {
         </Box>
       </Box>
     ) : (
-      <Typography sx={{ fontSize: 20 }}>N/A</Typography>
+      <Box
+        sx={{
+          backgroundColor: "#ffffff",
+          // display: "flex",
+          // justifyContent: "space-between",
+          // paddingRight: "2.5%",
+        }}
+      >
+        <h3>Recommended Anime</h3>
+
+        <Typography
+          sx={{ fontSize: 20, paddingBottom: "2%", marginLeft: " 1%" }}
+        >
+          N/A
+        </Typography>
+      </Box>
     );
   } else {
     return <LoadingScreen />;

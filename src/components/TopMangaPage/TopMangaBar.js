@@ -1,73 +1,102 @@
 import React from "react";
-import { AppBar, Typography } from "@mui/material";
+import { AppBar, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Nav, Navbar } from "react-bootstrap";
 
 function TopMangaBar() {
   return (
-    <Nav className='rb-navbar '>
-      <Nav.Item>
+    <Box sx={{ marginTop: "8%" }}>
+      <Nav className='rb-navbar '>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: " ", type: "manga" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>All Manga</Typography>
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: "oneshots" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Top One-shots</Typography>
+          </Link>
+        </Nav.Item>
         <Link
           to='/top-manga'
           onClick={() => window.location.reload()}
-          state={{ topFilter: " ", type: "manga" }}
+          state={{ topFilter: "doujin" }}
+          style={{
+            textDecoration: "none",
+            color: "#ffffff",
+          }}
         >
-          <Typography sx={{ fontSize: 28 }}>All Manga</Typography>
+          <Typography sx={{ fontSize: 28 }}>Top Doujinshi</Typography>
         </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link
-          to='/top-manga'
-          onClick={() => window.location.reload()}
-          state={{ topFilter: "oneshots" }}
-        >
-          <Typography sx={{ fontSize: 28 }}>Top One-shots</Typography>
-        </Link>
-      </Nav.Item>
-      <Link
-        to='/top-manga'
-        onClick={() => window.location.reload()}
-        state={{ topFilter: "doujin" }}
-      >
-        <Typography sx={{ fontSize: 28 }}>Top Doujinshi</Typography>
-      </Link>
-      <Nav.Item>
-        <Link
-          to='/top-manga'
-          onClick={() => window.location.reload()}
-          state={{ topFilter: "novels" }}
-        >
-          <Typography sx={{ fontSize: 28 }}>Top Light Novels</Typography>
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link
-          to='/top-manga'
-          onClick={() => window.location.reload()}
-          state={{ topFilter: "manhua" }}
-        >
-          <Typography sx={{ fontSize: 28 }}>Top Manhua</Typography>
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link
-          to='/top-manga'
-          onClick={() => window.location.reload()}
-          state={{ topFilter: "bypopularity" }}
-        >
-          <Typography sx={{ fontSize: 28 }}>Most Popular</Typography>
-        </Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Link
-          to='/top-manga'
-          onClick={() => window.location.reload()}
-          state={{ topFilter: "favorite" }}
-        >
-          <Typography sx={{ fontSize: 28 }}>Most Favorited</Typography>
-        </Link>
-      </Nav.Item>
-      {/* <Nav.Item>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: "novels" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Top Light Novels</Typography>
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: "manhua" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Top Manhua</Typography>
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: "bypopularity" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Most Popular</Typography>
+          </Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
+            state={{ topFilter: "favorite" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Most Favorited</Typography>
+          </Link>
+        </Nav.Item>
+        {/* <Nav.Item>
         <Link
           to='/top-anime'
           onClick={() => window.location.reload()}
@@ -85,7 +114,8 @@ function TopMangaBar() {
           <Typography>Most Favorited</Typography>
         </Link>
       </Nav.Item> */}
-    </Nav>
+      </Nav>
+    </Box>
     // <AppBar position='static'>
     //   <div className='top-anime-navigation-bar-items'>
     //     <Link

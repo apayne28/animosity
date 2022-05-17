@@ -19,6 +19,9 @@ import MangaCharacterList from "./components/CharacterListPage/MangaCharacterLis
 import AnimeRecPage from "./components/RecommendePages/AnimeRecPage.js";
 import MangaRecPage from "./components/RecommendePages/MangaRecPage.js";
 import GenreListPage from "./components/Genres/GenreListPage.js";
+import { createTheme, ThemeProvider } from "@mui/material";
+import CharacterVoiceActorPage from "./components/CharacterVoiceActorPage/CharacterVoiceActorPage.js";
+import VoiceActorRoleListPage from "./components/CharacterVoiceActorPage/VoiceActorRoleListPage.js";
 
 // import { Routes } from "react-router";
 
@@ -82,33 +85,53 @@ const App = () => {
   //   GetTopAnime();
   //   GetTopManga();
   // }, []);
+  const THEME = createTheme({
+    // typography: {
+    //   fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+    //   fontSize: 14,
+    //   fontWeightLight: 300,
+    //   fontWeightRegular: 400,
+    //   fontWeightMedium: 500,
+    // },
+    pagination: { fontSize: 45 },
+  });
 
   return (
-    <div className='App'>
-      <Routes>
-        <Route path='/' element={<Mainpage />}></Route>
-        <Route path='/anime-info' element={<AnimeInfo />}></Route>
-        <Route path='/manga-info' element={<MangaInfo />}></Route>
-        <Route path='/top-anime' element={<TopAnime />}></Route>
-        <Route path='/top-manga' element={<TopManga />}></Route>
-        <Route path='/search-page' element={<SearchPage />}></Route>
-        <Route
-          path='/character-profile'
-          element={<AnimeCharacterPage />}
-        ></Route>
-        <Route
-          path='/anime-character-list-page'
-          element={<AnimeCharacterListPage />}
-        ></Route>
-        <Route
-          path='/manga-character-list-page'
-          element={<MangaCharacterList />}
-        ></Route>
-        <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
-        <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
-        <Route path='genre-list-page' element={<GenreListPage />}></Route>
-      </Routes>
-    </div>
+    <ThemeProvider theme={THEME}>
+      <div className='App'>
+        <Routes>
+          <Route path='/' element={<Mainpage />}></Route>
+          <Route path='/anime-info' element={<AnimeInfo />}></Route>
+          <Route path='/manga-info' element={<MangaInfo />}></Route>
+          <Route path='/top-anime' element={<TopAnime />}></Route>
+          <Route path='/top-manga' element={<TopManga />}></Route>
+          <Route path='/search-page' element={<SearchPage />}></Route>
+          <Route
+            path='/character-profile'
+            element={<AnimeCharacterPage />}
+          ></Route>
+          <Route
+            path='/anime-character-list-page'
+            element={<AnimeCharacterListPage />}
+          ></Route>
+          <Route
+            path='character-voice-actor-page'
+            element={<CharacterVoiceActorPage />}
+          ></Route>
+          <Route
+            path='voice-actor-role-list-page'
+            element={<VoiceActorRoleListPage />}
+          ></Route>
+          <Route
+            path='/manga-character-list-page'
+            element={<MangaCharacterList />}
+          ></Route>
+          <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
+          <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
+          <Route path='genre-list-page' element={<GenreListPage />}></Route>
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 };
 

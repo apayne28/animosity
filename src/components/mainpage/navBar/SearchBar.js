@@ -23,6 +23,7 @@ const SearchBar = (props) => {
   const [search, setSearch] = useState("");
   const [type, setType] = useState("anime");
   let navigate = useNavigate();
+  const isValid = search.length >= 3;
 
   const FetchAnime = async (query) => {
     // const temp = await fetch(
@@ -97,16 +98,18 @@ const SearchBar = (props) => {
         className='d-flex'
         aria-label='Search'
         value={props.search}
-        validated={search.length >= 3}
+        validated={isValid}
         onSubmit={async (e) => {
-          e.preventDefault();
+          if (isValid) {
+            e.preventDefault();
 
-          FetchAnime(search);
-          console.log(search, type);
-          navigate(`/search-page`, {
-            state: { searchQuery: search, searchType: type },
-          });
-          window.location.reload();
+            FetchAnime(search);
+            console.log(search, type);
+            navigate(`/search-page`, {
+              state: { searchQuery: search, searchType: type },
+            });
+            window.location.reload();
+          }
         }}
         onChange={(e) => {
           setSearch(e.target.value);

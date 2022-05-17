@@ -15,6 +15,7 @@ import LoadingScreen from "../LoadingScreen";
 import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import Carousel from "react-elastic-carousel";
+import axios from "axios";
 
 function MangaInfoRecommendedManga(props) {
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
@@ -22,6 +23,8 @@ function MangaInfoRecommendedManga(props) {
   let navigate = useNavigate();
 
   const getMangaRecs = useCallback(async (id) => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     try {
       //Grabs Manga Recs
       let mangaRecommendationsData = await fetch(
@@ -34,6 +37,37 @@ function MangaInfoRecommendedManga(props) {
       console.log("Manga Recs not found");
     }
   }, []);
+
+  // const getMangaRecs2 = useCallback(async (id) => {
+  //   try {
+  //     //Grabs Manga Recs
+  //     let mangaRecommendationsData = await axios
+  //       .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
+  //       .then((res) => res.json());
+  //     let mangaRecommendationsDataResults = mangaRecommendationsData.data;
+
+  //     setMangaRecommendationsList(mangaRecommendationsDataResults);
+  //   } catch (error) {
+  //     console.log("Manga Recs not found");
+  //   }
+  // }, []);
+
+  //  const getMangaRecs2 = async (id) => {
+  //    axios
+  //      .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
+  //      .then((res) => res.json());
+  //       try {
+  //         //Grabs Manga Recs
+  //         let mangaRecommendationsData = await axios
+  //           .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
+  //           .then((res) => res.json());
+  //         let mangaRecommendationsDataResults = mangaRecommendationsData.data;
+
+  //         setMangaRecommendationsList(mangaRecommendationsDataResults);
+  //       } catch (error) {
+  //         console.log("Manga Recs not found");
+  //       }
+  //  }
 
   useEffect(() => {
     if (!mangaRecommendationsList) {

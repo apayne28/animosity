@@ -5,15 +5,21 @@ import { Nav, Navbar } from "react-bootstrap";
 
 function TopAnimeBar() {
   return (
-    <Box>
+    <Box sx={{ marginTop: "8%" }}>
       <Nav className='rb-navbar '>
         <Nav.Item>
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: " ", type: "anime" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>All Anime</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              All Anime
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -21,24 +27,42 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "airing" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Top Airing</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Top Airing
+            </Typography>
           </Link>
         </Nav.Item>
         <Link
           to='/top-anime'
           onClick={() => window.location.reload()}
           state={{ topFilter: "upcoming" }}
+          style={{
+            textDecoration: "none",
+            color: "#ffffff",
+          }}
         >
-          <Typography sx={{ fontSize: 28 }}>Top Upcoming</Typography>
+          <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+            Top Upcoming
+          </Typography>
         </Link>
         <Nav.Item>
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "tv" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Top TV Series</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Top TV Series
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -46,8 +70,14 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "movie" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Top Movies</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Top Movies
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -55,8 +85,14 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "ova" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Top OVAs</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Top OVAs
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -64,8 +100,14 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "special" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Top Specials</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Top Specials
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -73,8 +115,14 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "bypopularity" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Most Popular</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Most Popular
+            </Typography>
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -82,8 +130,14 @@ function TopAnimeBar() {
             to='/top-anime'
             onClick={() => window.location.reload()}
             state={{ topFilter: "favorite" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
           >
-            <Typography sx={{ fontSize: 28 }}>Most Favorited</Typography>
+            <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
+              Most Favorited
+            </Typography>
           </Link>
         </Nav.Item>
       </Nav>

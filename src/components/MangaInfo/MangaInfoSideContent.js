@@ -11,6 +11,7 @@ import { Box } from "@mui/system";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import LoadingScreen from "../LoadingScreen";
 import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import MangaInfoRecommendedManga from "./MangaInfoRecommendedManga";
@@ -26,7 +27,7 @@ const MangaInfoSideContent = (props) => {
 
   const getManga = useCallback(
     async (id) => {
-      id = props.mangaId;
+      // id = props.mangaId;
       console.log(id);
       try {
         //Grabs Manga Data Object
@@ -52,6 +53,10 @@ const MangaInfoSideContent = (props) => {
         console.log("Manga not found");
       }
 
+      if (!mangaRecommendationsList) {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+      }
+
       try {
         //Grabs Manga Recs
         let mangaRecommendationsData = await fetch(
@@ -64,7 +69,7 @@ const MangaInfoSideContent = (props) => {
         console.log("Manga Recs not found");
       }
     },
-    [props.mangaId],
+    [mangaRecommendationsList],
   );
 
   useEffect(() => {
@@ -108,7 +113,7 @@ const MangaInfoSideContent = (props) => {
   //   // getExternalAnimeLinks(50265).catch(console.error);
   // }, [getManga, info, props.mangaId]);
 
-  if (info && mangaRelations) {
+  if ((info && mangaRelations, mangaRecommendationsList)) {
     return (
       <div>
         <div className='manga-info-main'>
@@ -335,43 +340,63 @@ const MangaInfoSideContent = (props) => {
 
                   <h3>Related Manga</h3>
                   <div className='anime-info-related-anime-container'>
-                    {mangaRelations.length > 0
-                      ? mangaRelations.map((info) => {
-                          let relatedAnime = info.entry;
-                          let relatedAnimeType = info.relation;
-                          console.log(info);
-                          return relatedAnime.map((single) => {
-                            console.log(single);
-                            return (
-                              <div>
-                                <MuiLink
-                                  onClick={(e) => {
-                                    navigate(
-                                      single.type === "anime"
-                                        ? "/anime-info"
-                                        : "/manga-info",
+                    {mangaRelations.length > 0 ? (
+                      mangaRelations.map((info) => {
+                        let relatedAnime = info.entry;
+                        let relatedAnimeType = info.relation;
+                        console.log(info);
+                        return relatedAnime.map((single) => {
+                          console.log(single);
+                          return (
+                            <div>
+                              <MuiLink
+                                onClick={(e) => {
+                                  navigate(
+                                    single.type === "anime"
+                                      ? "/anime-info"
+                                      : "/manga-info",
 
-                                      single.type === "anime"
-                                        ? { state: { animeId: single.mal_id } }
-                                        : { state: { mangaId: single.mal_id } },
-                                    );
-                                    window.location.reload();
+                                    single.type === "anime"
+                                      ? { state: { animeId: single.mal_id } }
+                                      : { state: { mangaId: single.mal_id } },
+                                  );
+                                  window.location.reload();
+                                }}
+                              >
+                                <Typography
+                                  className='anime-info-related-anime-item'
+                                  sx={{
+                                    padding: "0.5%",
+                                    fontSize: 19,
+                                    paddingLeft: "1%",
                                   }}
-                                >
-                                  <Typography
-                                    className='anime-info-related-anime-item'
-                                    sx={{
-                                      padding: "0.5%",
-                                      fontSize: 19,
-                                      paddingLeft: "1%",
-                                    }}
-                                  >{`${relatedAnimeType}: ${single.name}`}</Typography>
-                                </MuiLink>
-                              </div>
-                            );
-                          });
-                        })
-                      : "N/A"}
+                                >{`${relatedAnimeType}: ${single.name}`}</Typography>
+                              </MuiLink>
+                            </div>
+                          );
+                        });
+                      })
+                    ) : (
+                      <Box
+                        sx={{
+                          backgroundColor: "#ffffff",
+                          // display: "flex",
+                          // justifyContent: "space-between",
+                          // paddingRight: "2.5%",
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: 20,
+                            paddingBottom: "1%",
+                            marginLeft: " 1%",
+                            marginTop: " 2%",
+                          }}
+                        >
+                          N/A
+                        </Typography>
+                      </Box>
+                    )}
                   </div>
                   <Divider sx={{ pb: 4 }} />
 
@@ -387,7 +412,11 @@ const MangaInfoSideContent = (props) => {
       </div>
     );
   } else {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <LoadingScreen />
+      </div>
+    );
   }
 };
 

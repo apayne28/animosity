@@ -20,6 +20,7 @@ function MangaInfoCharacters(props) {
   let navigate = useNavigate();
 
   const getMangaCharacters = useCallback(async (id) => {
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
       let mangaCharactersData = await fetch(
         `https://api.jikan.moe/v4/manga/${id}/characters`,
