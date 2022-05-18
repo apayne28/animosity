@@ -26,6 +26,8 @@ import CharacterVoiceActorAnimePage from "./components/CharacterVoiceActorPage/C
 import AnimeCharacterVoiceActorPage from "./components/CharacterPage/AnimeCharacterVoiceActorPage.js";
 import AnimeCharacterAnimePage from "./components/CharacterPage/AnimeCharacterAnimePage.js";
 import AnimeCharacterMangaPage from "./components/CharacterPage/AnimeCharacterMangaPage.js";
+import MangaAuthorPage from "./components/MangaAuthor/MangaAuthorPage.js";
+import MangaAuthorMangaPage from "./components/MangaAuthor/MangaAuthorMangaPage.js";
 
 // import { Routes } from "react-router";
 
@@ -141,6 +143,11 @@ const App = () => {
           <Route
             path='voice-actor-anime-list-page'
             element={<CharacterVoiceActorAnimePage />}
+          ></Route>
+          <Route path='manga-author-page' element={<MangaAuthorPage />}></Route>
+          <Route
+            path='manga-author-manga-list'
+            element={<MangaAuthorMangaPage />}
           ></Route>
           <Route
             path='/manga-character-list-page'

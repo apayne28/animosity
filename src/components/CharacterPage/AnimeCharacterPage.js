@@ -58,7 +58,7 @@ function AnimeCharacterPage(props) {
     { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
   ];
 
-  console.log(animeCharacter);
+  console.log(animeCharacter, location);
   if (animeCharacter) {
     return (
       <div style={{ height: "100vh" }}>
@@ -246,6 +246,7 @@ function AnimeCharacterPage(props) {
                               ? "auto"
                               : ""
                           }`,
+                          marginTop: "2%",
                         }}
                       >
                         <Grid
@@ -342,15 +343,16 @@ function AnimeCharacterPage(props) {
                         className='anime-character-voice-actors'
                         style={{
                           width: `${
-                            animeCharacter.voice_actors.length >= 1
-                              ? "95%"
-                              : "50%"
+                            animeCharacter.voice_actors.length >= 2
+                              ? "60%"
+                              : "60%"
                           }`,
                           margin: `${
                             animeCharacter.voice_actors.length >= 5
                               ? "auto"
-                              : ""
+                              : "auto"
                           }`,
+                          marginTop: "2%",
                         }}
                       >
                         <Grid
@@ -443,6 +445,7 @@ function AnimeCharacterPage(props) {
                       margin: `${
                         animeCharacter.voice_actors.length >= 5 ? "auto" : ""
                       }`,
+                      marginTop: "2%",
                     }}
                   >
                     <Grid

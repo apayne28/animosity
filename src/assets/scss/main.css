@@ -376,8 +376,10 @@ body {
 .manga-info-main {
   display: flex;
   /* flex-direction: row; */
-  width: 100%;
+  /* width: 95%; */
   margin: auto;
+  height: "100vh";
+  /* margin-top: 2%; */
 }
 
 .anime-character-list-contents {
@@ -564,7 +566,7 @@ body {
   background-color: white;
   padding: 1%;
   border-radius: 5px;
-  margin-top: 0.9%;
+  /* margin-top: 0.9%; */
 }
 
 .footer {

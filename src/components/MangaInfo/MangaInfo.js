@@ -17,15 +17,9 @@ const MangaInfo = (props) => {
   console.log(location.state.mangaId);
 
   return (
-    <Box className='anime-info-container'>
-      <div className='header-content'>
-        {/* <Header /> */}
-
-        <NavigationBar />
-      </div>
-      <div className='anime-info-main'>
+    <Box>
+      <div>
         <MangaInfoSideContent mangaId={id} />
-        {/* <MangaInfoMainGuts mangaId={id} /> */}
       </div>
     </Box>
   );

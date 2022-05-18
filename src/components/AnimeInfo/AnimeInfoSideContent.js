@@ -13,6 +13,7 @@ import { useState, useEffect, useCallback } from "react";
 import ReactPlayer from "react-player";
 import { useNavigate, Link } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
+import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 import AnimeInfoCharacters from "./AnimeInfoCharacters";
 import AnimeInfoRecommendedAnime from "./AnimeInfoRecommendedAnime";
@@ -116,6 +117,8 @@ const AnimeInfoSideContent = (props) => {
   if (info && animeRelations && animeRecommendationsList) {
     return (
       <div>
+        <NavigationBar />
+
         <div className='anime-info-main'>
           <div className='anime-info-side-content'>
             <ImageList cols={1}>

@@ -107,7 +107,10 @@ function AnimeCharacterVoiceActorPage(props) {
                             alt={actor.name}
                           />
 
-                          <ImageListItemBar title={actor.name} />
+                          <ImageListItemBar
+                            title={actor.name}
+                            subtitle={actor.language}
+                          />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}

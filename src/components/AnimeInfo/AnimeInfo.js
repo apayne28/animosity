@@ -14,16 +14,9 @@ const AnimeInfo = (props) => {
   console.log(props.animeId, location, id);
 
   return (
-    <Box className='anime-info-container'>
-      <div className='header-content'>
-        {/* <Header /> */}
-
-        <NavigationBar />
-      </div>
-      {/* <div className='anime-info-main'> */}
+    <Box>
       <div>
         <AnimeInfoSideContent animeId={id} />
-        {/* <AnimeInfoMainGuts animeId={id} /> */}
       </div>
     </Box>
   );

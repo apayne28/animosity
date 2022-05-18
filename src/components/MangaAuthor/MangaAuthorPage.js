@@ -14,30 +14,31 @@ import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
 import { Accordion } from "react-bootstrap";
-import VoiceActorDetails from "./VoiceActorDetails";
+import VoiceActorDetails from "../CharacterVoiceActorPage/VoiceActorDetails";
+import MangaAuthorDetails from "./MangaAuthorDetails";
 
-function CharacterVoiceActorPage(props) {
+function MangaAuthorPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
-  let characterValue = location.state.characterValue;
-  let actor = characterValue ? characterValue : location.state.voiceActor;
+  let authorValue = location.state.voiceActor;
+  let actor = authorValue ? authorValue : location.state.authorId;
 
-  const [voiceActor, setVoiceActor] = useState();
-  const [voiceRoles, setVoiceRoles] = useState();
+  const [author, setAuthor] = useState();
+  const [authorManga, setAuthorManga] = useState();
 
   console.log(location);
-  const getVoiceActor = useCallback(async () => {
+  const getAuthor = useCallback(async () => {
     // id = props.characterId;
 
     try {
-      const voiceActorData = await fetch(
+      const authorData = await fetch(
         `https://api.jikan.moe/v4/people/${actor}`,
       ).then((res) => res.json());
 
-      console.log(voiceActorData);
-      let voiceActorResults = voiceActorData;
-      setVoiceActor(voiceActorResults.data);
-      console.log(voiceActor);
+      console.log(authorData);
+      let voiceActorResults = authorData;
+      setAuthor(voiceActorResults.data);
+      console.log(author);
     } catch (error) {
       console.log("Character not found");
     }
@@ -45,24 +46,24 @@ function CharacterVoiceActorPage(props) {
     //Get Voice Roles
 
     try {
-      const voiceActorRoleData = await fetch(
-        `https://api.jikan.moe/v4/people/${actor}/voices`,
+      const authorMangaData = await fetch(
+        `https://api.jikan.moe/v4/people/${actor}/manga`,
       ).then((res) => res.json());
 
-      console.log(voiceActorRoleData);
-      let voiceActorRoleResults = voiceActorRoleData.data;
-      setVoiceRoles(voiceActorRoleResults);
-      console.log(voiceRoles);
+      console.log(authorMangaData);
+      let voiceActorRoleResults = authorMangaData.data;
+      setAuthorManga(voiceActorRoleResults);
+      console.log(authorManga);
     } catch (error) {
       console.log("Character not found");
     }
-  }, [actor, voiceActor, voiceRoles]);
+  }, [actor, author, authorManga]);
 
   useEffect(() => {
-    if (!voiceActor && !voiceRoles) {
-      getVoiceActor(characterValue);
+    if (!author && !author) {
+      getAuthor(authorValue);
     }
-  }, [characterValue, getVoiceActor, voiceActor, voiceRoles]);
+  }, [author, authorValue, getAuthor]);
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -76,48 +77,49 @@ function CharacterVoiceActorPage(props) {
   let filteredVoiceRoles;
   let filteredAnime;
 
-  if (voiceRoles) {
-    filteredVoiceRoles = voiceRoles.filter(
-      (value, index, self) =>
-        index ===
-        self.findIndex(
-          (t) =>
-            t.character.name === value.character.name &&
-            t.name === value.character.anime,
-        ),
-    );
+  //   if (authorManga) {
+  //     filteredVoiceRoles = voiceRoles.filter(
+  //       (value, index, self) =>
+  //         index ===
+  //         self.findIndex(
+  //           (t) =>
+  //             t.character.name === value.character.name &&
+  //             t.name === value.character.anime,
+  //         ),
+  //     );
 
-    filteredAnime = filteredVoiceRoles.filter(
-      (value, index, self) =>
-        index ===
-        self.findIndex(
-          (t) =>
-            t.anime.title === value.anime.title &&
-            t.anime.title === value.anime.title,
-        ),
-    );
-  }
-  console.log(filteredVoiceRoles, filteredAnime);
-  if (voiceActor && filteredVoiceRoles) {
+  //     filteredAnime = filteredVoiceRoles.filter(
+  //       (value, index, self) =>
+  //         index ===
+  //         self.findIndex(
+  //           (t) =>
+  //             t.anime.title === value.anime.title &&
+  //             t.anime.title === value.anime.title,
+  //         ),
+  //     );
+  //   }
+  console.log(author, authorManga);
+  if (author && authorManga) {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <Box>
           <div className='header-content'>
             {/* <Header /> */}
             <NavigationBar />
           </div>
         </Box>
+
         <div className='anime-characters-main'>
           <div className='anime-character-side-content'>
             <ImageList cols={1}>
               <ImageListItem>
                 <Box
                   component='img'
-                  src={voiceActor.images.jpg.image_url}
-                  alt={voiceActor.name}
+                  src={author.images.jpg.image_url}
+                  alt={author.name}
                 />
                 <ImageListItemBar
-                  title={<Typography>{voiceActor.name}</Typography>}
+                  title={<Typography>{author.name}</Typography>}
                   //   subtitle={
                   //     <Typography>{`${
                   //       animeCharacter.name_kanji
@@ -130,7 +132,7 @@ function CharacterVoiceActorPage(props) {
             </ImageList>
 
             <div className='anime-characters-nickname-container'>
-              {voiceActor.alternate_names.length > 0 ? (
+              {author.alternate_names.length > 0 ? (
                 <Grid item sx={{ paddingBottom: 5 }}>
                   <Typography
                     sx={{
@@ -143,7 +145,7 @@ function CharacterVoiceActorPage(props) {
                   >
                     Nicknames:
                   </Typography>
-                  {voiceActor.alternate_names.map((nicknames) => {
+                  {author.alternate_names.map((nicknames) => {
                     return (
                       <Typography sx={{ padding: "2%", fontSize: 19 }}>
                         {nicknames}
@@ -169,15 +171,15 @@ function CharacterVoiceActorPage(props) {
               </Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 25 }}
-              >{`${voiceActor.favorites}`}</Typography>
+              >{`${author.favorites}`}</Typography>
             </div>
           </div>
           <div className='anime-character-main-info-container'>
             <div>
-              <VoiceActorDetails
-                animeId={actor}
-                charList={filteredVoiceRoles}
-                animeRecList={filteredAnime}
+              <MangaAuthorDetails
+                authorId={actor}
+                // charList={filteredVoiceRoles}
+                authorMangaList={authorManga}
               />
             </div>
             <div className='anime-info-character-info-content'>
@@ -188,7 +190,7 @@ function CharacterVoiceActorPage(props) {
                 <Typography
                   variant='h3'
                   sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
-                >{`${voiceActor.name} `}</Typography>
+                >{`${author.name} `}</Typography>
               </div>
 
               <div className='anime-info-content-guts'>
@@ -215,7 +217,7 @@ function CharacterVoiceActorPage(props) {
                     </Accordion.Item>
                   </Accordion> */}
                   <h3>Background</h3>
-                  {voiceActor.about ? (
+                  {author.about ? (
                     <div>
                       <Typography
                         variant='body2'
@@ -227,7 +229,7 @@ function CharacterVoiceActorPage(props) {
                           // margin: "auto",
                         }}
                       >
-                        {voiceActor.about}
+                        {author.about}
                       </Typography>
                       <Divider sx={{ paddingTop: 2 }} />
                     </div>
@@ -253,106 +255,6 @@ function CharacterVoiceActorPage(props) {
                     </Box>
                   )}
 
-                  <Box
-                    sx={{
-                      backgroundColor: "#56e39f",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      paddingRight: "2.5%",
-                    }}
-                  >
-                    <h3>Roles</h3>
-                    <Link
-                      to='/voice-actor-role-list-page'
-                      state={{
-                        roleList: filteredVoiceRoles,
-                        voiceActor: voiceActor.mal_id,
-                        animeList: filteredAnime,
-                      }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Typography
-                        sx={{
-                          // padding: "0.5%",
-                          fontSize: 29,
-                          // display: "flex",
-                          // justifyContent: "flex-end",
-                          marginTop: "17%",
-                          // marginRight: "1%",
-                        }}
-                      >
-                        {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
-                        View More
-                      </Typography>
-                    </Link>
-                  </Box>
-
-                  <div
-                    className='anime-character-voice-actors'
-                    style={{
-                      width: `${
-                        filteredVoiceRoles.length >= 1 ? "95%" : "50%"
-                      }`,
-                      margin: `${
-                        filteredVoiceRoles.length >= 5 ? "auto" : "auto"
-                      }`,
-                      marginTop: "2%",
-                    }}
-                  >
-                    <Grid
-                      container
-                      xs={1}
-                      sm={5}
-                      md={12}
-                      // className='anime-info-character-list'
-                      // sx={{ display: "flex", margin: "auto" }}
-                    >
-                      <Carousel breakPoints={breakPoints}>
-                        {filteredVoiceRoles.map((actor) => {
-                          console.log(actor.character);
-                          return (
-                            <div>
-                              <ImageList cols={1} rowHeight={400}>
-                                <Link
-                                  to='/character-profile'
-                                  state={{
-                                    roleList: filteredVoiceRoles,
-                                    voiceActor: voiceActor.mal_id,
-                                    animeList: filteredAnime,
-                                    characterId: actor.character.mal_id,
-                                  }}
-                                >
-                                  <ImageListItem>
-                                    <Box
-                                      component='img'
-                                      src={actor.character.images.jpg.image_url}
-                                      alt={actor.character.name}
-                                      sx={{
-                                        width: "100%",
-                                        height: "100%",
-                                        borderRadius: 1,
-                                      }}
-                                    />
-                                    <ImageListItemBar
-                                      title={
-                                        <Typography>
-                                          {actor.character.name}
-                                        </Typography>
-                                      }
-                                      subtitle={
-                                        <Typography>{`Role: ${actor.role}`}</Typography>
-                                      }
-                                    />
-                                  </ImageListItem>
-                                </Link>
-                              </ImageList>
-                            </div>
-                          );
-                        })}
-                      </Carousel>
-                    </Grid>
-                  </div>
-
                   <Divider />
                   <Box
                     sx={{
@@ -362,14 +264,13 @@ function CharacterVoiceActorPage(props) {
                       paddingRight: "2.5%",
                     }}
                   >
-                    <h3>Animeography</h3>
+                    <h3>Mangaography</h3>
 
                     <Link
-                      to='/voice-actor-anime-list-page'
+                      to='/manga-author-manga-list'
                       state={{
-                        roleList: filteredVoiceRoles,
-                        voiceActor: voiceActor.mal_id,
-                        animeList: filteredAnime,
+                        voiceActor: author.mal_id,
+                        animeList: authorManga,
                       }}
                       style={{ textDecoration: "none" }}
                     >
@@ -392,8 +293,8 @@ function CharacterVoiceActorPage(props) {
                   <div
                     className='anime-character-voice-actors'
                     style={{
-                      width: `${filteredAnime >= 5 ? "95%" : "60%"}`,
-                      margin: `${filteredAnime >= 5 ? "auto" : "auto"}`,
+                      width: `${authorManga.length >= 5 ? "95%" : "60%"}`,
+                      margin: `${authorManga.length >= 5 ? "auto" : "auto"}`,
                       marginTop: "2%",
                     }}
                   >
@@ -406,21 +307,21 @@ function CharacterVoiceActorPage(props) {
                       // className='anime-info-character-list'
                     >
                       <Carousel breakPoints={breakPoints}>
-                        {filteredAnime.map((appearances) => {
+                        {authorManga.map((appearances) => {
                           return (
                             <div>
                               <Link
-                                to='/anime-info'
-                                state={{ animeId: appearances.anime.mal_id }}
+                                to='/manga-info'
+                                state={{ mangaId: appearances.manga.mal_id }}
                               >
                                 <ImageList cols={1} rowHeight={400}>
                                   <ImageListItem>
                                     <Box
                                       component='img'
                                       src={
-                                        appearances.anime.images.jpg.image_url
+                                        appearances.manga.images.jpg.image_url
                                       }
-                                      alt={appearances.anime.title}
+                                      alt={appearances.manga.title}
                                       sx={{
                                         width: "100%",
                                         height: "100%",
@@ -428,8 +329,8 @@ function CharacterVoiceActorPage(props) {
                                       }}
                                     />
                                     <ImageListItemBar
-                                      title={appearances.anime.title}
-                                      //   subtitle={`Role: ${appearances.role}`}
+                                      title={appearances.manga.title}
+                                      subtitle={`Role: ${appearances.position}`}
                                     />
                                   </ImageListItem>
                                 </ImageList>
@@ -454,4 +355,4 @@ function CharacterVoiceActorPage(props) {
   }
 }
 
-export default CharacterVoiceActorPage;
+export default MangaAuthorPage;
