@@ -76,31 +76,36 @@ const NavigationBar = () => {
       <Navbar.Toggle aria-controls='navbarScroll' />
       <Navbar.Collapse id='navbarScroll'>
         <Nav
-          style={{
-            // margin: "auto",
-            marginLeft: "5%",
-          }}
+          style={
+            {
+              // margin: "auto",
+              // marginLeft: "2%",
+            }
+          }
         >
           <NavDropdown
             title='Anime'
             id='navbarScrollingDropdown'
-            style={{ fontSize: 30, paddingRight: "50%" }}
+            style={{ fontSize: 30, paddingRight: "10%", marginTop: "0.5%" }}
           >
             <NavDropdown.Item>
               <Link
                 to='/top-anime'
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", color: "#3B2C35" }}
                 state={{ topFilter: " ", type: "anime" }}
               >
                 Top Anime
               </Link>
             </NavDropdown.Item>
           </NavDropdown>
-          <NavDropdown title='Manga' style={{ fontSize: 30 }}>
+          <NavDropdown
+            title='Manga'
+            style={{ fontSize: 30, paddingRight: "50%" }}
+          >
             <NavDropdown.Item>
               <Link
                 to='/top-manga '
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", color: "#3B2C35" }}
                 state={{ topFilter: " ", type: "manga" }}
               >
                 Top Manga

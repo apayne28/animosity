@@ -94,7 +94,9 @@ const HomepageContent = () => {
   return (
     <div className='homepage-content'>
       <div className='homepage-header-content'>
-        <h3>Spring 2022 Anime</h3>
+        <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+          Spring 2022 Anime
+        </Typography>
         <Link to='/top-anime' state={{ animeList: springAnime }}>
           <Typography
             sx={{
@@ -115,8 +117,8 @@ const HomepageContent = () => {
           {springAnime.map((anime, aniKey) => {
             return (
               // <Grid item className='individual-featured-anime-container'>
-              <div key={aniKey}>
-                <ImageList cols={1}>
+              <div key={aniKey} style={{ width: "95%" }}>
+                <ImageList cols={1} rowHeight={500}>
                   <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
                     <ImageListItem key={anime.id}>
                       <Box
@@ -124,6 +126,7 @@ const HomepageContent = () => {
                         className='featured-anime-image'
                         src={anime.images.jpg.image_url}
                         alt={anime.title}
+                        sx={{ width: "100%", height: "100%" }}
                       />
                       <ImageListItemBar title={anime.title} />
                     </ImageListItem>
@@ -138,7 +141,10 @@ const HomepageContent = () => {
       </Box>
 
       <div className='homepage-header-content'>
-        <h3>Upcoming Summer 2022 Anime</h3>
+        {/* <h3>Upcoming Summer 2022 Anime</h3> */}
+        <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+          Upcoming Summer 2022 Anime
+        </Typography>
         <Link to='/top-anime' state={{ animeList: summerAnime }}>
           <Typography
             sx={{
@@ -159,14 +165,15 @@ const HomepageContent = () => {
           {summerAnime.map((anime, aniKey) => {
             return (
               // <Grid item className='individual-featured-anime-container'>
-              <div key={aniKey}>
-                <ImageList cols={1}>
+              <div key={aniKey} style={{ width: "95%" }}>
+                <ImageList cols={1} rowHeight={500}>
                   <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
                     <ImageListItem key={anime.id} cols={1} rows={1}>
                       <img
                         className='featured-anime-image'
                         src={anime.images.jpg.image_url}
                         alt={anime.title}
+                        sx={{ width: "100%", height: "100%" }}
                       />
                       <ImageListItemBar title={anime.title} />
                     </ImageListItem>
@@ -180,12 +187,15 @@ const HomepageContent = () => {
         </Carousel>
       </Box>
 
-      <h3>Watch Recent Promos</h3>
+      {/* <h3>Watch Recent Promos</h3> */}
+      <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+        Watch Recent Promos
+      </Typography>
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={promoBreakPoints}>
           {recentPromos.map((anime, aniKey) => {
             return (
-              <div key={aniKey}>
+              <div key={aniKey} s>
                 {/* <ImageList cols={1}>
                   <Link to={anime.trailer.url} target='_blank' rel='noreferrer'>
                     <img
@@ -206,7 +216,7 @@ const HomepageContent = () => {
                     </ImageListItem>
                   </Link>
                 </ImageList> */}
-                <ImageList cols={1} rowHeight={420}>
+                <ImageList cols={1} rowHeight={400}>
                   <ImageListItem>
                     <ReactPlayer
                       url={anime.trailer.url}
@@ -234,7 +244,10 @@ const HomepageContent = () => {
         </Carousel>
       </Box>
 
-      <h3>Watch Popular Promos</h3>
+      {/* <h3>Watch Popular Promos</h3> */}
+      <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+        Watch Popular Promos
+      </Typography>
       <Box sx={{ paddingBottom: "3%" }}>
         <Carousel breakPoints={promoBreakPoints}>
           {popularPromos.map((anime, aniKey) => {

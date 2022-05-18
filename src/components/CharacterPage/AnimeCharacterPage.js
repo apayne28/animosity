@@ -134,7 +134,7 @@ function AnimeCharacterPage(props) {
             </div>
           </div>
           <div className='anime-character-main-info-container'>
-            <div className='anime-info-main-info-details'>
+            <div>
               <CharacterDetails
                 characterId={animeCharacter.mal_id}
                 voiceActors={animeCharacter.voice_actors}
@@ -149,7 +149,12 @@ function AnimeCharacterPage(props) {
                 })`}</Typography> */}
                 <Typography
                   variant='h3'
-                  sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
+                  sx={{
+                    fontSize: 26,
+                    marginTop: "1%",
+                    marginBottom: "1%",
+                    marginLeft: "1%",
+                  }}
                 >{`${animeCharacter.name} ${
                   animeCharacter.name_kanji
                     ? `(${animeCharacter.name_kanji})`
@@ -244,7 +249,7 @@ function AnimeCharacterPage(props) {
                           margin: `${
                             animeCharacter.voice_actors.length >= 5
                               ? "auto"
-                              : ""
+                              : "auto"
                           }`,
                           marginTop: "2%",
                         }}
@@ -343,12 +348,12 @@ function AnimeCharacterPage(props) {
                         className='anime-character-voice-actors'
                         style={{
                           width: `${
-                            animeCharacter.voice_actors.length >= 2
-                              ? "60%"
+                            animeCharacter.animeography.length >= 3
+                              ? "95%"
                               : "60%"
                           }`,
                           margin: `${
-                            animeCharacter.voice_actors.length >= 5
+                            animeCharacter.animeography.length >= 5
                               ? "auto"
                               : "auto"
                           }`,
@@ -399,106 +404,115 @@ function AnimeCharacterPage(props) {
                     </div>
                   )}
 
-                  <Box
-                    sx={{
-                      backgroundColor: "#56e39f",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      paddingRight: "2.5%",
-                    }}
-                  >
-                    <h3>Mangaography</h3>
-
-                    <Link
-                      to='/character-page-anime-list'
-                      state={{
-                        voiceActors: animeCharacter.voice_actors,
-                        characterId: animeCharacter.mal_id,
-
-                        animeList: animeCharacter.animeography,
-                        mangaList: animeCharacter.mangaography,
-                      }}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Typography
+                  {animeCharacter.mangaography.length > 0 && (
+                    <Box>
+                      <Box
                         sx={{
-                          // padding: "0.5%",
-                          fontSize: 29,
-                          // display: "flex",
-                          // justifyContent: "flex-end",
-                          marginTop: "17%",
-                          // marginRight: "1%",
+                          backgroundColor: "#56e39f",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          paddingRight: "2.5%",
                         }}
                       >
-                        {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
-                        View More
-                      </Typography>
-                    </Link>
-                  </Box>
+                        <h3>Mangaography</h3>
 
-                  <div
-                    className='anime-character-voice-actors'
-                    style={{
-                      width: `${
-                        animeCharacter.voice_actors.length >= 1 ? "95%" : "50%"
-                      }`,
-                      margin: `${
-                        animeCharacter.voice_actors.length >= 5 ? "auto" : ""
-                      }`,
-                      marginTop: "2%",
-                    }}
-                  >
-                    <Grid
-                      container
-                      xs={1}
-                      md={12}
-                      // className='anime-info-character-list'
-                    >
-                      <Carousel breakPoints={breakPoints}>
-                        {animeCharacter.mangaography.map((appearances) => {
-                          return (
-                            //  <Grid
-                            //    item
-                            //    classname='character-profile-anime-appearance-entry'
-                            //    sx={{ display: "flex" }}
-                            //  >
-                            <div>
-                              <div className='anime-info-rec-anime-item'>
+                        <Link
+                          to='/character-page-anime-list'
+                          state={{
+                            voiceActors: animeCharacter.voice_actors,
+                            characterId: animeCharacter.mal_id,
+
+                            animeList: animeCharacter.animeography,
+                            mangaList: animeCharacter.mangaography,
+                          }}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <Typography
+                            sx={{
+                              // padding: "0.5%",
+                              fontSize: 29,
+                              // display: "flex",
+                              // justifyContent: "flex-end",
+                              marginTop: "17%",
+                              // marginRight: "1%",
+                            }}
+                          >
+                            {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
+                            View More
+                          </Typography>
+                        </Link>
+                      </Box>
+
+                      <div
+                        className='anime-character-voice-actors'
+                        style={{
+                          width: `${
+                            animeCharacter.mangaography.length >= 1
+                              ? "95%"
+                              : "50%"
+                          }`,
+                          margin: `${
+                            animeCharacter.mangaography.length >= 5
+                              ? "auto"
+                              : ""
+                          }`,
+                          marginTop: "2%",
+                        }}
+                      >
+                        <Grid
+                          container
+                          xs={1}
+                          md={12}
+                          // className='anime-info-character-list'
+                        >
+                          <Carousel breakPoints={breakPoints}>
+                            {animeCharacter.mangaography.map((appearances) => {
+                              return (
+                                //  <Grid
+                                //    item
+                                //    classname='character-profile-anime-appearance-entry'
+                                //    sx={{ display: "flex" }}
+                                //  >
                                 <div>
-                                  <Link
-                                    to='/manga-info'
-                                    state={{ mangaId: appearances.mal_id }}
-                                  >
-                                    <ImageList cols={1} rowHeight={400}>
-                                      <ImageListItem>
-                                        <Box
-                                          component='img'
-                                          src={appearances.image_url}
-                                          alt={appearances.name}
-                                          sx={{
-                                            width: "100%",
-                                            height: "100%",
-                                            borderRadius: 1,
-                                          }}
-                                        />
-                                        <ImageListItemBar
-                                          title={appearances.name}
-                                          subtitle={`Role: ${appearances.role}`}
-                                        />
-                                      </ImageListItem>
-                                    </ImageList>
-                                  </Link>
-                                </div>
+                                  <div className='anime-info-rec-anime-item'>
+                                    <div>
+                                      <Link
+                                        to='/manga-info'
+                                        state={{ mangaId: appearances.mal_id }}
+                                      >
+                                        <ImageList cols={1} rowHeight={400}>
+                                          <ImageListItem>
+                                            <Box
+                                              component='img'
+                                              src={appearances.image_url}
+                                              alt={appearances.name}
+                                              sx={{
+                                                width: "100%",
+                                                height: "100%",
+                                                borderRadius: 1,
+                                              }}
+                                            />
+                                            <ImageListItemBar
+                                              title={appearances.name}
+                                              subtitle={`Role: ${appearances.role}`}
+                                            />
+                                          </ImageListItem>
+                                        </ImageList>
+                                      </Link>
+                                    </div>
 
-                                {/* <Divider /> */}
-                                {/*</Grid>*/}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </Carousel>
-                    </Grid>
-                  </div>
+                                    {/* <Divider /> */}
+                                    {/*</Grid>*/}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </Carousel>
+                        </Grid>
+                      </div>
+                    </Box>
+                  )}
+
                   <Divider />
                 </div>
               </div>

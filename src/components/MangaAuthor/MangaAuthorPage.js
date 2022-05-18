@@ -189,7 +189,12 @@ function MangaAuthorPage(props) {
                 })`}</Typography> */}
                 <Typography
                   variant='h3'
-                  sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
+                  sx={{
+                    fontSize: 26,
+                    marginTop: "1%",
+                    marginBottom: "1%",
+                    marginLeft: "1%",
+                  }}
                 >{`${author.name} `}</Typography>
               </div>
 

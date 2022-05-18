@@ -26,6 +26,7 @@ import { Box } from "@mui/system";
 const SearchPage = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const [animeList, setAnimeList] = useState();
+  const [animeListv3, setAnimeListv3] = useState();
 
   const location = useLocation();
   let navigate = useNavigate();
@@ -36,20 +37,48 @@ const SearchPage = () => {
   const buttonCounter = buttonValue;
   console.log(typeThing, searchThing, buttonCounter);
 
-  const fetchAnime = useCallback(
-    async (searchType, query, page) => {
-      // const temp = await fetch(
-      //   `https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc`,
-      // ).then((res) => res.json());
+  const fetchAnime = useCallback(async (searchType, query, page) => {
+    // const temp = await fetch(
+    //   `https://api.jikan.moe/v3/search/${searchType}?q=${query}&order_by=title&sort=asc&page=${page}`,
+    // ).then((res) => res.json());
 
-      const temp = await jikanjsV3.search(searchType, query, page);
-      // const temp = await client.
+    // const temp = await jikanjsV3.search(searchType, query, page);
+    const temp = await fetch(
+      `https://api.jikan.moe/v4/${searchType}?letter=${query}&order_by=popularity&sort=asc&page=${page}`,
+    ).then((res) => res.json());
+
+    // api.jikan.moe/v4/anime?q=ranma&page=1
+    //https://api.jikan.moe/v4/anime?q=ranma&page=1
+    console.log(temp);
+    // setLastPage(temp.last_page);
+    setLastPage(temp.pagination.items.total);
+
+    // setAnimeList(temp.results);
+    setAnimeList(temp.data);
+    console.log(temp.data.length);
+
+    if (temp.data.length === 0) {
+      const temp2 = await fetch(
+        `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc&page=${page}`,
+      ).then((res) => res.json());
       console.log(temp);
-      setLastPage(temp.last_page);
-      setAnimeList(temp.results);
-    },
-    [jikanjsV3],
-  );
+
+      setLastPage(temp2.pagination.items.total);
+
+      // setAnimeList(temp.results);
+      setAnimeList(temp2.data);
+      console.log(temp.data.length);
+    }
+
+    // const temp2 = await jikanjsV3.search(searchType, query, page);
+
+    //  console.log(temp);
+    //  setLastPage(temp.last_page);
+    //  setLastPage(temp.pagination.items.total);
+
+    //  setAnimeList(temp.results);
+    //  setAnimeList(temp.data);
+  }, []);
   useEffect(() => {
     if (!animeList) {
       fetchAnime(typeThing, searchThing, buttonCounter);
@@ -58,7 +87,7 @@ const SearchPage = () => {
 
   if (animeList) {
     return (
-      <div>
+      <div style={{ height: "100vh" }}>
         <div className='header-content'>
           {/* <Header /> */}
           <NavigationBar />
@@ -96,7 +125,7 @@ const SearchPage = () => {
         {/* <div className='anime-character-list-contents'> */}
         <div className='search-page-contents'>
           <Grid container>
-            <ImageList cols={6} rowHeight={980}>
+            <ImageList cols={5} rowHeight={900}>
               {animeList.map((anime, key) => (
                 <Box
                   // sx={{
@@ -140,7 +169,8 @@ const SearchPage = () => {
                         <Box
                           className='search-page-list-entry-image'
                           component='img'
-                          src={anime.image_url}
+                          // src={anime.image_url}
+                          src={anime.images.jpg.image_url}
                           alt={anime.title}
                           sx={{ width: "100%", height: "100%" }}
                         />
@@ -241,8 +271,9 @@ const SearchPage = () => {
         </div>
         <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
           <Pagination
-            count={401}
+            count={lastPage}
             page={buttonCounter}
+            size='large'
             onChange={(event, value) => {
               console.log(event);
               // setButtonCounter(parseInt(e.target.innerText));

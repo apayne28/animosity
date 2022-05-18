@@ -32,74 +32,16 @@ import MangaAuthorMangaPage from "./components/MangaAuthor/MangaAuthorMangaPage.
 // import { Routes } from "react-router";
 
 const App = () => {
-  // const [animeList, setAnimeList] = useState([]);
-  // const [topAnime, setTopAnime] = useState([]);
-  // const [topManga, setTopManga] = useState([]);
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
-  // const jikanjsV4 = require("@mateoaranda/jikanjs");
-
-  // const GetTopAnime = async () => {
-  // const temp = await fetch(
-  //   // `https://api.jikan.moe/v4/top/anime//bypopularity/1`,
-  //   `https://api.jikan.moe/v3/top/anime/1/bypopularity`,
-  // ).then((res) => res.json());
-
-  //   setTopAnime(temp.top.slice(0, 5));
-  // };
-
-  // const getGenres = async () => {
-  //   const temp = await jikanjs.loadGenres("anime");
-  //   console.log(temp);
-  // };
-  // console.log(getGenres());
-  // const GetTopAnime = async () => {
-  //   const temp = await jikanjsV3.loadTop("anime", 1, "bypopularity");
-
-  //   setTopAnime(temp.top.slice(0, 5));
-  // };
-
-  // const GetTopManga = async () => {
-  //   const temp = await jikanjsV3.loadTop("manga", 1, "bypopularity");
-
-  //   setTopManga(temp.top.slice(0, 5));
-  // };
-  // const GetDefault = async () => {
-  //   const temp = await jikanjsV3.loadTop("anime", 1, "bypopularity");
-
-  //   let defaultItems = temp.results;
-  //   return defaultItems;
-  // };
-
-  // const HandleSearch = (e) => {
-  //   e.preventDefault();
-
-  //   FetchAnime(search);
-  // };
-
-  // const FetchAnime = async (query) => {
-  //   // const temp = await fetch(
-  //   //   `https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc`,
-  //   // ).then((res) => res.json());
-
-  //   const temp = await jikanjsV3.search("anime", query, 1);
-  //   // const temp = await client.
-
-  //   setAnimeList(temp.results);
-  // };
-
-  // useEffect(() => {
-  //   GetTopAnime();
-  //   GetTopManga();
-  // }, []);
   const THEME = createTheme({
-    // typography: {
-    //   fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
-    //   fontSize: 14,
-    //   fontWeightLight: 300,
-    //   fontWeightRegular: 400,
-    //   fontWeightMedium: 500,
-    // },
-    pagination: { fontSize: 45 },
+    typography: {
+      fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+      color: "#3B2C35",
+      fontSize: 14,
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+    },
+    // pagination: { fontSize: 45 },
   });
 
   return (

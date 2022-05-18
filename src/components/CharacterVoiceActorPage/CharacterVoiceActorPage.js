@@ -187,7 +187,12 @@ function CharacterVoiceActorPage(props) {
                 })`}</Typography> */}
                 <Typography
                   variant='h3'
-                  sx={{ fontSize: 26, marginTop: "1%", marginBottom: "1%" }}
+                  sx={{
+                    fontSize: 26,
+                    marginTop: "1%",
+                    marginBottom: "1%",
+                    marginLeft: "1%",
+                  }}
                 >{`${voiceActor.name} `}</Typography>
               </div>
 
@@ -392,8 +397,8 @@ function CharacterVoiceActorPage(props) {
                   <div
                     className='anime-character-voice-actors'
                     style={{
-                      width: `${filteredAnime >= 5 ? "95%" : "60%"}`,
-                      margin: `${filteredAnime >= 5 ? "auto" : "auto"}`,
+                      width: `${filteredAnime.length >= 5 ? "95%" : "60%"}`,
+                      margin: `${filteredAnime.length >= 5 ? "auto" : "auto"}`,
                       marginTop: "2%",
                     }}
                   >
