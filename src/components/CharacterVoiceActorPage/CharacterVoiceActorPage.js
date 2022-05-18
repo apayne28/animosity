@@ -14,21 +14,24 @@ import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
 import { Accordion } from "react-bootstrap";
+import VoiceActorDetails from "./VoiceActorDetails";
 
 function CharacterVoiceActorPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
   let characterValue = location.state.characterValue;
+  let actor = characterValue ? characterValue : location.state.voiceActor;
 
   const [voiceActor, setVoiceActor] = useState();
   const [voiceRoles, setVoiceRoles] = useState();
 
+  console.log(location);
   const getVoiceActor = useCallback(async () => {
     // id = props.characterId;
 
     try {
       const voiceActorData = await fetch(
-        `https://api.jikan.moe/v4/people/${characterValue}`,
+        `https://api.jikan.moe/v4/people/${actor}`,
       ).then((res) => res.json());
 
       console.log(voiceActorData);
@@ -43,7 +46,7 @@ function CharacterVoiceActorPage(props) {
 
     try {
       const voiceActorRoleData = await fetch(
-        `https://api.jikan.moe/v4/people/${characterValue}/voices`,
+        `https://api.jikan.moe/v4/people/${actor}/voices`,
       ).then((res) => res.json());
 
       console.log(voiceActorRoleData);
@@ -53,7 +56,7 @@ function CharacterVoiceActorPage(props) {
     } catch (error) {
       console.log("Character not found");
     }
-  }, [characterValue, voiceActor, voiceRoles]);
+  }, [actor, voiceActor, voiceRoles]);
 
   useEffect(() => {
     if (!voiceActor && !voiceRoles) {
@@ -170,6 +173,13 @@ function CharacterVoiceActorPage(props) {
             </div>
           </div>
           <div className='anime-character-main-info-container'>
+            <div className='anime-info-main-info-details'>
+              <VoiceActorDetails
+                animeId={actor}
+                charList={filteredVoiceRoles}
+                animeRecList={filteredAnime}
+              />
+            </div>
             <div className='anime-info-character-info-content'>
               <div className='anime-character-name-header'>
                 {/* <Typography>{`${animeCharacter.name} (${
@@ -254,7 +264,10 @@ function CharacterVoiceActorPage(props) {
                     <h3>Roles</h3>
                     <Link
                       to='/voice-actor-role-list-page'
-                      state={{ roleList: filteredVoiceRoles }}
+                      state={{
+                        roleList: filteredVoiceRoles,
+                        voiceActor: voiceActor.mal_id,
+                      }}
                       style={{ textDecoration: "none" }}
                     >
                       <Typography
@@ -333,8 +346,40 @@ function CharacterVoiceActorPage(props) {
                   </div>
 
                   <Divider />
+                  <Box
+                    sx={{
+                      backgroundColor: "#56e39f",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      paddingRight: "2.5%",
+                    }}
+                  >
+                    <h3>Animeography</h3>
 
-                  <h3>Animeography</h3>
+                    <Link
+                      to='/voice-actor-anime-list-page'
+                      state={{
+                        roleList: filteredVoiceRoles,
+                        voiceActor: voiceActor.mal_id,
+                        animeList: filteredAnime,
+                      }}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography
+                        sx={{
+                          // padding: "0.5%",
+                          fontSize: 29,
+                          // display: "flex",
+                          // justifyContent: "flex-end",
+                          marginTop: "17%",
+                          // marginRight: "1%",
+                        }}
+                      >
+                        {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
+                        View More
+                      </Typography>
+                    </Link>
+                  </Box>
 
                   <div
                     className='anime-character-voice-actors'

@@ -20,7 +20,7 @@ import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle"
 import CharacterVoiceActorSide from "./CharacterVoiceActorSide";
 import VoiceActorDetails from "./VoiceActorDetails";
 
-function VoiceActorRoleListPage(props) {
+function CharacterVoiceActorAnimePage(props) {
   const location = useLocation();
   const animeId = location.state.animeId;
   //   const mangaId = location.state.mangaId;
@@ -57,10 +57,44 @@ function VoiceActorRoleListPage(props) {
   );
 
   console.log(roleList, test);
+  // const getCharacterList = useCallback(
+  //   async (id) => {
+  //     //   console.log(props, location);
 
+  //     try {
+  //       let animeCharactersData = await fetch(
+  //         `https://api.jikan.moe/v4/anime/${animeId}/characters`,
+  //       ).then((res) => res.json());
+  //       let animeCharactersDataResults = animeCharactersData.data;
+  //       console.log("Chatacters", animeCharactersDataResults);
+
+  //       setCharacterList(animeCharactersDataResults);
+  //     } catch (error) {
+  //       console.log("Character List not found");
+  //     }
+
+  //     try {
+  //       let animeRecommendationsData = await fetch(
+  //         `https://api.jikan.moe/v4/anime/${id}/recommendations`,
+  //       ).then((res) => res.json());
+  //       let animeRecommendationsDataResults = animeRecommendationsData.data;
+
+  //       console.log("Recs", animeRecommendationsDataResults);
+  //       setAnimeRecommendationsList(animeRecommendationsDataResults);
+  //     } catch (error) {
+  //       console.log("Anime Recs not found");
+  //     }
+  //   },
+  //   [animeId],
+  // );
+
+  // useEffect(() => {
+  //   if (!characterList) {
+  //     getCharacterList(animeId);
+  //   }
+  // }, [animeId, characterList, getCharacterList]);
   console.log(voiceActor, animeList, roleList);
-
-  if (test) {
+  if (animeList) {
     return (
       <Box sx={{ height: "100vh" }}>
         {/* <Header /> */}
@@ -80,9 +114,9 @@ function VoiceActorRoleListPage(props) {
                 cols={test.length >= 10 ? 10 : 5}
                 rowHeight={test.length >= 10 ? 400 : 550}
               >
-                {test.map((character) => {
-                  let characterEntry = character.character;
-                  // console.log(characterEntry);
+                {animeList.map((anime) => {
+                  let animeEntry = anime.anime;
+                  console.log(animeEntry);
 
                   return (
                     <Grid
@@ -96,18 +130,18 @@ function VoiceActorRoleListPage(props) {
                       }}
                     >
                       <Link
-                        to='/character-profile'
-                        state={{ characterId: characterEntry.mal_id }}
+                        to='/anime-info'
+                        state={{ animeId: animeEntry.mal_id }}
                       >
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={characterEntry.images.jpg.image_url}
-                            alt={characterEntry.name}
+                            src={animeEntry.images.jpg.image_url}
+                            alt={animeEntry.name}
                           />
 
-                          <ImageListItemBar title={characterEntry.name} />
+                          <ImageListItemBar title={animeEntry.name} />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}
@@ -126,4 +160,4 @@ function VoiceActorRoleListPage(props) {
   }
 }
 
-export default VoiceActorRoleListPage;
+export default CharacterVoiceActorAnimePage;

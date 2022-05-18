@@ -22,6 +22,10 @@ import GenreListPage from "./components/Genres/GenreListPage.js";
 import { createTheme, ThemeProvider } from "@mui/material";
 import CharacterVoiceActorPage from "./components/CharacterVoiceActorPage/CharacterVoiceActorPage.js";
 import VoiceActorRoleListPage from "./components/CharacterVoiceActorPage/VoiceActorRoleListPage.js";
+import CharacterVoiceActorAnimePage from "./components/CharacterVoiceActorPage/CharacterVoiceActorAnimePage.js";
+import AnimeCharacterVoiceActorPage from "./components/CharacterPage/AnimeCharacterVoiceActorPage.js";
+import AnimeCharacterAnimePage from "./components/CharacterPage/AnimeCharacterAnimePage.js";
+import AnimeCharacterMangaPage from "./components/CharacterPage/AnimeCharacterMangaPage.js";
 
 // import { Routes } from "react-router";
 
@@ -111,6 +115,18 @@ const App = () => {
             element={<AnimeCharacterPage />}
           ></Route>
           <Route
+            path='character-page-voice-actor-list'
+            element={<AnimeCharacterVoiceActorPage />}
+          ></Route>
+          <Route
+            path='character-page-anime-list'
+            element={<AnimeCharacterAnimePage />}
+          ></Route>
+          <Route
+            path='character-page-manga-list'
+            element={<AnimeCharacterMangaPage />}
+          ></Route>
+          <Route
             path='/anime-character-list-page'
             element={<AnimeCharacterListPage />}
           ></Route>
@@ -121,6 +137,10 @@ const App = () => {
           <Route
             path='voice-actor-role-list-page'
             element={<VoiceActorRoleListPage />}
+          ></Route>
+          <Route
+            path='voice-actor-anime-list-page'
+            element={<CharacterVoiceActorAnimePage />}
           ></Route>
           <Route
             path='/manga-character-list-page'

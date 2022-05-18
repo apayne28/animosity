@@ -14,13 +14,11 @@ import {
 } from "@mui/material";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
-import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
-import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
-import CharacterVoiceActorSide from "./CharacterVoiceActorSide";
-import VoiceActorDetails from "./VoiceActorDetails";
 
-function VoiceActorRoleListPage(props) {
+import CharacterDetails from "./CharacterDetails";
+import AnimeCharacterSide from "./AnimeCharacterSide";
+
+function AnimeCharacterVoiceActorPage(props) {
   const location = useLocation();
   const animeId = location.state.animeId;
   //   const mangaId = location.state.mangaId;
@@ -29,15 +27,16 @@ function VoiceActorRoleListPage(props) {
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
   // const [voiceActor, setVoiceActor] = useState();
   // const [voiceRoles, setVoiceRoles] = useState();
-  console.log(location.state);
+  console.log(location, props);
 
-  let roleList = props.filteredVoiceRoles
-    ? props.filteredVoiceRoles
-    : location.state.roleList;
-  let voiceActor = props.voiceActor
-    ? props.voiceActor
-    : location.state.voiceActor;
+  let voiceActors = props.voiceActors
+    ? props.voiceActors
+    : location.state.voiceActors;
+  let characterId = props.characterId
+    ? props.characterId
+    : location.state.characterId;
   let animeList = props.animeList ? props.animeList : location.state.animeList;
+  let mangaList = props.mangaList ? props.mangaList : location.state.mangaList;
 
   // let test = roleList.filter((val, index, self) => {
   //   console.log("Val:", val);
@@ -46,43 +45,44 @@ function VoiceActorRoleListPage(props) {
   //   console.log("Self", self);
   // });
 
-  let test = roleList.filter(
-    (value, index, self) =>
-      index ===
-      self.findIndex(
-        (t) =>
-          t.character.name === value.character.name &&
-          t.name === value.character.anime,
-      ),
-  );
+  //   let test = roleList.filter(
+  //     (value, index, self) =>
+  //       index ===
+  //       self.findIndex(
+  //         (t) =>
+  //           t.character.name === value.character.name &&
+  //           t.name === value.character.anime,
+  //       ),
+  //   );
 
-  console.log(roleList, test);
+  //   console.log(roleList, test);
 
-  console.log(voiceActor, animeList, roleList);
+  console.log(voiceActors, animeList, characterId);
 
-  if (test) {
+  if ((characterId, voiceActors)) {
     return (
       <Box sx={{ height: "100vh" }}>
         {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>
-          <CharacterVoiceActorSide actorId={voiceActor} />
+          <AnimeCharacterSide characterId={characterId} />
 
           <div className='anime-character-list-contents'>
-            <VoiceActorDetails
-              animeId={voiceActor}
+            <CharacterDetails
+              voiceActors={voiceActors}
               animeList={animeList}
-              charList={roleList}
+              characterId={characterId}
+              mangaList={mangaList}
             />
             <Grid container>
               <ImageList
-                cols={test.length >= 10 ? 10 : 5}
-                rowHeight={test.length >= 10 ? 400 : 550}
+                cols={voiceActors.length >= 10 ? 10 : 5}
+                rowHeight={voiceActors.length >= 10 ? 400 : 550}
               >
-                {test.map((character) => {
-                  let characterEntry = character.character;
-                  // console.log(characterEntry);
+                {voiceActors.map((actor) => {
+                  // let characterEntry = character.character;
+                  console.log(actor);
 
                   return (
                     <Grid
@@ -96,18 +96,18 @@ function VoiceActorRoleListPage(props) {
                       }}
                     >
                       <Link
-                        to='/character-profile'
-                        state={{ characterId: characterEntry.mal_id }}
+                        to='/character-voice-actor-page'
+                        state={{ characterValue: actor.mal_id }}
                       >
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={characterEntry.images.jpg.image_url}
-                            alt={characterEntry.name}
+                            src={actor.image_url}
+                            alt={actor.name}
                           />
 
-                          <ImageListItemBar title={characterEntry.name} />
+                          <ImageListItemBar title={actor.name} />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}
@@ -126,4 +126,4 @@ function VoiceActorRoleListPage(props) {
   }
 }
 
-export default VoiceActorRoleListPage;
+export default AnimeCharacterVoiceActorPage;
