@@ -122,7 +122,7 @@ const SearchBar = (props) => {
       >
         <Form.Control
           type='search'
-          placeholder='Search for an anime...'
+          placeholder='Search for an anime'
           className='me-2'
           required
         />
@@ -140,6 +140,7 @@ const SearchBar = (props) => {
             });
             window.location.reload();
           }}
+          sx={{ marginRight: "5%" }}
         >
           <SearchIcon />
         </IconButton>

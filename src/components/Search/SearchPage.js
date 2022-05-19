@@ -492,7 +492,6 @@ const SearchPage = () => {
   } else if (animeList && animeList.length === 0) {
     return (
       <div>
-        <Header />
         <NavigationBar />
         <Box
           sx={{
@@ -519,7 +518,6 @@ const SearchPage = () => {
   } else {
     return (
       <div>
-        <Header />
         <NavigationBar />
         <LoadingScreen />
       </div>
