@@ -215,7 +215,7 @@ const AnimeInfoSideContent = (props) => {
                 }}
               >{`Rank: `}</Typography>
               <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
-                info.rank ? info.rank : "N/A"
+                info.rank ? info.rank.toLocaleString("en-US") : "N/A"
               }`}</Typography>
             </div>
             <div className='anime-info-score'>
@@ -250,7 +250,7 @@ const AnimeInfoSideContent = (props) => {
                 sx={{ padding: "2%", fontSize: 19 }}
               >{`Type: ${info.type}`}</Typography>
               <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Episodes: ${
-                info.episodes ? info.episodes : "N/A"
+                info.episodes ? info.episodes.toLocaleString("en-US") : "N/A"
               }`}</Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 19 }}
@@ -335,13 +335,17 @@ const AnimeInfoSideContent = (props) => {
 
               <Typography
                 sx={{ padding: "2%", fontSize: 19 }}
-              >{`Popularity: ${info.popularity}`}</Typography>
+              >{`Popularity: ${info.popularity.toLocaleString(
+                "en-US",
+              )}`}</Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 19 }}
-              >{`Members: ${info.members}`}</Typography>
+              >{`Members: ${info.members.toLocaleString("en-US")}`}</Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 19 }}
-              >{`Favorites: ${info.favorites}`}</Typography>
+              >{`Favorites: ${info.favorites.toLocaleString(
+                "en-US",
+              )}`}</Typography>
             </div>
           </div>
           <div className='anime-info-main-info-container'>

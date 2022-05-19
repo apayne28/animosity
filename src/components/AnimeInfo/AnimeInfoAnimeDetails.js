@@ -48,24 +48,26 @@ function AnimeInfoAnimeDetails(props) {
           </Link>
         </Nav.Item>
 
-        <Nav.Item>
-          <Link
-            to='/anime-recs-page'
-            state={{
-              animeId: props.animeId,
-              animeRecList: props.animeRecList,
-              charList: props.charList,
-            }}
-            onClick={(e) => console.log(location, props)}
-          >
-            <Typography
-              className='anime-info-content-navbar-items'
-              sx={{ fontSize: 28 }}
+        {props.animeRecList && props.animeRecList.length > 0 && (
+          <Nav.Item>
+            <Link
+              to='/anime-recs-page'
+              state={{
+                animeId: props.animeId,
+                animeRecList: props.animeRecList,
+                charList: props.charList,
+              }}
+              onClick={(e) => console.log(location, props)}
             >
-              Recommendations
-            </Typography>
-          </Link>
-        </Nav.Item>
+              <Typography
+                className='anime-info-content-navbar-items'
+                sx={{ fontSize: 28 }}
+              >
+                Recommendations
+              </Typography>
+            </Link>
+          </Nav.Item>
+        )}
       </Nav>
     </Box>
   );

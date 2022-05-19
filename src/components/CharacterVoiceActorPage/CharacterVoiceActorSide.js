@@ -162,7 +162,7 @@ function CharacterVoiceActorSide(props) {
           </Typography>
           <Typography
             sx={{ padding: "2%", fontSize: 25 }}
-          >{`${voiceActor.favorites}`}</Typography>
+          >{`${voiceActor.favorites.toLocaleString("en-US")}`}</Typography>
         </div>
       </div>
     );

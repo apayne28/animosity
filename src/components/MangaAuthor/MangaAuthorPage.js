@@ -172,7 +172,7 @@ function MangaAuthorPage(props) {
               </Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 25 }}
-              >{`${author.favorites}`}</Typography>
+              >{`${author.favorites.toLocaleString("en-US")}`}</Typography>
             </div>
           </div>
           <div className='anime-character-main-info-container'>

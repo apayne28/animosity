@@ -148,6 +148,7 @@ const SearchPage = () => {
         >
           <Pagination
             count={lastPage}
+            color='primary'
             page={buttonCounter}
             size='large'
             onChange={(event, value) => {
@@ -291,7 +292,9 @@ const SearchPage = () => {
                         <Typography
                           variant='body2'
                           sx={{ paddingBottom: "3%", fontSize: 25 }}
-                        >{`${anime.members} fans`}</Typography>
+                        >{`${anime.members.toLocaleString(
+                          "en-US",
+                        )} fans`}</Typography>
                         <Typography
                           variant='body2'
                           sx={{
@@ -377,6 +380,7 @@ const SearchPage = () => {
             count={lastPage}
             page={buttonCounter}
             size='large'
+            color='primary'
             onChange={(event, value) => {
               console.log(event);
               // setButtonCounter(parseInt(e.target.innerText));

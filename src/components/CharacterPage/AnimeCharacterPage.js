@@ -163,7 +163,9 @@ function AnimeCharacterPage(props) {
               </Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 25 }}
-              >{`${animeCharacter.member_favorites}`}</Typography>
+              >{`${animeCharacter.member_favorites.toLocaleString(
+                "en-US",
+              )}`}</Typography>
             </div>
           </div>
           <div className='anime-character-main-info-container'>

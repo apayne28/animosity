@@ -32,75 +32,75 @@ import MangaAuthorMangaPage from "./components/MangaAuthor/MangaAuthorMangaPage.
 // import { Routes } from "react-router";
 
 const App = () => {
-  const THEME = createTheme({
-    typography: {
-      fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
-      color: "#3B2C35",
-      fontSize: 14,
-      fontWeightLight: 300,
-      fontWeightRegular: 400,
-      fontWeightMedium: 500,
-    },
-    // pagination: { fontSize: 45 },
-  });
+  // const THEME = createTheme({
+  //   typography: {
+  //     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+  //     color: "#3B2C35",
+  //     fontSize: 14,
+  //     fontWeightLight: 300,
+  //     fontWeightRegular: 400,
+  //     fontWeightMedium: 500,
+  //   },
+  //   // pagination: { fontSize: 45 },
+  // });
 
   return (
-    <ThemeProvider theme={THEME}>
-      <div className='App'>
-        <Routes>
-          <Route path='/' element={<Mainpage />}></Route>
-          <Route path='/anime-info' element={<AnimeInfo />}></Route>
-          <Route path='/manga-info' element={<MangaInfo />}></Route>
-          <Route path='/top-anime' element={<TopAnime />}></Route>
-          <Route path='/top-manga' element={<TopManga />}></Route>
-          <Route path='/search-page' element={<SearchPage />}></Route>
-          <Route
-            path='/character-profile'
-            element={<AnimeCharacterPage />}
-          ></Route>
-          <Route
-            path='character-page-voice-actor-list'
-            element={<AnimeCharacterVoiceActorPage />}
-          ></Route>
-          <Route
-            path='character-page-anime-list'
-            element={<AnimeCharacterAnimePage />}
-          ></Route>
-          <Route
-            path='character-page-manga-list'
-            element={<AnimeCharacterMangaPage />}
-          ></Route>
-          <Route
-            path='/anime-character-list-page'
-            element={<AnimeCharacterListPage />}
-          ></Route>
-          <Route
-            path='character-voice-actor-page'
-            element={<CharacterVoiceActorPage />}
-          ></Route>
-          <Route
-            path='voice-actor-role-list-page'
-            element={<VoiceActorRoleListPage />}
-          ></Route>
-          <Route
-            path='voice-actor-anime-list-page'
-            element={<CharacterVoiceActorAnimePage />}
-          ></Route>
-          <Route path='manga-author-page' element={<MangaAuthorPage />}></Route>
-          <Route
-            path='manga-author-manga-list'
-            element={<MangaAuthorMangaPage />}
-          ></Route>
-          <Route
-            path='/manga-character-list-page'
-            element={<MangaCharacterList />}
-          ></Route>
-          <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
-          <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
-          <Route path='genre-list-page' element={<GenreListPage />}></Route>
-        </Routes>
-      </div>
-    </ThemeProvider>
+    // <ThemeProvider theme={THEME}>
+    <div className='App'>
+      <Routes>
+        <Route path='/' element={<Mainpage />}></Route>
+        <Route path='/anime-info' element={<AnimeInfo />}></Route>
+        <Route path='/manga-info' element={<MangaInfo />}></Route>
+        <Route path='/top-anime' element={<TopAnime />}></Route>
+        <Route path='/top-manga' element={<TopManga />}></Route>
+        <Route path='/search-page' element={<SearchPage />}></Route>
+        <Route
+          path='/character-profile'
+          element={<AnimeCharacterPage />}
+        ></Route>
+        <Route
+          path='character-page-voice-actor-list'
+          element={<AnimeCharacterVoiceActorPage />}
+        ></Route>
+        <Route
+          path='character-page-anime-list'
+          element={<AnimeCharacterAnimePage />}
+        ></Route>
+        <Route
+          path='character-page-manga-list'
+          element={<AnimeCharacterMangaPage />}
+        ></Route>
+        <Route
+          path='/anime-character-list-page'
+          element={<AnimeCharacterListPage />}
+        ></Route>
+        <Route
+          path='character-voice-actor-page'
+          element={<CharacterVoiceActorPage />}
+        ></Route>
+        <Route
+          path='voice-actor-role-list-page'
+          element={<VoiceActorRoleListPage />}
+        ></Route>
+        <Route
+          path='voice-actor-anime-list-page'
+          element={<CharacterVoiceActorAnimePage />}
+        ></Route>
+        <Route path='manga-author-page' element={<MangaAuthorPage />}></Route>
+        <Route
+          path='manga-author-manga-list'
+          element={<MangaAuthorMangaPage />}
+        ></Route>
+        <Route
+          path='/manga-character-list-page'
+          element={<MangaCharacterList />}
+        ></Route>
+        <Route path='anime-recs-page' element={<AnimeRecPage />}></Route>
+        <Route path='manga-recs-page' element={<MangaRecPage />}></Route>
+        <Route path='genre-list-page' element={<GenreListPage />}></Route>
+      </Routes>
+    </div>
+    // </ThemeProvider>
   );
 };
 

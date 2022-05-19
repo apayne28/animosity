@@ -235,7 +235,7 @@ const TopAnime = (props) => {
                               Rank:
                             </Typography>
                             <Typography sx={{ fontSize: 30 }}>
-                              {entry.rank}
+                              {entry.rank.toLocaleString("en-US")}
                             </Typography>
                           </Box>
 
@@ -322,6 +322,7 @@ const TopAnime = (props) => {
           >
             <Pagination
               count={401}
+              color='primary'
               // classes={{ root: classes.numberLook }}
               sx={{
                 "& .MuiButtonBase-root": {

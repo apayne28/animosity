@@ -130,6 +130,8 @@ const Mainpage = () => {
                         // marginLeft: "9.3%",
                         // marginRight: "9.4%",
                         opacity: 0.8,
+                        display: "inline-block",
+                        width: "100%",
                       }}
                     >
                       <Typography sx={{ fontSize: 80 }}>

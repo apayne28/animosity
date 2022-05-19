@@ -45,24 +45,28 @@ function MangaInfoMangaDetails(props) {
             </Typography>
           </Link>
         </Nav.Item>
-        <Nav.Item>
-          <Link
-            to='/manga-recs-page'
-            state={{
-              mangaId: props.mangaId,
-              mangaRecList: props.mangaRecList,
-              charList: props.charList,
-            }}
-            onClick={() => console.log(location, props)}
-          >
-            <Typography
-              className='anime-info-content-navbar-items'
-              sx={{ fontSize: 28 }}
-            >
-              Recommendations
-            </Typography>
-          </Link>
-        </Nav.Item>
+        {props.mangaRecList && props.mangaRecList.length > 0 && (
+          <Box>
+            <Nav.Item>
+              <Link
+                to='/manga-recs-page'
+                state={{
+                  mangaId: props.mangaId,
+                  mangaRecList: props.mangaRecList,
+                  charList: props.charList,
+                }}
+                onClick={() => console.log(location, props)}
+              >
+                <Typography
+                  className='anime-info-content-navbar-items'
+                  sx={{ fontSize: 28 }}
+                >
+                  Recommendations
+                </Typography>
+              </Link>
+            </Nav.Item>
+          </Box>
+        )}
       </Nav>
     </Box>
   );

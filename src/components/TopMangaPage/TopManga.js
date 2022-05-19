@@ -208,7 +208,7 @@ const TopManga = () => {
                               Rank:
                             </Typography>
                             <Typography sx={{ fontSize: 30 }}>
-                              {entry.rank}
+                              {entry.rank.toLocaleString("en-US")}
                             </Typography>
                           </Box>
 

@@ -258,7 +258,7 @@ const MangaInfoSideContent = (props) => {
                   }}
                 >{`Rank: `}</Typography>
                 <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
-                  info.rank ? info.rank : "N/A"
+                  info.rank ? info.rank.toLocaleString("en-US") : "N/A"
                 }`}</Typography>
               </div>
 
@@ -279,10 +279,10 @@ const MangaInfoSideContent = (props) => {
                   sx={{ padding: "2%", fontSize: 19 }}
                 >{`Type: ${info.type}`}</Typography>
                 <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Volumes: ${
-                  info.volumes ? info.volumes : "N/A"
+                  info.volumes ? info.volumes.toLocaleString("en-US") : "N/A"
                 }`}</Typography>
                 <Typography sx={{ padding: "2%", fontSize: 19 }}>{`Chapters: ${
-                  info.chapters ? info.chapters : "N/A"
+                  info.chapters ? info.chapters.toLocaleString("en-US") : "N/A"
                 }`}</Typography>
                 <Typography
                   sx={{ padding: "2%", fontSize: 19 }}
@@ -338,13 +338,19 @@ const MangaInfoSideContent = (props) => {
 
                 <Typography
                   sx={{ padding: "2%", fontSize: 19 }}
-                >{`Popularity: ${info.popularity}`}</Typography>
+                >{`Popularity: ${info.popularity.toLocaleString(
+                  "en-US",
+                )}`}</Typography>
                 <Typography
                   sx={{ padding: "2%", fontSize: 19 }}
-                >{`Members: ${info.members}`}</Typography>
+                >{`Members: ${info.members.toLocaleString(
+                  "en-US",
+                )}`}</Typography>
                 <Typography
                   sx={{ padding: "2%", fontSize: 19 }}
-                >{`Favorites: ${info.favorites}`}</Typography>
+                >{`Favorites: ${info.favorites.toLocaleString(
+                  "en-US",
+                )}`}</Typography>
               </div>
             </div>
             <div className='manga-info-main-info-container'>

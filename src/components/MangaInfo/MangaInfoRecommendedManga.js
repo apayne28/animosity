@@ -16,9 +16,12 @@ import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import Carousel from "react-elastic-carousel";
 import axios from "axios";
+import NavigationBar from "../mainpage/navBar/NavigationBar";
+import pikafight from "../../pikafight.gif";
 
 function MangaInfoRecommendedManga(props) {
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
+  console.log(props);
 
   let navigate = useNavigate();
 
@@ -82,7 +85,9 @@ function MangaInfoRecommendedManga(props) {
 
     { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
   ];
-  if (mangaRecommendationsList) {
+
+  console.log(mangaRecommendationsList);
+  if (mangaRecommendationsList && mangaRecommendationsList.length > 0) {
     return (
       <Box>
         <Box
@@ -154,8 +159,6 @@ function MangaInfoRecommendedManga(props) {
                               sx={{ borderRadius: 1 }}
                             />
                           </ImageListItem>
-
-                          {/* <Typography>{recAnime.title}</Typography> */}
                         </Link>
                       </ImageList>
                     </div>
@@ -166,6 +169,11 @@ function MangaInfoRecommendedManga(props) {
         </div>
       </Box>
     );
+  } else if (
+    mangaRecommendationsList &&
+    mangaRecommendationsList.length === 0
+  ) {
+    return <div></div>;
   } else {
     return <LoadingScreen />;
   }

@@ -49,8 +49,8 @@ function AnimeInfoRecommendedAnime(props) {
 
     { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
   ];
-  if (animeRecommendationsList) {
-    return animeRecommendationsList.length > 1 ? (
+  if (animeRecommendationsList && animeRecommendationsList.length > 0) {
+    return animeRecommendationsList.length >= 1 ? (
       <Box>
         <Box
           sx={{
@@ -167,6 +167,11 @@ function AnimeInfoRecommendedAnime(props) {
         </Typography>
       </Box>
     );
+  } else if (
+    animeRecommendationsList &&
+    animeRecommendationsList.length === 0
+  ) {
+    return <div></div>;
   } else {
     return <LoadingScreen />;
   }
