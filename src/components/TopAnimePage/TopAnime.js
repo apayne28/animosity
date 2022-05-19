@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardContent,
 } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import Header from "../mainpage/Header";
@@ -27,7 +28,9 @@ const TopAnime = (props) => {
   let buttonValue = location.state.page ? location.state.page : 1;
 
   const [topScoredAnime, setTopScoredAnime] = useState();
-  const buttonCounter = buttonValue;
+  // const buttonCounter = buttonValue;
+  const [buttonCounter, setButtonCounter] = useState(buttonValue);
+  const [lastPage, setLastPage] = useState();
 
   console.log(location, props);
   let category = location.state.topFilter;
@@ -64,22 +67,31 @@ const TopAnime = (props) => {
       //     (res) => res.json(),
       //   );
       // category = filter;
+      //https://api.jikan.moe/v4/top/anime?type=movie
+      //https://api.jikan.moe/v4/top/anime?type=movie&page=1
+      console.log(location, category);
       const temp = await fetch(
-        `${
-          category !== " "
-            ? `https://api.jikan.moe/v3/top/anime/${buttonCounter}/${category}`
-            : `https://api.jikan.moe/v3/top/anime/${buttonCounter}`
-        }`,
+        `https://api.jikan.moe/v4/top/anime?type=${category}&page=${buttonValue}`,
       ).then((res) => res.json());
 
-      let results = temp.top;
-      console.log(temp.top);
-      setTopScoredAnime(results);
-      return results;
+      // const temp = await fetch(
+      //   `${
+      //     category !== " "
+      //       ? `https://api.jikan.moe/v3/top/anime/${buttonCounter}/${category}`
+      //       : `https://api.jikan.moe/v3/top/anime/${buttonCounter}`
+      //   }`,
+      // ).then((res) => res.json());
+      console.log(
+        `https://api.jikan.moe/v4/top/anime?type=${location.state.topFilter}&page=${buttonValue}`,
+      );
+      console.log(temp, temp.pagination.last_visible_page);
+      setLastPage(temp.pagination.last_visible_page);
+      setTopScoredAnime(temp.data);
+      // return results;
     } catch (error) {
       console.log("Anime not found");
     }
-  }, [buttonCounter, category]);
+  }, [buttonValue, category, location]);
 
   useEffect(() => {
     if (!topScoredAnime && !homepageAnime) {
@@ -111,7 +123,7 @@ const TopAnime = (props) => {
           }}
         >
           <Pagination
-            count={401}
+            count={lastPage}
             // classes={{ root: classes.numberLook }}
             sx={{
               "& .MuiButtonBase-root": {
@@ -147,8 +159,9 @@ const TopAnime = (props) => {
             {/* <Typography>Top Anime</Typography> */}
           </div>
           <Grid container>
-            <ImageList cols={6} rowHeight={980}>
+            <ImageList cols={5} rowHeight={980}>
               {testCon.map((entry) => {
+                // console.log(entry);
                 return (
                   //   console.log(entry);
 
@@ -174,7 +187,20 @@ const TopAnime = (props) => {
                         }}
                       >
                         <CardHeader
-                          title={`${entry.title} `}
+                          title={
+                            <Typography
+                              sx={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                display: "-webkit-box",
+                                WebkitLineClamp: "1",
+                                WebkitBoxOrient: "vertical",
+                                fontSize: 25,
+                              }}
+                            >
+                              {entry.title}
+                            </Typography>
+                          }
                           subheader={
                             <Typography>{`${entry.type} (${entry.episodes} eps)`}</Typography>
                           }
@@ -188,20 +214,19 @@ const TopAnime = (props) => {
                           <Box
                             className='search-page-list-entry-image'
                             component='img'
-                            src={
-                              topScoredAnime
-                                ? entry.image_url
-                                : entry.images.jpg.image_url
-                            }
+                            src={entry.images.jpg.image_url}
                             alt={entry.title}
                             sx={{ width: "100%", height: "100%" }}
                           />
                         </Link>
                         <CardContent>
                           <Box sx={{ display: "flex" }}>
+                            {/* <Box sx={{ marginBottom: "2%" }}> */}
+                            {/* <StarIcon /> */}
+                            {/* </Box> */}
                             <Typography
                               sx={{
-                                paddingBottom: "5%",
+                                // paddingBottom: "1%",
                                 fontSize: 30,
                                 fontWeight: "bold",
                                 marginRight: " 5%",
@@ -209,14 +234,12 @@ const TopAnime = (props) => {
                             >
                               Rank:
                             </Typography>
-                            <Typography
-                              sx={{ paddingBottom: "5%", fontSize: 30 }}
-                            >
+                            <Typography sx={{ fontSize: 30 }}>
                               {entry.rank}
                             </Typography>
                           </Box>
 
-                          <Box sx={{ display: "flex", paddingBottom: "5%" }}>
+                          {/* <Box sx={{ display: "flex" }}>
                             <Typography
                               sx={{
                                 fontSize: 20,
@@ -229,7 +252,7 @@ const TopAnime = (props) => {
                             <Typography sx={{ fontSize: 20 }}>
                               {entry.members}
                             </Typography>
-                          </Box>
+                          </Box> */}
                           {/* <Typography
                             sx={{ fontSize: 20 }}
                           >{`${entry.members} fans`}</Typography> */}
@@ -247,6 +270,38 @@ const TopAnime = (props) => {
                               sx={{ fontSize: 20 }}
                             >{`${entry.score}`}</Typography>
                           </Box>
+                          <Typography
+                            variant='body2'
+                            sx={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "-webkit-box",
+                              WebkitLineClamp: "3",
+                              WebkitBoxOrient: "vertical",
+                              // paddingBottom: "2%",
+                              fontSize: 20,
+                              marginTop: "2%",
+                            }}
+                          >
+                            {entry.synopsis}
+                          </Typography>
+                          <Link
+                            to='/anime-info'
+                            state={{ animeId: entry.mal_id }}
+                          >
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                paddingTop: "3%",
+                                // paddingBottom: "3%",
+
+                                fontSize: 25,
+                              }}
+                            >
+                              View More
+                            </Typography>
+                          </Link>
                         </CardContent>
                       </Card>
                     </ImageListItem>
@@ -261,8 +316,8 @@ const TopAnime = (props) => {
             sx={{
               display: "flex",
               alignItems: "center",
-              marginTop: "8%",
-              marginBottom: "1%",
+              // marginTop: "1%",
+              paddingBottom: "1%",
             }}
           >
             <Pagination
@@ -277,7 +332,6 @@ const TopAnime = (props) => {
                   backgroundColor: "#59c9a5",
                 },
               }}
-              color='primary'
               size='large'
               page={buttonCounter}
               onChange={(event, value) => {

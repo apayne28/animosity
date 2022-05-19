@@ -18,6 +18,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import TopMangaBar from "./TopMangaBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
+import LinesEllipsis from "react-lines-ellipsis";
 
 const TopManga = () => {
   const location = useLocation();
@@ -38,22 +39,26 @@ const TopManga = () => {
       //   );
       // category = filter;
       const temp = await fetch(
-        `${
-          category !== " "
-            ? `https://api.jikan.moe/v3/top/manga/${buttonCounter}/${category}`
-            : `https://api.jikan.moe/v3/top/manga/${buttonCounter}`
-        }`,
+        `https://api.jikan.moe/v4/top/manga?type=${category}&page=${buttonValue}`,
       ).then((res) => res.json());
-      setLastPage(temp.last_page);
 
-      let results = temp.top;
-      console.log(temp);
-      setTopScoredManga(results);
-      return results;
+      // const temp = await fetch(
+      //   `${
+      //     category !== " "
+      //       ? `https://api.jikan.moe/v3/top/anime/${buttonCounter}/${category}`
+      //       : `https://api.jikan.moe/v3/top/anime/${buttonCounter}`
+      //   }`,
+      // ).then((res) => res.json());
+      console.log(
+        `https://api.jikan.moe/v4/top/manga?type=${location.state.topFilter}&page=${buttonValue}`,
+      );
+      console.log(temp, temp.pagination.last_visible_page);
+      setLastPage(temp.pagination.last_visible_page);
+      setTopScoredManga(temp.data);
     } catch (error) {
       console.log("Manga not found");
     }
-  }, [buttonCounter, category]);
+  }, [buttonValue, category, location.state.topFilter]);
 
   useEffect(() => {
     if (!topScoredManga) {
@@ -83,7 +88,7 @@ const TopManga = () => {
           }}
         >
           <Pagination
-            count={401}
+            count={lastPage}
             // classes={{ root: classes.numberLook }}
             sx={{
               "& .MuiButtonBase-root": {
@@ -118,7 +123,7 @@ const TopManga = () => {
             {/* <Typography>Top Anime</Typography> */}
           </div>
           <Grid container>
-            <ImageList cols={6} rowHeight={980}>
+            <ImageList cols={5} rowHeight={960}>
               {topScoredManga.map((entry) => {
                 // const entryInfo = getManga(entry.mal_id);
                 // console.log(entryInfo);
@@ -147,7 +152,20 @@ const TopManga = () => {
                         }}
                       >
                         <CardHeader
-                          title={`${entry.title} `}
+                          title={
+                            <Typography
+                              sx={{
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                display: "-webkit-box",
+                                WebkitLineClamp: "1",
+                                WebkitBoxOrient: "vertical",
+                                fontSize: 25,
+                              }}
+                            >
+                              {entry.title}
+                            </Typography>
+                          }
                           subheader={
                             <Typography>{`${entry.type} (${
                               entry.volumes
@@ -169,20 +187,19 @@ const TopManga = () => {
                           <Box
                             className='search-page-list-entry-image'
                             component='img'
-                            src={
-                              topScoredManga
-                                ? entry.image_url
-                                : entry.images.jpg.image_url
-                            }
+                            src={entry.images.jpg.image_url}
                             alt={entry.title}
                             sx={{ width: "100%", height: "100%" }}
                           />
                         </Link>
                         <CardContent>
                           <Box sx={{ display: "flex" }}>
+                            {/* <Box sx={{ marginBottom: "2%" }}> */}
+                            {/* <StarIcon /> */}
+                            {/* </Box> */}
                             <Typography
                               sx={{
-                                paddingBottom: "5%",
+                                // paddingBottom: "1%",
                                 fontSize: 30,
                                 fontWeight: "bold",
                                 marginRight: " 5%",
@@ -190,14 +207,20 @@ const TopManga = () => {
                             >
                               Rank:
                             </Typography>
-                            <Typography
-                              sx={{ paddingBottom: "5%", fontSize: 30 }}
-                            >
+                            <Typography sx={{ fontSize: 30 }}>
                               {entry.rank}
                             </Typography>
                           </Box>
 
-                          <Box sx={{ display: "flex", paddingBottom: "5%" }}>
+                          {/* <LinesEllipsis
+                            text={entry.synopsis}
+                            maxLine='500'
+                            ellipsis='...'
+                            trimRight
+                            basedOn='words'
+                          /> */}
+
+                          {/* <Box sx={{ display: "flex", paddingBottom: "5%" }}>
                             <Typography
                               sx={{
                                 fontSize: 20,
@@ -210,7 +233,7 @@ const TopManga = () => {
                             <Typography sx={{ fontSize: 20 }}>
                               {entry.members}
                             </Typography>
-                          </Box>
+                          </Box> */}
                           {/* <Typography
                             sx={{ fontSize: 20 }}
                           >{`${entry.members} fans`}</Typography> */}
@@ -228,6 +251,38 @@ const TopManga = () => {
                               sx={{ fontSize: 20 }}
                             >{`${entry.score}`}</Typography>
                           </Box>
+                          <Typography
+                            variant='body2'
+                            sx={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "-webkit-box",
+                              WebkitLineClamp: "3",
+                              WebkitBoxOrient: "vertical",
+                              // paddingBottom: "2%",
+                              fontSize: 20,
+                              marginTop: "2%",
+                            }}
+                          >
+                            {entry.synopsis}
+                          </Typography>
+                          <Link
+                            to='/manga-info'
+                            state={{ mangaId: entry.mal_id }}
+                          >
+                            <Typography
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                paddingTop: "3%",
+                                // paddingBottom: "3%",
+
+                                fontSize: 25,
+                              }}
+                            >
+                              View More
+                            </Typography>
+                          </Link>
                         </CardContent>
                       </Card>
                     </ImageListItem>
@@ -237,9 +292,12 @@ const TopManga = () => {
             </ImageList>
           </Grid>
 
-          <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
+          <Stack
+            spacing={2}
+            sx={{ display: "flex", alignItems: "center", paddingBottom: "1%" }}
+          >
             <Pagination
-              count={401}
+              count={lastPage}
               // classes={{ root: classes.numberLook }}
               sx={{
                 "& .MuiButtonBase-root": {
@@ -271,131 +329,6 @@ const TopManga = () => {
           </Stack>
         </div>
       </div>
-      // <div className='top-anime-page-container'>
-      //   <div className='header-content'>
-      //     <Header />
-      //     <NavigationBar />
-      //   </div>
-      //   <div className='top-anime-top-category-title'>
-      //     <Typography>Top Anime</Typography>
-      //     <TopMangaBar />
-      //   </div>
-      //   <Divider />
-      //   <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
-      //     <Pagination
-      //       count={401}
-      //       page={buttonCounter}
-      //       onChange={(event, value) => {
-      //         console.log(event, parseInt(event.target.innerText), value);
-      //         // setButtonCounter(parseInt(e.target.innerText));
-      //         navigate(`/top-manga`, {
-      //           state: {
-      //             topFilter: category,
-      //             page: parseInt(value),
-      //           },
-      //         });
-      //         // e.preventDefault();
-
-      //         window.location.reload();
-      //         window.scrollTo(0, 0);
-      //       }}
-      //     />
-      //   </Stack>
-      //   <div className='top-anime-top-category-container'>
-      //     <Grid>
-      //       <ImageList cols={1} rowHeight={400}>
-      //         {topScoredManga.map((entry) => {
-      //           //   console.log(entry);
-      //           return (
-      //             <article className='top-anime-top-category-items'>
-      //               <div className='top-anime-top-category-title-container'>
-      //                 <figure>
-      //                   <Typography className='top-anime-top-category-item-rank'>
-      //                     {entry.rank}
-      //                   </Typography>
-      //                 </figure>
-      //                 <figure>
-      //                   <Link
-      //                     to='/manga-info'
-      //                     state={{ mangaId: entry.mal_id }}
-      //                   >
-      //                     {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
-      //                     <ImageListItem>
-      //                       <img src={entry.image_url} alt={entry.title} />
-      //                       <ImageListItemBar
-      //                         title={entry.title}
-      //                         subtitle={`${entry.start_date} - ${
-      //                           entry.end_date === null
-      //                             ? "Current"
-      //                             : `${entry.end_date}`
-      //                         }`}
-      //                       />
-      //                     </ImageListItem>
-      //                   </Link>
-      //                 </figure>
-      //                 {/* <figure>
-      //                   <Typography>{entry.title}</Typography>
-      //                 </figure> */}
-      //                 <figure>
-      //                   <Typography>{`${entry.type} (${
-      //                     entry.volumes
-      //                       ? `${entry.volumes} vols`
-      //                       : `${
-      //                           entry.chapters
-      //                             ? `${entry.chapters} vols`
-      //                             : "N/A"
-      //                         }`
-      //                   })`}</Typography>
-      //                   {/* <Typography>{entry.aired.string}</Typography> */}
-      //                   {/* <Typography>{`${entry.start_date} - ${entry.end_date}`}</Typography> */}
-      //                 </figure>
-      //                 <figure>
-      //                   {/* <Typography>{entry.aired.members}</Typography> */}
-      //                   <Typography>{`${entry.members} fans`}</Typography>
-      //                 </figure>
-      //                 <figure>
-      //                   <div className='top-anime-top-category-item-status'>
-      //                     <Typography>{entry.status}</Typography>
-      //                     <div className='top-anime-top-category-item-score'>
-      //                       <Typography>{`Score: ${entry.score}`}</Typography>
-      //                     </div>
-      //                     {/* <div className='top-anime-top-category-item-status'>
-      //                   <Typography>{entry.status}</Typography>
-      //                 </div> */}
-      //                   </div>
-      //                 </figure>
-      //               </div>
-      //             </article>
-      //           );
-      //         })}
-      //       </ImageList>
-      //     </Grid>
-      //     <div className='buttons'>
-      //       <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
-      //         <Pagination
-      //           count={401}
-      //           page={buttonCounter}
-      //           onChange={(event, value) => {
-      //             console.log(event, parseInt(event.target.innerText), value);
-      //             // setButtonCounter(parseInt(e.target.innerText));
-      //             navigate(`/top-manga`, {
-      //               state: {
-      //                 topFilter: category,
-      //                 page: parseInt(value),
-      //               },
-      //             });
-      //             // e.preventDefault();
-
-      //             window.location.reload();
-      //             window.scrollTo(0, 0);
-      //           }}
-      //         />
-      //       </Stack>
-      //     </div>
-      //   </div>
-
-      //   <Typography>Hi</Typography>
-      // </div>
     );
   } else {
     return <LoadingScreen />;

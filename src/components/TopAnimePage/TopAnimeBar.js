@@ -7,11 +7,11 @@ function TopAnimeBar() {
   return (
     <Box sx={{ marginTop: "8%" }}>
       <Nav className='rb-navbar '>
-        <Nav.Item>
+        {/* <Nav.Item>
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: " ", type: "anime" }}
+            state={{ topFilter: " ", type: "anime", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -26,7 +26,7 @@ function TopAnimeBar() {
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "airing" }}
+            state={{ topFilter: "airing", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -40,7 +40,7 @@ function TopAnimeBar() {
         <Link
           to='/top-anime'
           onClick={() => window.location.reload()}
-          state={{ topFilter: "upcoming" }}
+          state={{ topFilter: "upcoming", page: 1 }}
           style={{
             textDecoration: "none",
             color: "#ffffff",
@@ -49,12 +49,12 @@ function TopAnimeBar() {
           <Typography sx={{ fontSize: 30, fontWeight: "bold" }}>
             Top Upcoming
           </Typography>
-        </Link>
+        </Link> */}
         <Nav.Item>
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "tv" }}
+            state={{ topFilter: "tv", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -69,7 +69,7 @@ function TopAnimeBar() {
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "movie" }}
+            state={{ topFilter: "movie", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -84,7 +84,7 @@ function TopAnimeBar() {
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "ova" }}
+            state={{ topFilter: "ova", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -99,7 +99,7 @@ function TopAnimeBar() {
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "special" }}
+            state={{ topFilter: "special", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -110,11 +110,11 @@ function TopAnimeBar() {
             </Typography>
           </Link>
         </Nav.Item>
-        <Nav.Item>
+        {/* <Nav.Item>
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "bypopularity" }}
+            state={{ topFilter: "bypopularity", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -129,7 +129,7 @@ function TopAnimeBar() {
           <Link
             to='/top-anime'
             onClick={() => window.location.reload()}
-            state={{ topFilter: "favorite" }}
+            state={{ topFilter: "favorite", page: 1 }}
             style={{
               textDecoration: "none",
               color: "#ffffff",
@@ -139,7 +139,7 @@ function TopAnimeBar() {
               Most Favorited
             </Typography>
           </Link>
-        </Nav.Item>
+        </Nav.Item> */}
       </Nav>
     </Box>
 

@@ -22,10 +22,14 @@ import LoadingScreen from "../LoadingScreen";
 import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import { Box } from "@mui/system";
+import sorrynothing from "../../sorrynothing.png";
+import pikafight from "../../pikafight.gif";
 
 const SearchPage = () => {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const [animeList, setAnimeList] = useState();
+  const [animeList2, setAnimeList2] = useState();
+
   const [animeListv3, setAnimeListv3] = useState();
 
   const location = useLocation();
@@ -42,42 +46,66 @@ const SearchPage = () => {
     //   `https://api.jikan.moe/v3/search/${searchType}?q=${query}&order_by=title&sort=asc&page=${page}`,
     // ).then((res) => res.json());
 
-    // const temp = await jikanjsV3.search(searchType, query, page);
-    const temp = await fetch(
+    // const temp2 = await jikanjsV3.search(searchType, query, page);
+
+    // console.log("V3 Wrapper", temp2);
+
+    let temp = await fetch(
       `https://api.jikan.moe/v4/${searchType}?letter=${query}&order_by=popularity&sort=asc&page=${page}`,
     ).then((res) => res.json());
 
-    // api.jikan.moe/v4/anime?q=ranma&page=1
-    //https://api.jikan.moe/v4/anime?q=ranma&page=1
-    console.log(temp);
-    // setLastPage(temp.last_page);
-    setLastPage(temp.pagination.items.total);
-
-    // setAnimeList(temp.results);
+    console.log("V4 Letter:", temp.data);
+    setLastPage(temp.pagination.last_visible_page);
     setAnimeList(temp.data);
-    console.log(temp.data.length);
 
-    if (temp.data.length === 0) {
-      const temp2 = await fetch(
-        `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc&page=${page}`,
+    if (temp.data && temp.data.length === 0) {
+      const temp = await fetch(
+        `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc`,
       ).then((res) => res.json());
       console.log(temp);
+      console.log("V4 query", temp);
 
-      setLastPage(temp2.pagination.items.total);
-
+      // console.log(temp.pagination);
+      setLastPage(temp.pagination.last_visible_page);
       // setAnimeList(temp.results);
-      setAnimeList(temp2.data);
+      let sortedAnime;
+      if (temp.data && temp.data.length > 0) {
+        sortedAnime = temp.data.sort((a, b) =>
+          a.popularity > b.popularity ? 1 : -1,
+        );
+      }
+
+      sortedAnime = temp.data.sort((a, b) =>
+        a.popularity > b.popularity ? 1 : -1,
+      );
+      setAnimeList(sortedAnime);
+      // setAnimeList(temp.data);
       console.log(temp.data.length);
     }
 
-    // const temp2 = await jikanjsV3.search(searchType, query, page);
+    // // api.jikan.moe/v4/anime?q=ranma&page=1
+    // //https://api.jikan.moe/v4/anime?q=ranma&page=1
+    // // setLastPage(temp.last_page);
+    // // setLastPage(temp.pagination.items.total);
+    // setLastPage(temp.pagination.last_visible_page);
 
-    //  console.log(temp);
-    //  setLastPage(temp.last_page);
-    //  setLastPage(temp.pagination.items.total);
+    // // setAnimeList(temp.results);
+    // setAnimeList(temp.data);
+    // console.log("V4 Letter", temp.data.length);
 
-    //  setAnimeList(temp.results);
-    //  setAnimeList(temp.data);
+    // if (temp.data.length === 0) {
+    //   const temp = await fetch(
+    //     `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc&page=${page}`,
+    //   ).then((res) => res.json());
+    //   console.log(temp);
+    //   console.log("V4 query", temp);
+
+    //   // console.log(temp.pagination);
+    //   setLastPage(temp.pagination.last_visible_page);
+    //   // setAnimeList(temp.results);
+    //   setAnimeList(temp.data);
+    //   console.log(temp.data.length);
+    // }
   }, []);
   useEffect(() => {
     if (!animeList) {
@@ -85,7 +113,24 @@ const SearchPage = () => {
     }
   }, [animeList, buttonCounter, fetchAnime, searchThing, typeThing]);
 
-  if (animeList) {
+  console.log(animeList, animeList2);
+
+  // let sortedAnime;
+  // if (animeList.l) {
+  //   // let filteredSearchResults = animeList.filter((obj) => {
+  //   //   return obj.popularity;
+  //   // });
+
+  //   // console.log(filteredSearchResults);
+  //   sortedAnime = animeList.sort((a, b) =>
+  //     a.popularity > b.popularity ? 1 : -1,
+  //   );
+  //   setAnimeList(animeList);
+  // }
+
+  // console.log(sortedAnime);
+
+  if (animeList && animeList.length > 0) {
     return (
       <div style={{ height: "100vh" }}>
         <div className='header-content'>
@@ -120,6 +165,15 @@ const SearchPage = () => {
               window.location.reload();
               window.scrollTo(0, 0);
             }}
+            sx={{
+              "& .MuiButtonBase-root": {
+                color: "#ffffff",
+                fontSize: 20,
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#59c9a5",
+              },
+            }}
           />
         </Stack>
         {/* <div className='anime-character-list-contents'> */}
@@ -150,7 +204,20 @@ const SearchPage = () => {
                       }}
                     >
                       <CardHeader
-                        title={`${anime.title} `}
+                        title={
+                          <Typography
+                            sx={{
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              display: "-webkit-box",
+                              WebkitLineClamp: "1",
+                              WebkitBoxOrient: "vertical",
+                              fontSize: 25,
+                            }}
+                          >
+                            {anime.title}
+                          </Typography>
+                        }
                         // subheader={`${anime.members} fans`}
                       />
 
@@ -203,7 +270,7 @@ const SearchPage = () => {
                         {/* <Typography gutterBottom variant='h5' component='div'>
                           {anime.title}
                         </Typography> */}
-                        <Typography sx={{ paddingBottom: "5%" }}>
+                        <Typography sx={{ paddingBottom: "2%", fontSize: 25 }}>
                           {typeThing === "anime"
                             ? `${anime.type} (${
                                 anime.episodes ? `${anime.episodes} eps` : "N/A"
@@ -220,13 +287,49 @@ const SearchPage = () => {
                                     }`
                               })`}
                         </Typography>
-                        <Typography variant='body2'>
-                          {anime.synopsis}
-                        </Typography>
+
                         <Typography
                           variant='body2'
-                          sx={{ paddingTop: "5%" }}
+                          sx={{ paddingBottom: "3%", fontSize: 25 }}
                         >{`${anime.members} fans`}</Typography>
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            display: "-webkit-box",
+                            WebkitLineClamp: "3",
+                            WebkitBoxOrient: "vertical",
+                            // paddingBottom: "2%",
+                            fontSize: 20,
+                          }}
+                        >
+                          {anime.synopsis}
+                        </Typography>
+
+                        <Link
+                          to={
+                            typeThing === "anime"
+                              ? "/anime-info"
+                              : "/manga-info"
+                          }
+                          state={
+                            typeThing === "anime"
+                              ? { animeId: anime.mal_id }
+                              : { mangaId: anime.mal_id }
+                          }
+                        >
+                          <Typography
+                            sx={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              paddingTop: "3%",
+                              fontSize: 25,
+                            }}
+                          >
+                            View More
+                          </Typography>
+                        </Link>
                       </CardContent>
                       {/* <CardActions>
                         <Button
@@ -288,6 +391,15 @@ const SearchPage = () => {
 
               window.location.reload();
               window.scrollTo(0, 0);
+            }}
+            sx={{
+              "& .MuiButtonBase-root": {
+                color: "#ffffff",
+                fontSize: 20,
+              },
+              "& .Mui-selected": {
+                backgroundColor: "#59c9a5",
+              },
             }}
           />
         </Stack>
@@ -375,6 +487,33 @@ const SearchPage = () => {
             />
           </Stack>
         </Stack> */}
+      </div>
+    );
+  } else if (animeList && animeList.length === 0) {
+    return (
+      <div>
+        <Header />
+        <NavigationBar />
+        <Box
+          sx={{
+            backgroundColor: "#2A1F2D",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+            margin: "auto",
+            // borderStyle: "solid",
+            // backgroundColor: "white",
+            // height: "auto",
+            width: "auto",
+            paddingTop: "15%",
+          }}
+        >
+          <img src={pikafight} alt='No results' />
+          <Typography sx={{ fontSize: 50, color: "#ffffff" }}>
+            Sorry Nothing
+          </Typography>
+        </Box>
       </div>
     );
   } else {

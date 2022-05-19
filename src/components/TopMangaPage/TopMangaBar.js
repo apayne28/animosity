@@ -33,7 +33,7 @@ function TopMangaBar() {
             <Typography sx={{ fontSize: 28 }}>Top One-shots</Typography>
           </Link>
         </Nav.Item>
-        <Link
+        {/* <Link
           to='/top-manga'
           onClick={() => window.location.reload()}
           state={{ topFilter: "doujin" }}
@@ -43,7 +43,7 @@ function TopMangaBar() {
           }}
         >
           <Typography sx={{ fontSize: 28 }}>Top Doujinshi</Typography>
-        </Link>
+        </Link> */}
         <Nav.Item>
           <Link
             to='/top-manga'
@@ -74,6 +74,19 @@ function TopMangaBar() {
           <Link
             to='/top-manga'
             onClick={() => window.location.reload()}
+            state={{ topFilter: "manhwa" }}
+            style={{
+              textDecoration: "none",
+              color: "#ffffff",
+            }}
+          >
+            <Typography sx={{ fontSize: 28 }}>Top Manhwa</Typography>
+          </Link>
+        </Nav.Item>
+        {/* <Nav.Item>
+          <Link
+            to='/top-manga'
+            onClick={() => window.location.reload()}
             state={{ topFilter: "bypopularity" }}
             style={{
               textDecoration: "none",
@@ -95,7 +108,7 @@ function TopMangaBar() {
           >
             <Typography sx={{ fontSize: 28 }}>Most Favorited</Typography>
           </Link>
-        </Nav.Item>
+        </Nav.Item> */}
         {/* <Nav.Item>
         <Link
           to='/top-anime'

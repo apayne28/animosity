@@ -36,6 +36,22 @@ const SearchBar = (props) => {
     setAnimeList(temp.results);
   };
 
+  const handleSubmit = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === true) {
+      e.preventDefault();
+
+      FetchAnime(search);
+      console.log(search, type);
+      navigate(`/search-page`, {
+        state: { searchQuery: search, searchType: type },
+      });
+      window.location.reload();
+    } else {
+      e.preventDefault();
+    }
+  };
+
   // const HandleSearch = (e) => {
   //   e.preventDefault();
 
@@ -99,28 +115,20 @@ const SearchBar = (props) => {
         aria-label='Search'
         value={props.search}
         validated={isValid}
-        onSubmit={async (e) => {
-          if (isValid) {
-            e.preventDefault();
-
-            FetchAnime(search);
-            console.log(search, type);
-            navigate(`/search-page`, {
-              state: { searchQuery: search, searchType: type },
-            });
-            window.location.reload();
-          }
-        }}
+        onSubmit={handleSubmit}
         onChange={(e) => {
           setSearch(e.target.value);
         }}
       >
-        <FormControl
+        <Form.Control
           type='search'
           placeholder='Search for an anime...'
           className='me-2'
+          required
         />
-
+        <Form.Control.Feedback type='invalid'>
+          Must be at least 3 characters
+        </Form.Control.Feedback>
         <IconButton
           onClick={async (e) => {
             e.preventDefault();

@@ -6,6 +6,7 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
+  Button,
 } from "@mui/material";
 import React, { useCallback, useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +16,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
 import { Accordion } from "react-bootstrap";
 import CharacterDetails from "./CharacterDetails";
+import ShowMoreText from "react-show-more-text";
 
 function AnimeCharacterPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -22,6 +24,37 @@ function AnimeCharacterPage(props) {
   let characterValue = location.state.characterId;
 
   const [animeCharacter, setAnimeCharacter] = useState();
+  // const [viewMore, setViewMore] = useState(false);
+  let viewMore = false;
+
+  const collapseText = {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    display: "-webkit-box",
+    WebkitLineClamp: "15",
+    WebkitBoxOrient: "vertical",
+    // paddingBottom: "2%",
+    fontSize: 20,
+    marginTop: "2%",
+
+    width: "90%",
+    paddingTop: "1%",
+    paddingLeft: "2%",
+    paddingRight: "2%",
+
+    whiteSpace: "pre-line",
+    // margin: "auto",
+  };
+
+  const showMoreText = {
+    fontSize: 18,
+    width: "90%",
+    padding: "2%",
+    whiteSpace: "pre-line",
+    // margin: "auto",
+  };
+
+  let backgroundText = viewMore === false ? collapseText : showMoreText;
 
   const getAnimeCharacter = useCallback(
     async (id) => {
@@ -186,18 +219,40 @@ function AnimeCharacterPage(props) {
                     </Accordion.Item>
                   </Accordion> */}
                   <h3>Background</h3>
-                  <Typography
-                    variant='body2'
+                  {/* <Typography variant='body2' sx={backgroundText}>
+                    {animeCharacter.about}
+                  </Typography> */}
+
+                  <Typography sx={{ margin: "1%", fontSize: 22 }}>
+                    <ShowMoreText
+                      lines={15}
+                      more='Show more'
+                      less='Show less'
+                      expanded={false}
+                      width={0}
+                      truncatedEndingComponent={"... "}
+                      keepNewLines={true}
+                      style={{ fontSize: "80" }}
+                    >
+                      {animeCharacter.about}
+                    </ShowMoreText>
+                  </Typography>
+
+                  {/* <Box
                     sx={{
-                      fontSize: 18,
-                      width: "90%",
-                      padding: "2%",
-                      whiteSpace: "pre-line",
-                      // margin: "auto",
+                      display: "flex",
+                      justifyContent: "flex-end",
+
+                      marginRight: "10%",
+                    }}
+                    onClick={() => {
+                      console.log(viewMore);
+                      viewMore = !viewMore;
+                      console.log(viewMore);
                     }}
                   >
-                    {animeCharacter.about}
-                  </Typography>
+                    <Button sx={{ fontSize: 29 }}>View More</Button>
+                  </Box> */}
                   <Divider sx={{ paddingTop: 2 }} />
 
                   {/* <h3>Voice Actors</h3> */}

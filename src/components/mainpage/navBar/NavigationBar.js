@@ -91,7 +91,11 @@ const NavigationBar = () => {
             <NavDropdown.Item>
               <Link
                 to='/top-anime'
-                style={{ textDecoration: "none", color: "#3B2C35" }}
+                style={{
+                  textDecoration: "none",
+                  color: "#3B2C35",
+                  fontSize: 25,
+                }}
                 state={{ topFilter: " ", type: "anime" }}
               >
                 Top Anime
@@ -105,7 +109,11 @@ const NavigationBar = () => {
             <NavDropdown.Item>
               <Link
                 to='/top-manga '
-                style={{ textDecoration: "none", color: "#3B2C35" }}
+                style={{
+                  textDecoration: "none",
+                  color: "#3B2C35",
+                  fontSize: 25,
+                }}
                 state={{ topFilter: " ", type: "manga" }}
               >
                 Top Manga

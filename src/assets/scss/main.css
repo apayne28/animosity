@@ -75,7 +75,7 @@ body {
   height: 100vh;
 }
 .homepage-carousel {
-  margin-top: 2%;
+  /* margin-top: 2%; */
   /* -webkit-filter: brightness(50%); */
 }
 
@@ -86,7 +86,7 @@ body {
   border: 10px solid #59c9a5;
   padding: 50px;
   margin: 0 auto;
-  margin-top: 1%;
+  /* margin-top: 1%; */
 }
 .homepage-content h3 {
 }

@@ -16,6 +16,7 @@ import Carousel from "react-elastic-carousel";
 import { Accordion } from "react-bootstrap";
 import VoiceActorDetails from "../CharacterVoiceActorPage/VoiceActorDetails";
 import MangaAuthorDetails from "./MangaAuthorDetails";
+import ShowMoreText from "react-show-more-text";
 
 function MangaAuthorPage(props) {
   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
@@ -224,19 +225,20 @@ function MangaAuthorPage(props) {
                   <h3>Background</h3>
                   {author.about ? (
                     <div>
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          fontSize: 18,
-                          width: "90%",
-                          padding: "2%",
-                          whiteSpace: "pre-line",
-                          // margin: "auto",
-                        }}
-                      >
-                        {author.about}
+                      <Typography sx={{ margin: "1%", fontSize: 22 }}>
+                        <ShowMoreText
+                          lines={15}
+                          more='Show more'
+                          less='Show less'
+                          expanded={false}
+                          width={0}
+                          truncatedEndingComponent={"... "}
+                          keepNewLines={true}
+                          style={{ fontSize: "80" }}
+                        >
+                          {author.about}
+                        </ShowMoreText>
                       </Typography>
-                      <Divider sx={{ paddingTop: 2 }} />
                     </div>
                   ) : (
                     <Box
