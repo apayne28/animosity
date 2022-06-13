@@ -29,6 +29,29 @@ const TopManga = () => {
   const [topScoredManga, setTopScoredManga] = useState();
   const buttonCounter = buttonValue;
   const [lastPage, setLastPage] = useState();
+  let windowSize = window.innerWidth;
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(5);
+      setRowHeight(980);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(4);
+      setRowHeight(880);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(3);
+      setRowHeight(780);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(2);
+      setRowHeight(780);
+    } else if (windowSize <= 550) {
+      setColumnSize(1);
+      setRowHeight(780);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   console.log(location);
 
@@ -64,7 +87,25 @@ const TopManga = () => {
     if (!topScoredManga) {
       getTopScoredManga();
     }
-  }, [getTopScoredManga, topScoredManga]);
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(5);
+        setRowHeight(980);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(4);
+        setRowHeight(880);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(3);
+        setRowHeight(780);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(2);
+        setRowHeight(780);
+      } else if (windowSize <= 550) {
+        setColumnSize(1);
+        setRowHeight(780);
+      }
+    }
+  }, [columnSize, getTopScoredManga, rowHeight, topScoredManga, windowSize]);
 
   if (topScoredManga) {
     return (
@@ -123,7 +164,7 @@ const TopManga = () => {
             {/* <Typography>Top Anime</Typography> */}
           </div>
           <Grid container>
-            <ImageList cols={5} rowHeight={960}>
+            <ImageList cols={columnSize} rowHeight={rowHeight}>
               {topScoredManga.map((entry) => {
                 // const entryInfo = getManga(entry.mal_id);
                 // console.log(entryInfo);

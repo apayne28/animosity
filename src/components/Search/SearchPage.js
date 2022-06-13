@@ -40,6 +40,33 @@ const SearchPage = () => {
   const [lastPage, setLastPage] = useState();
   const buttonCounter = buttonValue;
   console.log(typeThing, searchThing, buttonCounter);
+  let windowSize = window.innerWidth;
+
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(5);
+      setRowHeight(980);
+    } else if (windowSize > 1461 && windowSize <= 2048) {
+      setColumnSize(4);
+      setRowHeight(780);
+    } else if (windowSize > 1100 && windowSize <= 1461) {
+      setColumnSize(3);
+      setRowHeight(780);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(3);
+      setRowHeight(680);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(2);
+      setRowHeight(680);
+    } else if (windowSize <= 550) {
+      setColumnSize(1);
+      setRowHeight(780);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   const fetchAnime = useCallback(async (searchType, query, page) => {
     // const temp = await fetch(
@@ -111,7 +138,37 @@ const SearchPage = () => {
     if (!animeList) {
       fetchAnime(typeThing, searchThing, buttonCounter);
     }
-  }, [animeList, buttonCounter, fetchAnime, searchThing, typeThing]);
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(5);
+        setRowHeight(980);
+      } else if (windowSize > 1461 && windowSize <= 2048) {
+        setColumnSize(4);
+        setRowHeight(780);
+      } else if (windowSize > 1100 && windowSize <= 1461) {
+        setColumnSize(3);
+        setRowHeight(780);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(3);
+        setRowHeight(680);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(2);
+        setRowHeight(680);
+      } else if (windowSize <= 550) {
+        setColumnSize(1);
+        setRowHeight(780);
+      }
+    }
+  }, [
+    animeList,
+    buttonCounter,
+    columnSize,
+    fetchAnime,
+    rowHeight,
+    searchThing,
+    typeThing,
+    windowSize,
+  ]);
 
   console.log(animeList, animeList2);
 
@@ -180,7 +237,7 @@ const SearchPage = () => {
         {/* <div className='anime-character-list-contents'> */}
         <div className='search-page-contents'>
           <Grid container>
-            <ImageList cols={5} rowHeight={900}>
+            <ImageList cols={columnSize} rowHeight={rowHeight}>
               {animeList.map((anime, key) => (
                 <Box
                   // sx={{
