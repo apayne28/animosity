@@ -1,36 +1,28 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import AnimeCard from "../mainpage/navBar/AnimeCard";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Stack,
   Typography,
-  Divider,
   Pagination,
   ImageList,
   ImageListItem,
-  ImageListItemBar,
   Grid,
   Card,
-  CardMedia,
   CardContent,
-  CardActions,
-  Button,
+  Box,
   CardHeader,
 } from "@mui/material";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import { Box } from "@mui/system";
-import sorrynothing from "../../sorrynothing.png";
 import pikafight from "../../pikafight.gif";
 
 const SearchPage = () => {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const [animeList, setAnimeList] = useState();
-  const [animeList2, setAnimeList2] = useState();
+  // const [animeList2, setAnimeList2] = useState();
 
-  const [animeListv3, setAnimeListv3] = useState();
+  // const [animeListv3, setAnimeListv3] = useState();
 
   const location = useLocation();
   let navigate = useNavigate();
@@ -69,14 +61,6 @@ const SearchPage = () => {
   const [rowHeight, setRowHeight] = useState();
 
   const fetchAnime = useCallback(async (searchType, query, page) => {
-    // const temp = await fetch(
-    //   `https://api.jikan.moe/v3/search/${searchType}?q=${query}&order_by=title&sort=asc&page=${page}`,
-    // ).then((res) => res.json());
-
-    // const temp2 = await jikanjsV3.search(searchType, query, page);
-
-    // console.log("V3 Wrapper", temp2);
-
     let temp = await fetch(
       `https://api.jikan.moe/v4/${searchType}?letter=${query}&order_by=popularity&sort=asc&page=${page}`,
     ).then((res) => res.json());
@@ -109,30 +93,6 @@ const SearchPage = () => {
       // setAnimeList(temp.data);
       console.log(temp.data.length);
     }
-
-    // // api.jikan.moe/v4/anime?q=ranma&page=1
-    // //https://api.jikan.moe/v4/anime?q=ranma&page=1
-    // // setLastPage(temp.last_page);
-    // // setLastPage(temp.pagination.items.total);
-    // setLastPage(temp.pagination.last_visible_page);
-
-    // // setAnimeList(temp.results);
-    // setAnimeList(temp.data);
-    // console.log("V4 Letter", temp.data.length);
-
-    // if (temp.data.length === 0) {
-    //   const temp = await fetch(
-    //     `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc&page=${page}`,
-    //   ).then((res) => res.json());
-    //   console.log(temp);
-    //   console.log("V4 query", temp);
-
-    //   // console.log(temp.pagination);
-    //   setLastPage(temp.pagination.last_visible_page);
-    //   // setAnimeList(temp.results);
-    //   setAnimeList(temp.data);
-    //   console.log(temp.data.length);
-    // }
   }, []);
   useEffect(() => {
     if (!animeList) {
@@ -170,7 +130,7 @@ const SearchPage = () => {
     windowSize,
   ]);
 
-  console.log(animeList, animeList2);
+  console.log(animeList);
 
   // let sortedAnime;
   // if (animeList.l) {
@@ -239,16 +199,7 @@ const SearchPage = () => {
           <Grid container>
             <ImageList cols={columnSize} rowHeight={rowHeight}>
               {animeList.map((anime, key) => (
-                <Box
-                  // sx={{
-                  //   display: "flex",
-                  //   flexDirection: "row",
-                  //   // width: "70%",
-                  //   margin: "auto",
-                  //   backgroundColor: "white",
-                  // }}
-                  sx={{ width: "100%", height: "100%" }}
-                >
+                <Box sx={{ width: "100%", height: "100%" }}>
                   <ImageListItem>
                     {/* <Card> */}
                     <Card

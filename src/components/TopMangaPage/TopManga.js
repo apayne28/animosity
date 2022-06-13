@@ -13,12 +13,11 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import Header from "../mainpage/Header";
+
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import TopMangaBar from "./TopMangaBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import LinesEllipsis from "react-lines-ellipsis";
 
 const TopManga = () => {
   const location = useLocation();
@@ -57,21 +56,10 @@ const TopManga = () => {
 
   const getTopScoredManga = useCallback(async () => {
     try {
-      //   const temp = await fetch(`https://api.jikan.moe/v4/top/anime`).then(
-      //     (res) => res.json(),
-      //   );
-      // category = filter;
       const temp = await fetch(
         `https://api.jikan.moe/v4/top/manga?type=${category}&page=${buttonValue}`,
       ).then((res) => res.json());
 
-      // const temp = await fetch(
-      //   `${
-      //     category !== " "
-      //       ? `https://api.jikan.moe/v3/top/anime/${buttonCounter}/${category}`
-      //       : `https://api.jikan.moe/v3/top/anime/${buttonCounter}`
-      //   }`,
-      // ).then((res) => res.json());
       console.log(
         `https://api.jikan.moe/v4/top/manga?type=${location.state.topFilter}&page=${buttonValue}`,
       );

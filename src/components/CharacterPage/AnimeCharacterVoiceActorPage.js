@@ -1,18 +1,14 @@
-import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import {
   Grid,
-  Typography,
   Box,
-  Card,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Button,
 } from "@mui/material";
-import Header from "../mainpage/Header";
+
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 
 import CharacterDetails from "./CharacterDetails";
@@ -20,11 +16,11 @@ import AnimeCharacterSide from "./AnimeCharacterSide";
 
 function AnimeCharacterVoiceActorPage(props) {
   const location = useLocation();
-  const animeId = location.state.animeId;
+  // const animeId = location.state.animeId;
   //   const mangaId = location.state.mangaId;
 
-  const [characterList, setCharacterList] = useState();
-  const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
+  // const [characterList, setCharacterList] = useState();
+  // const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
   // const [voiceActor, setVoiceActor] = useState();
   // const [voiceRoles, setVoiceRoles] = useState();
   console.log(location, props);
@@ -62,25 +58,6 @@ function AnimeCharacterVoiceActorPage(props) {
   const [columnSize, setColumnSize] = useState();
   const [rowHeight, setRowHeight] = useState();
 
-  // let test = roleList.filter((val, index, self) => {
-  //   console.log("Val:", val);
-  //   console.log("Role:", index);
-
-  //   console.log("Self", self);
-  // });
-
-  //   let test = roleList.filter(
-  //     (value, index, self) =>
-  //       index ===
-  //       self.findIndex(
-  //         (t) =>
-  //           t.character.name === value.character.name &&
-  //           t.name === value.character.anime,
-  //       ),
-  //   );
-
-  //   console.log(roleList, test);
-
   console.log(voiceActors, animeList, characterId);
   useEffect(() => {
     if (!columnSize && !rowHeight) {
@@ -106,7 +83,6 @@ function AnimeCharacterVoiceActorPage(props) {
   if ((characterId, voiceActors)) {
     return (
       <Box sx={{ height: "100vh" }}>
-        {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>

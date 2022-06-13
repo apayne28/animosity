@@ -8,18 +8,15 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import React, { useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
-import { Accordion } from "react-bootstrap";
-import VoiceActorDetails from "../CharacterVoiceActorPage/VoiceActorDetails";
 import MangaAuthorDetails from "./MangaAuthorDetails";
 import ShowMoreText from "react-show-more-text";
 
 function MangaAuthorPage(props) {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
   let authorValue = location.state.voiceActor;
   let actor = authorValue ? authorValue : location.state.authorId;
@@ -79,30 +76,6 @@ function MangaAuthorPage(props) {
     { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
 
-  let filteredVoiceRoles;
-  let filteredAnime;
-
-  //   if (authorManga) {
-  //     filteredVoiceRoles = voiceRoles.filter(
-  //       (value, index, self) =>
-  //         index ===
-  //         self.findIndex(
-  //           (t) =>
-  //             t.character.name === value.character.name &&
-  //             t.name === value.character.anime,
-  //         ),
-  //     );
-
-  //     filteredAnime = filteredVoiceRoles.filter(
-  //       (value, index, self) =>
-  //         index ===
-  //         self.findIndex(
-  //           (t) =>
-  //             t.anime.title === value.anime.title &&
-  //             t.anime.title === value.anime.title,
-  //         ),
-  //     );
-  //   }
   console.log(author, authorManga);
   if (author && authorManga) {
     return (

@@ -1,17 +1,16 @@
 import {
   Divider,
-  Grid,
+  Box,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   Typography,
   Link as MuiLink,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import ReactPlayer from "react-player";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
@@ -20,32 +19,12 @@ import AnimeInfoRecommendedAnime from "./AnimeInfoRecommendedAnime";
 
 const AnimeInfoSideContent = (props) => {
   const [info, setInfo] = useState();
-  const [externalLinks, setExternalLinks] = useState();
   const [animeRelations, setAnimeRelations] = useState();
-  // const [animeCharacterList, setAnimeCharacterList] = useState();
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
-
   let navigate = useNavigate();
-
-  // const getAnime = useCallback(async (id) => {
-  //   id = props.animeId;
-  //   try {
-  //     const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}`).then(
-  //       (res) => res.json(),
-  //     );
-
-  //     let results = temp.data;
-  //     console.log(results);
-  //     setInfo(results);
-  //     return results;
-  //   } catch (error) {
-  //     console.log("Anime not found");
-  //   }
-  // }, []);
 
   const getAnime = useCallback(
     async (id) => {
-      // id = props.animeId;
       try {
         //Grabs Anime Data Object
         const animeData = await fetch(
@@ -56,7 +35,6 @@ const AnimeInfoSideContent = (props) => {
         console.log(animeResults);
         setInfo(animeResults);
 
-        // await new Promise((resolve) => setTimeout(resolve, 2000));
         // Grabs Related Anime Data
         let relatedAnimeData = await fetch(
           `https://api.jikan.moe/v4/anime/${id}/relations`,
@@ -84,7 +62,6 @@ const AnimeInfoSideContent = (props) => {
       } catch (error) {
         console.log("Anime Recs not found");
       }
-      // await new Promise((resolve) => setTimeout(resolve, 4000));
     },
     [animeRecommendationsList],
   );
@@ -94,25 +71,6 @@ const AnimeInfoSideContent = (props) => {
       getAnime(props.animeId).catch(console.error);
     }
   }, [animeRecommendationsList, animeRelations, getAnime, info, props.animeId]);
-
-  // const getExternalAnimeLinks = useCallback(async (id) => {
-  //   id = props.animeId;
-
-  //   const temp = await fetch(
-  //     `https://api.jikan.moe/v4/anime/${id}/external`,
-  //   ).then((res) => res.json());
-
-  //   setExternalLinks(temp.data);
-  //   return temp.data;
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!info) {
-  //     getAnime(props.animeId).catch(console.error);
-  //   }
-
-  //   // getExternalAnimeLinks(50265).catch(console.error);
-  // }, [getAnime, info, props.animeId]);
 
   if (info && animeRelations && animeRecommendationsList) {
     return (

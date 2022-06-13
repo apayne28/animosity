@@ -1,8 +1,6 @@
 import React from "react";
-import Header from "../mainpage/Header";
-import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoSideContent from "./AnimeInfoSideContent.js";
-import AnimeInfoMainGuts from "./AnimeInfoMainGuts.js";
+
 import { useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
 

@@ -8,17 +8,15 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import React, { useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
-import { Accordion } from "react-bootstrap";
 import VoiceActorDetails from "./VoiceActorDetails";
 import ShowMoreText from "react-show-more-text";
 
 function CharacterVoiceActorPage(props) {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
   let characterValue = location.state.characterValue;
   let actor = characterValue ? characterValue : location.state.voiceActor;

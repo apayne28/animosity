@@ -1,25 +1,20 @@
 import {
-  Divider,
-  Grid,
   Typography,
   Box,
   ImageList,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
-import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 import LoadingScreen from "../LoadingScreen";
-import ReactPlayer from "react-player";
 import Carousel from "react-elastic-carousel";
 
 function AnimeInfoCharacters(props) {
   const [animeCharacterList, setAnimeCharacterList] = useState();
-  const [isCharLoaded, setIsCharLoader] = useState();
-  let navigate = useNavigate();
+
+  // let navigate = useNavigate();
   console.log(props.animeId);
   const getAnimeCharacters = useCallback(async (id) => {
     // await new Promise((resolve) => setTimeout(resolve, 3000));

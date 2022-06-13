@@ -1,34 +1,22 @@
-import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import {
   Grid,
-  Typography,
   Box,
-  Card,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Button,
 } from "@mui/material";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
-import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
-import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 import CharacterVoiceActorSide from "./CharacterVoiceActorSide";
 import VoiceActorDetails from "./VoiceActorDetails";
 
 function VoiceActorRoleListPage(props) {
   const location = useLocation();
-  const animeId = location.state.animeId;
+  // const animeId = location.state.animeId;
   //   const mangaId = location.state.mangaId;
 
-  const [characterList, setCharacterList] = useState();
-  const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
-  // const [voiceActor, setVoiceActor] = useState();
-  // const [voiceRoles, setVoiceRoles] = useState();
   console.log(location.state);
 
   let roleList = props.filteredVoiceRoles
@@ -62,12 +50,6 @@ function VoiceActorRoleListPage(props) {
 
   const [columnSize, setColumnSize] = useState();
   const [rowHeight, setRowHeight] = useState();
-  // let test = roleList.filter((val, index, self) => {
-  //   console.log("Val:", val);
-  //   console.log("Role:", index);
-
-  //   console.log("Self", self);
-  // });
 
   let test = roleList.filter(
     (value, index, self) =>
@@ -106,7 +88,6 @@ function VoiceActorRoleListPage(props) {
   if (test) {
     return (
       <Box sx={{ height: "100vh" }}>
-        {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>
@@ -122,7 +103,6 @@ function VoiceActorRoleListPage(props) {
               <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {test.map((character) => {
                   let characterEntry = character.character;
-                  // console.log(characterEntry);
 
                   return (
                     <Grid
@@ -130,7 +110,7 @@ function VoiceActorRoleListPage(props) {
                       sx={{
                         display: "flex",
                         flexDirection: "row",
-                        // width: "70%",
+
                         margin: "auto",
                         backgroundColor: "white",
                       }}
@@ -149,8 +129,6 @@ function VoiceActorRoleListPage(props) {
 
                           <ImageListItemBar title={characterEntry.name} />
                         </ImageListItem>
-
-                        {/* <Typography>{characterEntry.name} </Typography> */}
                       </Link>
                     </Grid>
                   );

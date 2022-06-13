@@ -1,7 +1,6 @@
-import { Divider, Grid, Typography, Link as MuiLink } from "@mui/material";
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Divider, Typography, Link as MuiLink } from "@mui/material";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";

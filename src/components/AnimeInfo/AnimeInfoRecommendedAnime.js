@@ -1,6 +1,4 @@
 import {
-  Divider,
-  Grid,
   Typography,
   Box,
   ImageList,
@@ -8,13 +6,9 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
-import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 import { useNavigate, Link } from "react-router-dom";
 import Carousel from "react-elastic-carousel";
-
 import LoadingScreen from "../LoadingScreen";
-import ReactPlayer from "react-player";
-import { Nav } from "react-bootstrap";
 
 function AnimeInfoRecommendedAnime(props) {
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();

@@ -2,26 +2,20 @@ import {
   Box,
   Typography,
   Grid,
-  Divider,
   ImageList,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
 import React, { useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
-import NavigationBar from "../mainpage/navBar/NavigationBar";
-import Carousel from "react-elastic-carousel";
-import { Accordion } from "react-bootstrap";
 
 function CharacterVoiceActorSide(props) {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
   //   let characterValue = location.state.characterValue;
 
   const [voiceActor, setVoiceActor] = useState();
-  const [voiceRoles, setVoiceRoles] = useState();
 
   console.log(props);
   let id = props.actorId ? props.actorId : location.state.voiceActor;
@@ -43,61 +37,14 @@ function CharacterVoiceActorSide(props) {
     }
 
     //Get Voice Roles
-
-    // try {
-    //   const voiceActorRoleData = await fetch(
-    //     `https://api.jikan.moe/v4/people/${id}/voices`,
-    //   ).then((res) => res.json());
-    //   console.log(id);
-    //   console.log(voiceActorRoleData);
-    //   let voiceActorRoleResults = voiceActorRoleData.data;
-    //   setVoiceRoles(voiceActorRoleResults);
-    //   console.log(voiceRoles);
-    // } catch (error) {
-    //   console.log("Character not found");
-    // }
   }, [id, voiceActor]);
 
   useEffect(() => {
     if (!voiceActor) {
       getVoiceActor(props.actorId);
     }
-  }, [getVoiceActor, props.actorId, voiceActor, voiceRoles]);
+  }, [getVoiceActor, props.actorId, voiceActor]);
 
-  //   const breakPoints = [
-  //     { width: 1, itemsToShow: 1 },
-  //     { width: 550, itemsToShow: 3, itemsToScroll: 3 },
-  //     // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
-  //     { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
-
-  //     { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
-  //   ];
-
-  //   let filteredVoiceRoles;
-  //   let filteredAnime;
-
-  //   if (voiceRoles) {
-  //     filteredVoiceRoles = voiceRoles.filter(
-  //       (value, index, self) =>
-  //         index ===
-  //         self.findIndex(
-  //           (t) =>
-  //             t.character.name === value.character.name &&
-  //             t.name === value.character.anime,
-  //         ),
-  //     );
-
-  //     // filteredAnime = filteredVoiceRoles.filter(
-  //     //   (value, index, self) =>
-  //     //     index ===
-  //     //     self.findIndex(
-  //     //       (t) =>
-  //     //         t.anime.title === value.anime.title &&
-  //     //         t.anime.title === value.anime.title,
-  //     //     ),
-  //     // );
-  //     // console.log(filteredVoiceRoles, filteredAnime);
-  //   }
   console.log(location);
   if (voiceActor) {
     return (
@@ -112,13 +59,6 @@ function CharacterVoiceActorSide(props) {
             />
             <ImageListItemBar
               title={<Typography>{voiceActor.name}</Typography>}
-              //   subtitle={
-              //     <Typography>{`${
-              //       animeCharacter.name_kanji
-              //         ? `${animeCharacter.name_kanji}`
-              //         : ""
-              //     }`}</Typography>
-              //   }
             />
           </ImageListItem>
         </ImageList>

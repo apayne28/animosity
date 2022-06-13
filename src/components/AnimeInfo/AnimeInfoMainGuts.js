@@ -1,27 +1,17 @@
-import {
-  Divider,
-  Grid,
-  Typography,
-  Link as MuiLink,
-  Box,
-  Paper,
-  Card,
-} from "@mui/material";
+import { Divider, Typography, Link as MuiLink } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import LoadingScreen from "../LoadingScreen";
 import ReactPlayer from "react-player";
-import AnimeCharacterPage from "../CharacterPage/AnimeCharacterPage";
 import AnimeInfoCharacters from "./AnimeInfoCharacters";
 import AnimeInfoRecommendedAnime from "./AnimeInfoRecommendedAnime";
 
 function AnimeInfoMainGuts(props) {
   const [info, setInfo] = useState();
   const [animeRelations, setAnimeRelations] = useState();
-  // const [animeCharacterList, setAnimeCharacterList] = useState();
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
 
   let navigate = useNavigate();

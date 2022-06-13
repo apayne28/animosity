@@ -1,28 +1,20 @@
-import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useCallback, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import {
   Grid,
-  Typography,
   Box,
-  Card,
   ImageList,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
-
-import MangaInfoSideContent from "../MangaInfo/MangaInfoSideContent";
 import MangaInfoMangaDetails from "../MangaInfo/MangaInfoMangaDetails";
 import MangaInfoSideContentSingle from "../MangaInfo/MangaInfoSideContentSingle";
 
 function MangaCharacterList(props) {
   const location = useLocation();
   const mangaId = location.state.mangaId;
-  //   const mangaId = location.state.mangaId;
 
   const [characterList, setCharacterList] = useState();
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
@@ -155,7 +147,6 @@ function MangaCharacterList(props) {
                         />
                         <ImageListItemBar title={characterEntry.name} />
                       </ImageListItem>
-                      {/* <Typography>{characterEntry.name} </Typography>å */}
                     </Link>
                   );
                 })}

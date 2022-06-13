@@ -6,55 +6,21 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Button,
 } from "@mui/material";
 import React, { useCallback, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import Carousel from "react-elastic-carousel";
-import { Accordion } from "react-bootstrap";
 import CharacterDetails from "./CharacterDetails";
 import ShowMoreText from "react-show-more-text";
 
 function AnimeCharacterPage(props) {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
   const location = useLocation();
   let characterValue = location.state.characterId;
 
   const [animeCharacter, setAnimeCharacter] = useState();
-  // const [viewMore, setViewMore] = useState(false);
-  let viewMore = false;
-
-  const collapseText = {
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    display: "-webkit-box",
-    WebkitLineClamp: "15",
-    WebkitBoxOrient: "vertical",
-    // paddingBottom: "2%",
-    fontSize: 20,
-    marginTop: "2%",
-
-    width: "90%",
-    paddingTop: "1%",
-    paddingLeft: "2%",
-    paddingRight: "2%",
-
-    whiteSpace: "pre-line",
-    // margin: "auto",
-  };
-
-  const showMoreText = {
-    fontSize: 18,
-    width: "90%",
-    padding: "2%",
-    whiteSpace: "pre-line",
-    // margin: "auto",
-  };
-
-  let backgroundText = viewMore === false ? collapseText : showMoreText;
 
   const getAnimeCharacter = useCallback(
     async (id) => {
@@ -205,9 +171,6 @@ function AnimeCharacterPage(props) {
               <div className='anime-info-content-guts'>
                 <div className='anime-info-main-popularity-container'>
                   <h3>Background</h3>
-                  {/* <Typography variant='body2' sx={backgroundText}>
-                    {animeCharacter.about}
-                  </Typography> */}
 
                   <Typography sx={{ margin: "1%", fontSize: 22 }}>
                     <ShowMoreText
@@ -224,24 +187,8 @@ function AnimeCharacterPage(props) {
                     </ShowMoreText>
                   </Typography>
 
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-
-                      marginRight: "10%",
-                    }}
-                    onClick={() => {
-                      console.log(viewMore);
-                      viewMore = !viewMore;
-                      console.log(viewMore);
-                    }}
-                  >
-                    <Button sx={{ fontSize: 29 }}>View More</Button>
-                  </Box> */}
                   <Divider sx={{ paddingTop: 2 }} />
 
-                  {/* <h3>Voice Actors</h3> */}
                   {animeCharacter.voice_actors.length > 0 && (
                     <div>
                       <Box
@@ -266,15 +213,10 @@ function AnimeCharacterPage(props) {
                         >
                           <Typography
                             sx={{
-                              // padding: "0.5%",
                               fontSize: 29,
-                              // display: "flex",
-                              // justifyContent: "flex-end",
                               marginTop: "17%",
-                              // marginRight: "1%",
                             }}
                           >
-                            {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
                             View More
                           </Typography>
                         </Link>
@@ -365,15 +307,11 @@ function AnimeCharacterPage(props) {
                         >
                           <Typography
                             sx={{
-                              // padding: "0.5%",
                               fontSize: 29,
-                              // display: "flex",
-                              // justifyContent: "flex-end",
+
                               marginTop: "17%",
-                              // marginRight: "1%",
                             }}
                           >
-                            {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
                             View More
                           </Typography>
                         </Link>
@@ -456,15 +394,11 @@ function AnimeCharacterPage(props) {
                         >
                           <Typography
                             sx={{
-                              // padding: "0.5%",
                               fontSize: 29,
-                              // display: "flex",
-                              // justifyContent: "flex-end",
+
                               marginTop: "17%",
-                              // marginRight: "1%",
                             }}
                           >
-                            {/* <Typography sx={{ padding: "0.5%", fontSize: 19, display: 'flex' }}> */}
                             View More
                           </Typography>
                         </Link>
@@ -490,11 +424,6 @@ function AnimeCharacterPage(props) {
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.mangaography.map((appearances) => {
                               return (
-                                //  <Grid
-                                //    item
-                                //    classname='character-profile-anime-appearance-entry'
-                                //    sx={{ display: "flex" }}
-                                //  >
                                 <div>
                                   <div className='anime-info-rec-anime-item'>
                                     <div>
@@ -522,9 +451,6 @@ function AnimeCharacterPage(props) {
                                         </ImageList>
                                       </Link>
                                     </div>
-
-                                    {/* <Divider /> */}
-                                    {/*</Grid>*/}
                                   </div>
                                 </div>
                               );
@@ -542,256 +468,6 @@ function AnimeCharacterPage(props) {
           </div>
         </div>
       </div>
-      // <Box>
-      //   <div className='header-content'>
-      //     <Header />
-
-      //     <NavigationBar />
-      //   </div>
-      //   <div className='anime-info-main'>
-      //     <div className="'anime-info-side-content">
-      //       {/* <Box
-      //         classname='character-profile-side-bar'
-      //         sx={{ backgroundColor: "pink" }}
-      //       > */}
-      //       <ImageList cols={1}>
-      //         <ImageListItem>
-      //           <Box
-      //             component='img'
-      //             src={animeCharacter.image_url}
-      //             alt={animeCharacter.name}
-      //           />
-      //           <ImageListItemBar
-      //             title={animeCharacter.name}
-      //             subtitle={`${
-      //               animeCharacter.name_kanji
-      //                 ? `${animeCharacter.name_kanji}`
-      //                 : ""
-      //             }`}
-      //           />
-      //         </ImageListItem>
-      //       </ImageList>
-      //       <div className='anime-info-alternative-titles-container'>
-      //         {animeCharacter.nicknames.length > 0 ? (
-      //           <Grid item sx={{ paddingBottom: 5 }}>
-      //             <Typography>Nicknames:</Typography>
-      //             {animeCharacter.nicknames.map((nicknames) => {
-      //               return <Typography>{nicknames}</Typography>;
-      //             })}
-      //           </Grid>
-      //         ) : (
-      //           ""
-      //         )}
-      //       </div>
-      //       <Box classname='character-profile-character-appearances'>
-      //         <Typography sx={{ paddingBottom: 1 }}>Animeography</Typography>
-      //         <Divider />
-      //         {/*
-      //         <ImageList cols={2} rowHeight={200}>
-      //           {animeCharacter.animeography.map((appearances) => {
-      //             return (
-      //               <Box>
-      //                 <Link
-      //                   to='/anime-info'
-      //                   state={{ animeId: appearances.mal_id }}
-      //                 >
-      //                   <div>
-      //                     <ImageListItem>
-      //                       <img
-      //                         src={appearances.image_url}
-      //                         alt={appearances.name}
-      //                       />
-      //                       <ImageListItemBar
-      //                         title={appearances.name}
-      //                         subtitle={`Role: ${appearances.role}`}
-      //                       />
-      //                     </ImageListItem>
-      //                   </div>
-      //                 </Link>
-
-      //                 <Divider />
-      //               </Box>
-      //             );
-      //           })}
-      //         </ImageList>
-
-      //         <Typography sx={{ paddingBottom: 1, paddingTop: 2 }}>
-      //           Mangaography
-      //         </Typography>
-      //         <Divider />
-      //         <ImageList cols={1}>
-      //           {animeCharacter.mangaography.map((appearances) => {
-      //             return (
-      //               <Grid
-      //                 item
-      //                 classname='character-profile-anime-appearance-entry'
-      //                 sx={{ display: "flex" }}
-      //               >
-      //                 <Link
-      //                   to='/manga-info'
-      //                   state={{ mangaId: appearances.mal_id }}
-      //                 >
-      //                   <ImageListItem>
-      //                     <img
-      //                       src={appearances.image_url}
-      //                       alt={appearances.name}
-      //                     />
-      //                     <ImageListItemBar
-      //                       title={appearances.name}
-      //                       subtitle={`Role: ${appearances.role}`}
-      //                     />
-      //                   </ImageListItem>
-      //                 </Link>
-
-      //                 <Divider />
-      //               </Grid>
-      //             );
-      //           })}
-      //         </ImageList> */}
-
-      //         <Typography>{`Member Favorites: ${animeCharacter.member_favorites}`}</Typography>
-      //       </Box>
-      //       {/* </Box> */}
-      //     </div>
-
-      //     <Box className='character-info-main-guts'>
-      //       <Typography>{`${animeCharacter.name} (${
-      //         animeCharacter.name_kanji ? animeCharacter.name_kanji : ""
-      //       })`}</Typography>
-      //       <Divider />
-
-      //       {/* <Box
-      //         className='character-profile-summary'
-      //         sx={{ paddingBottom: 5, whiteSpace: "pre-line" }}
-      //       >
-      //         <Typography>{animeCharacter.about}</Typography>
-      //         <Divider sx={{ paddingTop: 2 }} />
-      //       </Box> */}
-      //       <div className='anime-info-synopsis'>
-      //         <Typography>{animeCharacter.about}</Typography>
-      //         <Divider sx={{ paddingTop: 2 }} />
-      //       </div>
-
-      //       <Grid
-      //         container
-      //         md={12}
-      //         xs={4}
-      //         rowSpacing={3}
-      //         className='character-profile-voice-actor-info'
-      //       >
-      //         <Typography>Anime</Typography>
-      //         <ImageList cols={10} rowHeight={400}>
-      //           {animeCharacter.animeography.map((appearances) => {
-      //             return (
-      //               <Box>
-      //                 <Link
-      //                   to='/anime-info'
-      //                   state={{ animeId: appearances.mal_id }}
-      //                 >
-      //                   <div>
-      //                     <ImageListItem>
-      //                       <img
-      //                         src={appearances.image_url}
-      //                         alt={appearances.name}
-      //                       />
-      //                       <ImageListItemBar
-      //                         title={appearances.name}
-      //                         subtitle={`Role: ${appearances.role}`}
-      //                       />
-      //                     </ImageListItem>
-      //                   </div>
-      //                 </Link>
-
-      //                 <Divider />
-      //               </Box>
-      //             );
-      //           })}
-      //         </ImageList>
-      //       </Grid>
-
-      //       <Grid
-      //         container
-      //         md={12}
-      //         xs={4}
-      //         rowSpacing={3}
-      //         className='character-profile-voice-actor-info'
-      //       >
-      //         <Typography sx={{ paddingBottom: 1, paddingTop: 2 }}>
-      //           Mangaography
-      //         </Typography>
-      //         <Divider />
-      //         <ImageList cols={1}>
-      //           {animeCharacter.mangaography.map((appearances) => {
-      //             return (
-      //               <Grid
-      //                 item
-      //                 classname='character-profile-anime-appearance-entry'
-      //                 sx={{ display: "flex" }}
-      //               >
-      //                 <Link
-      //                   to='/manga-info'
-      //                   state={{ mangaId: appearances.mal_id }}
-      //                 >
-      //                   <ImageListItem>
-      //                     <img
-      //                       src={appearances.image_url}
-      //                       alt={appearances.name}
-      //                     />
-      //                     <ImageListItemBar
-      //                       title={appearances.name}
-      //                       subtitle={`Role: ${appearances.role}`}
-      //                     />
-      //                   </ImageListItem>
-      //                 </Link>
-      //                 {/* <Box classname='character-profile-anime-appearance-entry-series-info'>
-      //                   <Typography>{appearances.name}</Typography>
-      //                   <Typography>{`Role: ${appearances.role}`}</Typography>
-      //                 </Box> */}
-      //                 <Divider />
-      //               </Grid>
-      //             );
-      //           })}
-      //         </ImageList>
-      //       </Grid>
-
-      //       <Grid
-      //         container
-      //         md={12}
-      //         xs={4}
-      //         rowSpacing={3}
-      //         className='character-profile-voice-actor-info'
-      //       >
-      //         <Typography>Voice Actors</Typography>
-      //         <Divider />
-      //         <ImageList cols={5} rowHeight={400}>
-      //           {animeCharacter.voice_actors.map((actor) => {
-      //             return (
-      //               <Grid
-      //                 item
-      //                 classname='character-profile-anime-appearance-entry'
-      //               >
-      //                 <ImageListItem>
-      //                   <img src={actor.image_url} alt={actor.name} />
-      //                   <ImageListItemBar
-      //                     title={actor.name}
-      //                     subtitle={`Language: ${actor.language}`}
-      //                   />
-      //                 </ImageListItem>
-      //                 {/* <Box
-      //                   classname='character-profile-anime-appearance-entry-actor-info'
-      //                   sx={{ paddingLeft: 2 }}
-      //                 >
-      //                   <Typography>{actor.name}</Typography>
-      //                   <Typography>{`Language: ${actor.language}`}</Typography>
-      //                 </Box> */}
-      //               </Grid>
-      //             );
-      //           })}
-      //         </ImageList>
-      //       </Grid>
-      //     </Box>
-      //   </div>
-      // </Box>
     );
   } else {
     return <LoadingScreen />;

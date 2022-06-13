@@ -1,36 +1,30 @@
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  Divider,
   Grid,
-  Typography,
-  Link as MuiLink,
   Box,
   ImageList,
   ImageListItem,
   ImageListItemBar,
 } from "@mui/material";
-
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import MangaInfoMangaDetails from "../MangaInfo/MangaInfoMangaDetails";
 import MangaInfoSideContentSingle from "../MangaInfo/MangaInfoSideContentSingle";
 
 function MangaRecPage(props) {
   const location = useLocation();
-  const [animeRecs, setAnimeRecs] = useState();
-  const originManga = location.state.mangaId;
+  // const [animeRecs, setAnimeRecs] = useState();
+  // const originManga = location.state.mangaId;
   const originMangaRecList = location.state.mangaRecList;
-  const [info, setInfo] = useState();
+  // const [info, setInfo] = useState();
   const [characterList, setCharacterList] = useState();
   let id = location.state.mangaId;
 
   console.log(location, props, originMangaRecList);
 
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   let windowSize = window.innerWidth;
 
   window.addEventListener("resize", () => {

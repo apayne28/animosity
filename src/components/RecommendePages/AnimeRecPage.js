@@ -1,10 +1,6 @@
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  Divider,
   Grid,
-  Typography,
-  Link as MuiLink,
   Box,
   ImageList,
   ImageListItem,
@@ -13,20 +9,18 @@ import {
 
 import { useLocation, Link } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
 import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 
 function AnimeRecPage(props) {
   const location = useLocation();
-  const [animeRecs, setAnimeRecs] = useState();
-  const originAnime = location.state.animeId;
+
   const originAnimeRecList = location.state.animeRecList;
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
   const [animeCharacterList, setAnimeCharacterList] = useState();
 
-  const [info, setInfo] = useState();
+  // const [info, setInfo] = useState();
 
   const id = location.state.animeId;
   let windowSize = window.innerWidth;
@@ -66,16 +60,7 @@ function AnimeRecPage(props) {
 
       let animeResults = animeData.data;
       console.log(animeResults);
-      setInfo(animeResults);
-
-      //   // Grabs Related Anime Data
-      //   let relatedAnimeData = await fetch(
-      //     `https://api.jikan.moe/v4/anime/${id}/relations`,
-      //   ).then((res) => res.json());
-
-      //   let relatedAnimeDataResults = relatedAnimeData.data;
-      //   console.log("RelatedAnime", relatedAnimeDataResults);
-      //   setAnimeRelations(relatedAnimeDataResults);
+      // setInfo(animeResults);
     } catch (error) {
       console.log("Anime not found");
     }
@@ -129,7 +114,7 @@ function AnimeRecPage(props) {
     }
   }, [
     animeRecommendationsList,
-    setAnimeRecs,
+
     props.animeId,
     getAnime,
     columnSize,
@@ -140,7 +125,6 @@ function AnimeRecPage(props) {
   if (originAnimeRecList) {
     return (
       <Box>
-        {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>
@@ -158,14 +142,13 @@ function AnimeRecPage(props) {
             <Grid container>
               <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {originAnimeRecList.map((entry) => {
-                  // console.log(test);
                   return (
                     <Grid
                       item
                       sx={{
                         display: "flex",
                         flexDirection: "row",
-                        // width: "70%",
+
                         margin: "auto",
                         backgroundColor: "white",
                       }}
@@ -187,17 +170,7 @@ function AnimeRecPage(props) {
                           />
                           <ImageListItemBar title={entry.entry.title} />
                         </ImageListItem>
-                        <div>
-                          {/* <Typography
-                        sx={{
-                          wordWrap: "break-word",
-                          // backgroundColor: "black",
-                          // color: "white",
-                        }}
-                      >
-                        {entry.entry.title}
-                      </Typography> */}
-                        </div>
+                        <div></div>
                       </Link>
                     </Grid>
                   );

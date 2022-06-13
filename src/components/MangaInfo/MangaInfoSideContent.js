@@ -1,6 +1,5 @@
 import {
   Divider,
-  Grid,
   Typography,
   Link as MuiLink,
   ImageList,
@@ -8,20 +7,16 @@ import {
   ImageListItemBar,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import MangaInfoCharacters from "./MangaInfoCharacters";
 import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import MangaInfoRecommendedManga from "./MangaInfoRecommendedManga";
-import ZeroTwoSpin from "../../ZeroTwoSpin.gif";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import ShowMoreText from "react-show-more-text";
 
 const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
-  const [externalLinks, setExternalLinks] = useState();
 
   const [mangaRelations, setMangaRelations] = useState();
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();

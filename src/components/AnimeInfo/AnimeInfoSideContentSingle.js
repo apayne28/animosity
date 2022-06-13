@@ -1,6 +1,5 @@
 import {
   Divider,
-  Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -12,41 +11,30 @@ import { useState, useEffect, useCallback } from "react";
 
 const AnimeInfoSideContentSingle = (props) => {
   const [info, setInfo] = useState();
-  const [externalLinks, setExternalLinks] = useState();
 
-  const getAnime = useCallback(async (id) => {
-    id = props.animeId;
-    try {
-      const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}`).then(
-        (res) => res.json(),
-      );
+  const getAnime = useCallback(
+    async (id) => {
+      id = props.animeId;
+      try {
+        const temp = await fetch(`https://api.jikan.moe/v4/anime/${id}`).then(
+          (res) => res.json(),
+        );
 
-      let results = temp.data;
-      console.log(results);
-      setInfo(results);
-      return results;
-    } catch (error) {
-      console.log("Anime not found");
-    }
-  }, []);
-
-  // const getExternalAnimeLinks = useCallback(async (id) => {
-  //   id = props.animeId;
-
-  //   const temp = await fetch(
-  //     `https://api.jikan.moe/v4/anime/${id}/external`,
-  //   ).then((res) => res.json());
-
-  //   setExternalLinks(temp.data);
-  //   return temp.data;
-  // }, []);
+        let results = temp.data;
+        console.log(results);
+        setInfo(results);
+        return results;
+      } catch (error) {
+        console.log("Anime not found");
+      }
+    },
+    [props.animeId],
+  );
 
   useEffect(() => {
     if (!info) {
       getAnime(props.animeId).catch(console.error);
     }
-
-    // getExternalAnimeLinks(50265).catch(console.error);
   }, [getAnime, info, props.animeId]);
 
   if (info) {

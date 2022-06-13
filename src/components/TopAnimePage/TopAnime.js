@@ -2,25 +2,20 @@ import {
   Divider,
   Typography,
   Grid,
-  Button,
   Stack,
-  Pagination as Pagination,
+  Pagination,
   ImageList,
   ImageListItem,
-  ImageListItemBar,
   Card,
   CardHeader,
   CardContent,
+  Box,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
-import Header from "../mainpage/Header";
+import React, { useState, useEffect, useCallback } from "react";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 import TopAnimeBar from "./TopAnimeBar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import { Box, fontSize } from "@mui/system";
 
 const TopAnime = (props) => {
   const location = useLocation();
@@ -28,8 +23,6 @@ const TopAnime = (props) => {
   let buttonValue = location.state.page ? location.state.page : 1;
 
   const [topScoredAnime, setTopScoredAnime] = useState();
-
-  const [buttonCounter, setButtonCounter] = useState(buttonValue);
   const [lastPage, setLastPage] = useState();
 
   let windowSize = window.innerWidth;
@@ -63,33 +56,18 @@ const TopAnime = (props) => {
   let testCon = topScoredAnime ? topScoredAnime : homepageAnime;
 
   const getTopScoredAnime = useCallback(async () => {
-    // const paginationStyle = paginationTheme();
     try {
-      //   const temp = await fetch(`https://api.jikan.moe/v4/top/anime`).then(
-      //     (res) => res.json(),
-      //   );
-      // category = filter;
-      //https://api.jikan.moe/v4/top/anime?type=movie
-      //https://api.jikan.moe/v4/top/anime?type=movie&page=1
       console.log(location, category);
       const temp = await fetch(
         `https://api.jikan.moe/v4/top/anime?type=${category}&page=${buttonValue}`,
       ).then((res) => res.json());
 
-      // const temp = await fetch(
-      //   `${
-      //     category !== " "
-      //       ? `https://api.jikan.moe/v3/top/anime/${buttonCounter}/${category}`
-      //       : `https://api.jikan.moe/v3/top/anime/${buttonCounter}`
-      //   }`,
-      // ).then((res) => res.json());
       console.log(
         `https://api.jikan.moe/v4/top/anime?type=${location.state.topFilter}&page=${buttonValue}`,
       );
       console.log(temp, temp.pagination.last_visible_page);
       setLastPage(temp.pagination.last_visible_page);
       setTopScoredAnime(temp.data);
-      // return results;
     } catch (error) {
       console.log("Anime not found");
     }
@@ -126,19 +104,16 @@ const TopAnime = (props) => {
     topScoredAnime,
     windowSize,
   ]);
-  // console.log(testCon);
 
   if (testCon) {
     return (
       <div>
         <div className='header-content'>
-          {/* <Header /> */}
           <NavigationBar />
         </div>
 
         <Divider />
 
-        {/* <div className='top-anime-top-category-container'> */}
         <TopAnimeBar />
 
         <Stack
@@ -164,7 +139,7 @@ const TopAnime = (props) => {
             }}
             color='primary'
             size='large'
-            page={buttonCounter}
+            page={buttonValue}
             onChange={(event, value) => {
               console.log(event, parseInt(event.target.innerText), value);
               // setButtonCounter(parseInt(e.target.innerText));
@@ -211,7 +186,6 @@ const TopAnime = (props) => {
                           paddingBottom: 41,
                           marginBottom: "5%",
                           margin: "4%",
-                          // maxHeight: "100%",
                         }}
                       >
                         <CardHeader
@@ -237,8 +211,6 @@ const TopAnime = (props) => {
                           to='/anime-info'
                           state={{ animeId: entry.mal_id }}
                         >
-                          {/* <img src={entry.images.jpg.image_url} alt={entry.title} /> */}
-
                           <Box
                             className='search-page-list-entry-image'
                             component='img'
@@ -249,9 +221,6 @@ const TopAnime = (props) => {
                         </Link>
                         <CardContent>
                           <Box sx={{ display: "flex" }}>
-                            {/* <Box sx={{ marginBottom: "2%" }}> */}
-                            {/* <StarIcon /> */}
-                            {/* </Box> */}
                             <Typography
                               sx={{
                                 // paddingBottom: "1%",
@@ -267,25 +236,6 @@ const TopAnime = (props) => {
                             </Typography>
                           </Box>
 
-                          {/* <Box sx={{ display: "flex" }}>
-                            <Typography
-                              sx={{
-                                fontSize: 20,
-                                fontWeight: "bold",
-                                marginRight: " 5%",
-                              }}
-                            >
-                              Fans:
-                            </Typography>
-                            <Typography sx={{ fontSize: 20 }}>
-                              {entry.members}
-                            </Typography>
-                          </Box> */}
-                          {/* <Typography
-                            sx={{ fontSize: 20 }}
-                          >{`${entry.members} fans`}</Typography> */}
-
-                          {/* <Typography>{`Score: ${entry.score}`}</Typography> */}
                           <Box sx={{ display: "flex" }}>
                             <Typography
                               sx={{
@@ -306,7 +256,7 @@ const TopAnime = (props) => {
                               display: "-webkit-box",
                               WebkitLineClamp: "3",
                               WebkitBoxOrient: "vertical",
-                              // paddingBottom: "2%",
+
                               fontSize: 20,
                               marginTop: "2%",
                             }}
@@ -322,7 +272,6 @@ const TopAnime = (props) => {
                                 display: "flex",
                                 justifyContent: "flex-end",
                                 paddingTop: "3%",
-                                // paddingBottom: "3%",
 
                                 fontSize: 25,
                               }}
@@ -344,14 +293,13 @@ const TopAnime = (props) => {
             sx={{
               display: "flex",
               alignItems: "center",
-              // marginTop: "1%",
+
               paddingBottom: "1%",
             }}
           >
             <Pagination
               count={401}
               color='primary'
-              // classes={{ root: classes.numberLook }}
               sx={{
                 "& .MuiButtonBase-root": {
                   color: "#ffffff",
@@ -362,7 +310,7 @@ const TopAnime = (props) => {
                 },
               }}
               size='large'
-              page={buttonCounter}
+              page={buttonValue}
               onChange={(event, value) => {
                 console.log(event, parseInt(event.target.innerText), value);
                 // setButtonCounter(parseInt(e.target.innerText));

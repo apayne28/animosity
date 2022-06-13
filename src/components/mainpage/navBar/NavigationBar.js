@@ -1,70 +1,12 @@
-import {
-  Button,
-  MenuItem,
-  Select,
-  TextField,
-  IconButton,
-  AppBar,
-  Typography,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { useState, useEffect } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-
 import React from "react";
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Box } from "@mui/system";
 import logo from "../../../logo2.png";
-import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const NavigationBar = () => {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
-  let defaultItems;
-
-  const [animeList, setAnimeList] = useState([]);
-
-  const [search, setSearch] = useState("");
-  const [type, setType] = useState("anime");
-  let navigate = useNavigate();
-
-  // const [animeList, setAnimeList] = useState([]);
-
-  // const [search, setSearch] = useState("");
-
-  // const FetchAnime = async (query) => {
-  //   // const temp = await fetch(
-  //   //   `https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc`,
-  //   // ).then((res) => res.json());
-
-  //   const temp = await jikanjsV3.search("anime", query, 1);
-  //   // const temp = await client.
-
-  //   setAnimeList(temp.results);
-  // };
-
-  // const HandleSearch = (e) => {
-  //   e.preventDefault();
-
-  //   FetchAnime(search);
-
-  // navigate(`/search-page`, {
-  //   state: { searchQuery: search, searchType: type },
-  // });
-  //   console.log(search);
-  // };
-
-  const FetchAnime = async (query) => {
-    // const temp = await fetch(
-    //   `https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc`,
-    // ).then((res) => res.json());
-
-    const temp = await jikanjsV3.search("anime", query, 1);
-    // const temp = await client.
-
-    setAnimeList(temp.results);
-  };
-
   return (
     <Navbar className='rb-navbar' variant='light' expand='lg'>
       <Navbar.Brand>
@@ -75,14 +17,7 @@ const NavigationBar = () => {
 
       <Navbar.Toggle aria-controls='navbarScroll' />
       <Navbar.Collapse id='navbarScroll'>
-        <Nav
-          style={
-            {
-              // margin: "auto",
-              // marginLeft: "2%",
-            }
-          }
-        >
+        <Nav>
           <NavDropdown
             title='Anime'
             id='navbarScrollingDropdown'

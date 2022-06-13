@@ -1,43 +1,23 @@
-import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import {
   Grid,
-  Typography,
   Box,
-  Card,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Button,
 } from "@mui/material";
-import Header from "../mainpage/Header";
+
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
-import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
-import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 import AnimeCharacterSide from "./AnimeCharacterSide";
 
 import CharacterDetails from "./CharacterDetails";
 function AnimeCharacterAnimePage(props) {
   const location = useLocation();
-  const animeId = location.state.animeId;
-  //   const mangaId = location.state.mangaId;
+  // const animeId = location.state.animeId;
 
-  const [characterList, setCharacterList] = useState();
-  const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
-  // const [voiceActor, setVoiceActor] = useState();
-  // const [voiceRoles, setVoiceRoles] = useState();
   console.log(location.state);
-
-  //    let roleList = props.filteredVoiceRoles
-  //      ? props.filteredVoiceRoles
-  //      : location.state.roleList;
-  //    let voiceActor = props.voiceActor
-  //      ? props.voiceActor
-  //      : location.state.voiceActor;
-  //    let animeList = props.animeList ? props.animeList : location.state.animeList;
 
   let voiceActors = props.voiceActors
     ? props.voiceActors
@@ -72,26 +52,6 @@ function AnimeCharacterAnimePage(props) {
   const [columnSize, setColumnSize] = useState();
   const [rowHeight, setRowHeight] = useState();
 
-  // let test = roleList.filter((val, index, self) => {
-  //   console.log("Val:", val);
-  //   console.log("Role:", index);
-
-  //   console.log("Self", self);
-  // });
-
-  //    let test = roleList.filter(
-  //      (value, index, self) =>
-  //        index ===
-  //        self.findIndex(
-  //          (t) =>
-  //            t.character.name === value.character.name &&
-  //            t.name === value.character.anime,
-  //        ),
-  //    );
-
-  //    console.log(roleList, test);
-
-  //    console.log(voiceActor, animeList, roleList);
   console.log(voiceActors, animeList, characterId);
   useEffect(() => {
     if (!columnSize && !rowHeight) {
@@ -117,7 +77,6 @@ function AnimeCharacterAnimePage(props) {
   if (animeList) {
     return (
       <Box sx={{ height: "100vh" }}>
-        {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>

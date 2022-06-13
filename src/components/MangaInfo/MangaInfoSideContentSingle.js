@@ -1,53 +1,39 @@
 import {
   Box,
-  Divider,
-  Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
-  const [externalLinks, setExternalLinks] = useState();
 
-  const getManga = useCallback(async (id) => {
-    id = props.mangaId;
-    try {
-      const temp = await fetch(`https://api.jikan.moe/v4/manga/${id}`).then(
-        (res) => res.json(),
-      );
+  const getManga = useCallback(
+    async (id) => {
+      id = props.mangaId;
+      try {
+        const temp = await fetch(`https://api.jikan.moe/v4/manga/${id}`).then(
+          (res) => res.json(),
+        );
 
-      let results = temp.data;
-      console.log(results);
-      setInfo(results);
-      return results;
-    } catch (error) {
-      console.log("Manga not found");
-    }
-  }, []);
-
-  // const getExternalAnimeLinks = useCallback(async (id) => {
-  //   id = props.animeId;
-
-  //   const temp = await fetch(
-  //     `https://api.jikan.moe/v4/anime/${id}/external`,
-  //   ).then((res) => res.json());
-
-  //   setExternalLinks(temp.data);
-  //   return temp.data;
-  // }, []);
+        let results = temp.data;
+        console.log(results);
+        setInfo(results);
+        return results;
+      } catch (error) {
+        console.log("Manga not found");
+      }
+    },
+    [props.mangaId],
+  );
 
   useEffect(() => {
     if (!info) {
       getManga(props.mangaId).catch(console.error);
     }
-
-    // getExternalAnimeLinks(50265).catch(console.error);
   }, [getManga, info, props.mangaId]);
 
   if (info) {

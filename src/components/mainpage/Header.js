@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import logo from "../../logo2.png";
 
@@ -11,11 +11,6 @@ const Header = () => {
           <Box component='img' src={logo} alt='Animosity Logo' />
         </Link>
       </h1>
-
-      {/* <div className='header-navigation-buttons'>
-        <Button>Login</Button>
-        <Button>Signup</Button>
-      </div> */}
     </header>
   );
 };

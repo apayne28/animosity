@@ -1,7 +1,5 @@
 import {
   Box,
-  Divider,
-  Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -9,15 +7,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import MangaCharacterList from "../CharacterListPage/MangaCharacterList";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
-import MangaInfoCharacters from "./MangaInfoCharacters";
-import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
+
 import Carousel from "react-elastic-carousel";
-import axios from "axios";
-import NavigationBar from "../mainpage/navBar/NavigationBar";
-import pikafight from "../../pikafight.gif";
 
 function MangaInfoRecommendedManga(props) {
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
@@ -40,37 +33,6 @@ function MangaInfoRecommendedManga(props) {
       console.log("Manga Recs not found");
     }
   }, []);
-
-  // const getMangaRecs2 = useCallback(async (id) => {
-  //   try {
-  //     //Grabs Manga Recs
-  //     let mangaRecommendationsData = await axios
-  //       .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
-  //       .then((res) => res.json());
-  //     let mangaRecommendationsDataResults = mangaRecommendationsData.data;
-
-  //     setMangaRecommendationsList(mangaRecommendationsDataResults);
-  //   } catch (error) {
-  //     console.log("Manga Recs not found");
-  //   }
-  // }, []);
-
-  //  const getMangaRecs2 = async (id) => {
-  //    axios
-  //      .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
-  //      .then((res) => res.json());
-  //       try {
-  //         //Grabs Manga Recs
-  //         let mangaRecommendationsData = await axios
-  //           .get(`https://api.jikan.moe/v4/manga/${id}/recommendations`)
-  //           .then((res) => res.json());
-  //         let mangaRecommendationsDataResults = mangaRecommendationsData.data;
-
-  //         setMangaRecommendationsList(mangaRecommendationsDataResults);
-  //       } catch (error) {
-  //         console.log("Manga Recs not found");
-  //       }
-  //  }
 
   useEffect(() => {
     if (!mangaRecommendationsList) {
@@ -117,12 +79,8 @@ function MangaInfoRecommendedManga(props) {
           >
             <Typography
               sx={{
-                // padding: "0.5%",
                 fontSize: 29,
-                // display: "flex",
-                // justifyContent: "flex-end",
                 marginTop: "17%",
-                // marginRight: "1%",
               }}
             >
               View More

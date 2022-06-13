@@ -1,20 +1,14 @@
-import React, { useCallback } from "react";
-import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useCallback, useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 import {
   Grid,
-  Typography,
   Box,
-  Card,
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  Button,
 } from "@mui/material";
-import Header from "../mainpage/Header";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
-import AnimeInfoSideContent from "../AnimeInfo/AnimeInfoSideContent";
 import AnimeInfoAnimeDetails from "../AnimeInfo/AnimeInfoAnimeDetails";
 import AnimeInfoSideContentSingle from "../AnimeInfo/AnimeInfoSideContentSingle";
 
@@ -117,7 +111,6 @@ function AnimeCharacterListPage(props) {
   if (characterList) {
     return (
       <Box>
-        {/* <Header /> */}
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>
@@ -136,7 +129,6 @@ function AnimeCharacterListPage(props) {
               <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {characterList.map((character) => {
                   let characterEntry = character.character;
-                  // console.log(characterEntry);
 
                   return (
                     <Grid
@@ -144,7 +136,6 @@ function AnimeCharacterListPage(props) {
                       sx={{
                         display: "flex",
                         flexDirection: "row",
-                        // width: "70%",
                         margin: "auto",
                         backgroundColor: "white",
                       }}
@@ -163,8 +154,6 @@ function AnimeCharacterListPage(props) {
 
                           <ImageListItemBar title={characterEntry.name} />
                         </ImageListItem>
-
-                        {/* <Typography>{characterEntry.name} </Typography> */}
                       </Link>
                     </Grid>
                   );

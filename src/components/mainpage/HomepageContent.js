@@ -1,5 +1,4 @@
 import {
-  Grid,
   ImageList,
   ImageListItem,
   ImageListItemBar,
@@ -7,20 +6,13 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  Link,
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import Carousel from "react-elastic-carousel";
 import { Box } from "@mui/system";
 
 const HomepageContent = () => {
-  const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
-  const jikanjsV4 = require("@mateoaranda/jikanjs");
+  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
 
   const [springAnime, setSpringAnime] = useState([]);
   const [summerAnime, setSummerAnime] = useState([]);
@@ -105,12 +97,7 @@ const HomepageContent = () => {
         <Link to='/top-anime' state={{ animeList: springAnime }}>
           <Typography
             sx={{
-              // padding: "0.5%",
               fontSize: 29,
-              // display: "flex",
-              // justifyContent: "flex-end",
-              // marginTop: "17%",
-              // marginRight: "1%",
             }}
           >
             View More
@@ -153,12 +140,7 @@ const HomepageContent = () => {
         <Link to='/top-anime' state={{ animeList: summerAnime }}>
           <Typography
             sx={{
-              // padding: "0.5%",
               fontSize: 29,
-              // display: "flex",
-              // justifyContent: "flex-end",
-              // marginTop: "17%",
-              // marginRight: "1%",
             }}
           >
             View More
@@ -192,7 +174,6 @@ const HomepageContent = () => {
         </Carousel>
       </Box>
 
-      {/* <h3>Watch Recent Promos</h3> */}
       <Typography variant='h3' sx={{ marginBottom: "2%" }}>
         Watch Recent Promos
       </Typography>
@@ -201,55 +182,21 @@ const HomepageContent = () => {
           {recentPromos.map((anime, aniKey) => {
             return (
               <div key={aniKey} s>
-                {/* <ImageList cols={1}>
-                  <Link to={anime.trailer.url} target='_blank' rel='noreferrer'>
-                    <img
-                      className='promo-image'
-                      src={anime.trailer.images.large_image_url}
-                      alt={`${anime.entry.title}: ${anime.title}`}
-                    />
-                    <ImageListItem
-                      key={anime.id}
-                      title={anime.title}
-                      cols={1}
-                      rows={1}
-                    >
-                      <ImageListItemBar
-                        title={anime.entry.title}
-                        subtitle={anime.title}
-                      />
-                    </ImageListItem>
-                  </Link>
-                </ImageList> */}
                 <ImageList cols={1} rowHeight={400}>
                   <ImageListItem>
-                    <ReactPlayer
-                      url={anime.trailer.url}
-                      style={
-                        {
-                          // display: "flex",
-                          // margin: "auto",
-                          // marginTop: "1%",
-                          // marginLeft: "10%",
-                          // marginRight: "10%",
-                        }
-                      }
-                    />
+                    <ReactPlayer url={anime.trailer.url} />
                     <ImageListItemBar
                       title={anime.entry.title}
                       subtitle={anime.title}
                     />
                   </ImageListItem>
                 </ImageList>
-
-                {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
               </div>
             );
           })}
         </Carousel>
       </Box>
 
-      {/* <h3>Watch Popular Promos</h3> */}
       <Typography variant='h3' sx={{ marginBottom: "2%" }}>
         Watch Popular Promos
       </Typography>
@@ -258,47 +205,15 @@ const HomepageContent = () => {
           {popularPromos.map((anime, aniKey) => {
             return (
               <div key={aniKey}>
-                {/* <ImageList cols={1}>
-                  <Link to={anime.trailer.url} target='_blank' rel='noreferrer'>
-                    <img
-                      className='promo-image'
-                      src={anime.trailer.images.large_image_url}
-                      alt={`${anime.entry.title}: ${anime.title}`}
-                    />
-                    <ImageListItem
-                      key={anime.id}
-                      title={anime.title}
-                      cols={1}
-                      rows={1}
-                    >
-                      <ImageListItemBar
-                        title={anime.entry.title}
-                        subtitle={anime.title}
-                      />
-                    </ImageListItem>
-                  </Link>
-                </ImageList> */}
                 <ImageList cols={1} rowHeight={420}>
                   <ImageListItem>
-                    <ReactPlayer
-                      url={anime.trailer.url}
-                      style={
-                        {
-                          // display: "flex",
-                          // margin: "auto",
-                          // marginTop: "1%",
-                          // marginLeft: "10%",
-                          // marginRight: "10%",
-                        }
-                      }
-                    />
+                    <ReactPlayer url={anime.trailer.url} />
                     <ImageListItemBar
                       title={anime.entry.title}
                       subtitle={anime.title}
                     />
                   </ImageListItem>
                 </ImageList>
-                {/* <div className='featured-anime-text'>{anime.entry.title}</div> */}
               </div>
             );
           })}
