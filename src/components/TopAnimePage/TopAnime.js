@@ -37,29 +37,6 @@ const TopAnime = (props) => {
   let homepageAnime = location.state.animeList;
   let testCon = topScoredAnime ? topScoredAnime : homepageAnime;
 
-  // const paginationTheme = createTheme({
-  //   numberLook: {
-  //     color: "#ffffff",
-  //     fontSize: 20,
-  //   },
-  // });
-
-  //   let type = location.state.animeType
-
-  //   const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
-
-  //  const GetMostPopularAnime = async () => {
-  //    const temp = await jikanjsV3.loadTop("anime", 1, "bypopularity");
-  //    // const temp = await fetch(
-  //    //   `https://api.jikan.moe/v4/top/anime`,
-  //    //   // `https://api.jikan.moe/v3/top/anime/1/bypopularity`,
-  //    // ).then((res) => res.json());
-
-  //    // console.log(temp.data);
-
-  //    setMostPopularAnime(temp.top.slice(0, 5));
-  //  };
-
   const getTopScoredAnime = useCallback(async () => {
     // const paginationStyle = paginationTheme();
     try {

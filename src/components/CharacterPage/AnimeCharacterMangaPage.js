@@ -91,8 +91,8 @@ function AnimeCharacterMangaPage(props) {
                 cols={animeList.length >= 10 ? 10 : 5}
                 rowHeight={animeList.length >= 10 ? 400 : 550}
               >
-                {mangaList.map((anime) => {
-                  console.log(anime);
+                {mangaList.map((manga) => {
+                  console.log(manga);
 
                   return (
                     <Grid
@@ -105,16 +105,16 @@ function AnimeCharacterMangaPage(props) {
                         backgroundColor: "white",
                       }}
                     >
-                      <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                      <Link to='/manga-info' state={{ mangaId: manga.mal_id }}>
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={anime.image_url}
-                            alt={anime.name}
+                            src={manga.image_url}
+                            alt={manga.name}
                           />
 
-                          <ImageListItemBar title={anime.name} />
+                          <ImageListItemBar title={manga.name} />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}

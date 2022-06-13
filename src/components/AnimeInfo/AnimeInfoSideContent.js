@@ -401,7 +401,7 @@ const AnimeInfoSideContent = (props) => {
                                   onClick={(e) => {
                                     navigate(
                                       single.type === "anime"
-                                        ? "/anime-info"
+                                        ? `/anime-info`
                                         : "/manga-info",
 
                                       single.type === "anime"

@@ -79,11 +79,15 @@ function MangaInfoRecommendedManga(props) {
   }, [getMangaRecs, mangaRecommendationsList, props.mangaId]);
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
-    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
-    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
 
-    { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
+    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+
+    { width: 855, itemsToShow: 3, itemsToScroll: 3 },
+
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 2081, itemsToShow: 6, itemsToScroll: 6 },
+
+    { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
 
   console.log(mangaRecommendationsList);

@@ -84,11 +84,15 @@ function AnimeCharacterPage(props) {
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 3, itemsToScroll: 3 },
-    // { width: 768, itemsToShow: 4, itemsToScroll: 4 },
-    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
 
-    { width: 1200, itemsToShow: 5, itemsToScroll: 5 },
+    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+
+    { width: 855, itemsToShow: 3, itemsToScroll: 3 },
+
+    { width: 1100, itemsToShow: 4, itemsToScroll: 4 },
+    { width: 2081, itemsToShow: 6, itemsToScroll: 6 },
+
+    { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
 
   console.log(animeCharacter, location);
@@ -474,7 +478,7 @@ function AnimeCharacterPage(props) {
                         <h3>Mangaography</h3>
 
                         <Link
-                          to='/character-page-anime-list'
+                          to='/character-page-manga-list'
                           state={{
                             voiceActors: animeCharacter.voice_actors,
                             characterId: animeCharacter.mal_id,
