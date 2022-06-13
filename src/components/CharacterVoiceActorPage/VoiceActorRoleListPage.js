@@ -38,7 +38,30 @@ function VoiceActorRoleListPage(props) {
     ? props.voiceActor
     : location.state.voiceActor;
   let animeList = props.animeList ? props.animeList : location.state.animeList;
+  let windowSize = window.innerWidth;
 
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
   // let test = roleList.filter((val, index, self) => {
   //   console.log("Val:", val);
   //   console.log("Role:", index);
@@ -59,6 +82,26 @@ function VoiceActorRoleListPage(props) {
   console.log(roleList, test);
 
   console.log(voiceActor, animeList, roleList);
+  useEffect(() => {
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
+  }, [columnSize, rowHeight, windowSize]);
 
   if (test) {
     return (
@@ -76,10 +119,7 @@ function VoiceActorRoleListPage(props) {
               charList={roleList}
             />
             <Grid container>
-              <ImageList
-                cols={test.length >= 10 ? 10 : 5}
-                rowHeight={test.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {test.map((character) => {
                   let characterEntry = character.character;
                   // console.log(characterEntry);

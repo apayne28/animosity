@@ -17,6 +17,7 @@ import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import MangaInfoRecommendedManga from "./MangaInfoRecommendedManga";
 import ZeroTwoSpin from "../../ZeroTwoSpin.gif";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
+import ShowMoreText from "react-show-more-text";
 
 const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
@@ -115,7 +116,7 @@ const MangaInfoSideContent = (props) => {
   //   // getExternalAnimeLinks(50265).catch(console.error);
   // }, [getManga, info, props.mangaId]);
 
-  if ((info && mangaRelations, mangaRecommendationsList)) {
+  if (info && mangaRelations && mangaRecommendationsList) {
     return (
       <div>
         <NavigationBar />
@@ -229,7 +230,7 @@ const MangaInfoSideContent = (props) => {
                     fontSize: 23,
                     opacity: "80%",
                   }}
-                >{`Authors: `}</Typography>
+                >{`Author(s): `}</Typography>
 
                 <Box>
                   {info.authors.map((author) => (

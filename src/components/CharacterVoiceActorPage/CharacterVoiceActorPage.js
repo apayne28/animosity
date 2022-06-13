@@ -120,6 +120,7 @@ function CharacterVoiceActorPage(props) {
                   component='img'
                   src={voiceActor.images.jpg.image_url}
                   alt={voiceActor.name}
+                  sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                 />
                 <ImageListItemBar
                   title={<Typography>{voiceActor.name}</Typography>}
@@ -310,14 +311,7 @@ function CharacterVoiceActorPage(props) {
                       marginTop: "2%",
                     }}
                   >
-                    <Grid
-                      container
-                      xs={1}
-                      sm={5}
-                      md={12}
-                      // className='anime-info-character-list'
-                      // sx={{ display: "flex", margin: "auto" }}
-                    >
+                    <div className='anime-info-character-list'>
                       <Carousel breakPoints={breakPoints}>
                         {filteredVoiceRoles.map((actor) => {
                           console.log(actor.character);
@@ -361,7 +355,7 @@ function CharacterVoiceActorPage(props) {
                           );
                         })}
                       </Carousel>
-                    </Grid>
+                    </div>
                   </div>
 
                   <Divider />
@@ -408,14 +402,7 @@ function CharacterVoiceActorPage(props) {
                       marginTop: "2%",
                     }}
                   >
-                    <Grid
-                      container
-                      xs={1}
-                      md={12}
-                      sx={{ display: "flex", margin: "auto" }}
-
-                      // className='anime-info-character-list'
-                    >
+                    <div className='anime-info-character-list'>
                       <Carousel breakPoints={breakPoints}>
                         {filteredAnime.map((appearances) => {
                           return (
@@ -449,7 +436,7 @@ function CharacterVoiceActorPage(props) {
                           );
                         })}
                       </Carousel>
-                    </Grid>
+                    </div>
                   </div>
 
                   <Divider />

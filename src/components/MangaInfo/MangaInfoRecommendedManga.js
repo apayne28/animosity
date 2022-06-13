@@ -90,7 +90,11 @@ function MangaInfoRecommendedManga(props) {
     { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
 
-  console.log(mangaRecommendationsList);
+  console.log(
+    mangaRecommendationsList,
+
+    props.mangaId,
+  );
   if (mangaRecommendationsList && mangaRecommendationsList.length > 0) {
     return (
       <Box>

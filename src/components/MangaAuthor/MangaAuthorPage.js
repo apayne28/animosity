@@ -122,6 +122,7 @@ function MangaAuthorPage(props) {
                   component='img'
                   src={author.images.jpg.image_url}
                   alt={author.name}
+                  sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                 />
                 <ImageListItemBar
                   title={<Typography>{author.name}</Typography>}
@@ -309,14 +310,7 @@ function MangaAuthorPage(props) {
                       marginTop: "2%",
                     }}
                   >
-                    <Grid
-                      container
-                      xs={1}
-                      md={12}
-                      sx={{ display: "flex", margin: "auto" }}
-
-                      // className='anime-info-character-list'
-                    >
+                    <div className='anime-info-character-list'>
                       <Carousel breakPoints={breakPoints}>
                         {authorManga.map((appearances) => {
                           return (
@@ -350,7 +344,7 @@ function MangaAuthorPage(props) {
                           );
                         })}
                       </Carousel>
-                    </Grid>
+                    </div>
                   </div>
 
                   <Divider />

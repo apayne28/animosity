@@ -29,6 +29,30 @@ function AnimeRecPage(props) {
   const [info, setInfo] = useState();
 
   const id = location.state.animeId;
+  let windowSize = window.innerWidth;
+
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   console.log(location, props, originAnimeRecList);
 
@@ -84,7 +108,34 @@ function AnimeRecPage(props) {
     if (!animeRecommendationsList) {
       getAnime(props.animeId);
     }
-  }, [animeRecommendationsList, setAnimeRecs, props.animeId, getAnime]);
+
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
+  }, [
+    animeRecommendationsList,
+    setAnimeRecs,
+    props.animeId,
+    getAnime,
+    columnSize,
+    rowHeight,
+    windowSize,
+  ]);
 
   if (originAnimeRecList) {
     return (
@@ -96,15 +147,16 @@ function AnimeRecPage(props) {
           <AnimeInfoSideContentSingle animeId={id} />
           <div className='anime-character-list-contents'>
             <AnimeInfoAnimeDetails
-              animeRecList={animeRecommendationsList}
+              animeRecList={
+                animeRecommendationsList
+                  ? animeRecommendationsList
+                  : location.state.animeRecList
+              }
               animeId={id}
               charList={animeCharacterList}
             />
             <Grid container>
-              <ImageList
-                cols={originAnimeRecList.length >= 10 ? 10 : 6}
-                rowHeight={originAnimeRecList.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {originAnimeRecList.map((entry) => {
                   // console.log(test);
                   return (

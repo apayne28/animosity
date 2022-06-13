@@ -40,6 +40,30 @@ function MangaAuthorMangaPage(props) {
     ? props.voiceActor
     : location.state.voiceActor;
   let animeList = props.animeList ? props.animeList : location.state.animeList;
+  let windowSize = window.innerWidth;
+
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   // let test = roleList.filter((val, index, self) => {
   //   console.log("Val:", val);
@@ -89,11 +113,26 @@ function MangaAuthorMangaPage(props) {
   //   [animeId],
   // );
 
-  // useEffect(() => {
-  //   if (!characterList) {
-  //     getCharacterList(animeId);
-  //   }
-  // }, [animeId, characterList, getCharacterList]);
+  useEffect(() => {
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
+  }, [animeId, characterList, columnSize, rowHeight, windowSize]);
   console.log(voiceActor, animeList);
   if (animeList) {
     return (
@@ -111,10 +150,7 @@ function MangaAuthorMangaPage(props) {
               authorMangaList={animeList}
             />
             <Grid container>
-              <ImageList
-                cols={animeList.length >= 10 ? 10 : 5}
-                rowHeight={animeList.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {animeList.map((anime) => {
                   let animeEntry = anime.manga;
                   console.log(anime);

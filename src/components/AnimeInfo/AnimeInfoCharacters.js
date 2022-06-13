@@ -49,7 +49,7 @@ function AnimeInfoCharacters(props) {
 
     { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
-  if (animeCharacterList) {
+  if (animeCharacterList && animeCharacterList.length > 1) {
     return (
       <Box>
         <Box
@@ -124,6 +124,8 @@ function AnimeInfoCharacters(props) {
         </div>
       </Box>
     );
+  } else if (animeCharacterList && animeCharacterList.length === 0) {
+    return <div></div>;
   } else {
     return <LoadingScreen />;
   }

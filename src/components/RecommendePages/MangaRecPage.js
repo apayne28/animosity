@@ -31,6 +31,30 @@ function MangaRecPage(props) {
 
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
   let navigate = useNavigate();
+  let windowSize = window.innerWidth;
+
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   const getMangaRecs = useCallback(async (id) => {
     try {
@@ -69,13 +93,34 @@ function MangaRecPage(props) {
     if (!characterList) {
       getCharacterList(id);
     }
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
   }, [
     characterList,
+    columnSize,
     getCharacterList,
     getMangaRecs,
     id,
     mangaRecommendationsList,
     props.mangaId,
+    rowHeight,
+    windowSize,
   ]);
   console.log(characterList);
   if (originMangaRecList) {
@@ -94,10 +139,7 @@ function MangaRecPage(props) {
               charList={characterList}
             />
             <Grid container>
-              <ImageList
-                cols={originMangaRecList.length >= 10 ? 10 : 6}
-                rowHeight={originMangaRecList.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {originMangaRecList.map((entry) => {
                   // console.log(test);
                   return (

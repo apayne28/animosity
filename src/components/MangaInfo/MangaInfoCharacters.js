@@ -50,7 +50,9 @@ function MangaInfoCharacters(props) {
 
     { width: 3008, itemsToShow: 8, itemsToScroll: 8 },
   ];
-  if (mangaCharacterList) {
+
+  console.log(props.mangaId);
+  if (mangaCharacterList && mangaCharacterList.length > 1) {
     return (
       <Box>
         <Box
@@ -122,6 +124,8 @@ function MangaInfoCharacters(props) {
         </div>
       </Box>
     );
+  } else if (mangaCharacterList && mangaCharacterList.length === 0) {
+    return <div></div>;
   } else {
     return <LoadingScreen />;
   }

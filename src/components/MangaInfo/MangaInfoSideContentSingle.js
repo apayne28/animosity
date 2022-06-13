@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
@@ -157,6 +158,33 @@ const MangaInfoSideContent = (props) => {
               fontSize: 23,
               opacity: "80%",
             }}
+          >{`Author(s): `}</Typography>
+
+          <Box>
+            {info.authors.map((author) => (
+              <div>
+                <Link
+                  to='/manga-author-page'
+                  state={{ authorId: author.mal_id }}
+                >
+                  <Typography sx={{ padding: "2%", fontSize: 25 }}>
+                    {author ? ` ${author.name} ` : "N/A"}
+                  </Typography>
+                </Link>
+              </div>
+            ))}
+          </Box>
+        </div>
+
+        <div className='anime-info-score'>
+          <Typography
+            sx={{
+              backgroundColor: "#59C9A5",
+              padding: "2%",
+              borderRadius: "1%",
+              fontSize: 23,
+              opacity: "80%",
+            }}
           >{`Rank: `}</Typography>
           <Typography sx={{ padding: "2%", fontSize: 25 }}>{`${
             info.rank ? info.rank.toLocaleString("en-US") : "N/A"
@@ -214,11 +242,6 @@ const MangaInfoSideContent = (props) => {
             sx={{ padding: "2%", fontSize: 19 }}
           >{`Serializations: ${info.serializations.map((serialization) =>
             serialization ? ` ${serialization.name} ` : "N/A",
-          )}`}</Typography>
-          <Typography
-            sx={{ padding: "2%", fontSize: 19 }}
-          >{`Author(s): ${info.authors.map((authors) =>
-            authors ? ` ${authors.name} ` : "N/A",
           )}`}</Typography>
         </div>
         <div className='anime-info-statistics'>

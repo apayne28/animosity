@@ -108,6 +108,7 @@ function CharacterVoiceActorSide(props) {
               component='img'
               src={voiceActor.images.jpg.image_url}
               alt={voiceActor.name}
+              sx={{ width: "100%", height: "100%", borderRadius: 1 }}
             />
             <ImageListItemBar
               title={<Typography>{voiceActor.name}</Typography>}

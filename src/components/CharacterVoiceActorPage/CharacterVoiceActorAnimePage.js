@@ -39,12 +39,30 @@ function CharacterVoiceActorAnimePage(props) {
     : location.state.voiceActor;
   let animeList = props.animeList ? props.animeList : location.state.animeList;
 
-  // let test = roleList.filter((val, index, self) => {
-  //   console.log("Val:", val);
-  //   console.log("Role:", index);
+  let windowSize = window.innerWidth;
 
-  //   console.log("Self", self);
-  // });
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
 
   let test = roleList.filter(
     (value, index, self) =>
@@ -57,42 +75,27 @@ function CharacterVoiceActorAnimePage(props) {
   );
 
   console.log(roleList, test);
-  // const getCharacterList = useCallback(
-  //   async (id) => {
-  //     //   console.log(props, location);
+  useEffect(() => {
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
+  }, [columnSize, rowHeight, windowSize]);
 
-  //     try {
-  //       let animeCharactersData = await fetch(
-  //         `https://api.jikan.moe/v4/anime/${animeId}/characters`,
-  //       ).then((res) => res.json());
-  //       let animeCharactersDataResults = animeCharactersData.data;
-  //       console.log("Chatacters", animeCharactersDataResults);
-
-  //       setCharacterList(animeCharactersDataResults);
-  //     } catch (error) {
-  //       console.log("Character List not found");
-  //     }
-
-  //     try {
-  //       let animeRecommendationsData = await fetch(
-  //         `https://api.jikan.moe/v4/anime/${id}/recommendations`,
-  //       ).then((res) => res.json());
-  //       let animeRecommendationsDataResults = animeRecommendationsData.data;
-
-  //       console.log("Recs", animeRecommendationsDataResults);
-  //       setAnimeRecommendationsList(animeRecommendationsDataResults);
-  //     } catch (error) {
-  //       console.log("Anime Recs not found");
-  //     }
-  //   },
-  //   [animeId],
-  // );
-
-  // useEffect(() => {
-  //   if (!characterList) {
-  //     getCharacterList(animeId);
-  //   }
-  // }, [animeId, characterList, getCharacterList]);
   console.log(voiceActor, animeList, roleList);
   if (animeList) {
     return (
@@ -110,10 +113,7 @@ function CharacterVoiceActorAnimePage(props) {
               charList={roleList}
             />
             <Grid container>
-              <ImageList
-                cols={test.length >= 10 ? 10 : 5}
-                rowHeight={test.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {animeList.map((anime) => {
                   let animeEntry = anime.anime;
                   console.log(animeEntry);

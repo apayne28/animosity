@@ -60,6 +60,7 @@ function AnimeCharacterSide(props) {
               component='img'
               src={animeCharacter.image_url}
               alt={animeCharacter.name}
+              sx={{ width: "100%", height: "100%", borderRadius: 1 }}
             />
             <ImageListItemBar
               title={<Typography>{animeCharacter.name}</Typography>}

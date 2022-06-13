@@ -113,6 +113,7 @@ function AnimeCharacterPage(props) {
                   component='img'
                   src={animeCharacter.image_url}
                   alt={animeCharacter.name}
+                  sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                 />
                 <ImageListItemBar
                   title={<Typography>{animeCharacter.name}</Typography>}
@@ -203,27 +204,6 @@ function AnimeCharacterPage(props) {
 
               <div className='anime-info-content-guts'>
                 <div className='anime-info-main-popularity-container'>
-                  {/* <Accordion flush>
-                    <Accordion.Item>
-                      <Accordion.Header>
-                        <Typography variant='h3'>Background</Typography>
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        <Typography
-                          variant='body2'
-                          sx={{
-                            fontSize: 18,
-                            width: "90%",
-                            padding: "2%",
-                            whiteSpace: "pre-line",
-                            // margin: "auto",
-                          }}
-                        >
-                          {animeCharacter.about}
-                        </Typography>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion> */}
                   <h3>Background</h3>
                   {/* <Typography variant='body2' sx={backgroundText}>
                     {animeCharacter.about}
@@ -315,14 +295,7 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <Grid
-                          container
-                          xs={1}
-                          sm={5}
-                          md={12}
-                          // className='anime-info-character-list'
-                          // sx={{ display: "flex", margin: "auto" }}
-                        >
+                        <div className='anime-info-character-list'>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.voice_actors.map((actor) => {
                               return (
@@ -360,7 +333,7 @@ function AnimeCharacterPage(props) {
                               );
                             })}
                           </Carousel>
-                        </Grid>
+                        </div>
                       </div>
 
                       <Divider />
@@ -421,14 +394,7 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <Grid
-                          container
-                          xs={1}
-                          md={12}
-                          sx={{ display: "flex", margin: "auto" }}
-
-                          // className='anime-info-character-list'
-                        >
+                        <div className='anime-info-character-list'>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.animeography.map((appearances) => {
                               return (
@@ -460,7 +426,7 @@ function AnimeCharacterPage(props) {
                               );
                             })}
                           </Carousel>
-                        </Grid>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -520,12 +486,7 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <Grid
-                          container
-                          xs={1}
-                          md={12}
-                          // className='anime-info-character-list'
-                        >
+                        <div className='anime-info-character-list'>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.mangaography.map((appearances) => {
                               return (
@@ -569,7 +530,7 @@ function AnimeCharacterPage(props) {
                               );
                             })}
                           </Carousel>
-                        </Grid>
+                        </div>
                       </div>
                     </Box>
                   )}

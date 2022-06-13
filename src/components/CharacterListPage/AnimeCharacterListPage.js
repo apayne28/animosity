@@ -27,6 +27,31 @@ function AnimeCharacterListPage(props) {
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
 
   console.log(props, location);
+  let windowSize = window.innerWidth;
+
+  window.addEventListener("resize", () => {
+    console.log(windowSize);
+    if (windowSize > 3008) {
+      setColumnSize(10);
+      setRowHeight(550);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(6);
+      setRowHeight(550);
+    } else if (windowSize > 855 && windowSize <= 1100) {
+      setColumnSize(5);
+      setRowHeight(350);
+    } else if (windowSize > 550 && windowSize <= 855) {
+      setColumnSize(3);
+      setRowHeight(350);
+    } else if (windowSize <= 550) {
+      setColumnSize(2);
+      setRowHeight(350);
+    }
+  });
+
+  const [columnSize, setColumnSize] = useState();
+  const [rowHeight, setRowHeight] = useState();
+
   const getCharacterList = useCallback(
     async (id) => {
       //   console.log(props, location);
@@ -62,7 +87,32 @@ function AnimeCharacterListPage(props) {
     if (!characterList) {
       getCharacterList(animeId);
     }
-  }, [animeId, characterList, getCharacterList]);
+    if (!columnSize && !rowHeight) {
+      if (windowSize > 3008) {
+        setColumnSize(10);
+        setRowHeight(550);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(6);
+        setRowHeight(550);
+      } else if (windowSize > 855 && windowSize <= 1100) {
+        setColumnSize(5);
+        setRowHeight(350);
+      } else if (windowSize > 550 && windowSize <= 855) {
+        setColumnSize(3);
+        setRowHeight(350);
+      } else if (windowSize <= 550) {
+        setColumnSize(2);
+        setRowHeight(350);
+      }
+    }
+  }, [
+    animeId,
+    characterList,
+    columnSize,
+    getCharacterList,
+    rowHeight,
+    windowSize,
+  ]);
 
   if (characterList) {
     return (
@@ -75,14 +125,15 @@ function AnimeCharacterListPage(props) {
           <div className='anime-character-list-contents'>
             <AnimeInfoAnimeDetails
               animeId={animeId}
-              animeRecList={animeRecommendationsList}
+              animeRecList={
+                animeRecommendationsList
+                  ? animeRecommendationsList
+                  : location.state.animeRecList
+              }
               charList={characterList}
             />
             <Grid container>
-              <ImageList
-                cols={characterList.length >= 10 ? 10 : 5}
-                rowHeight={characterList.length >= 10 ? 400 : 550}
-              >
+              <ImageList cols={columnSize} rowHeight={rowHeight}>
                 {characterList.map((character) => {
                   let characterEntry = character.character;
                   // console.log(characterEntry);
