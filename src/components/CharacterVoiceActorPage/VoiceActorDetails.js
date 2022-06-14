@@ -20,7 +20,9 @@ function VoiceActorDetails(props) {
                   voiceActor: props.animeId
                     ? props.animeId
                     : location.state.voiceActor,
-                  animeList: props.animeRecList,
+                  animeList: props.animeRecList
+                    ? props.animeRecList
+                    : location.state.animeList,
                   roleList: props.charList,
                 },
               });
@@ -40,8 +42,12 @@ function VoiceActorDetails(props) {
           <Link
             to='/voice-actor-role-list-page'
             state={{
-              voiceActor: props.animeId,
-              animeList: props.animeRecList,
+              voiceActor: props.animeId
+                ? props.animeId
+                : location.state.voiceActor,
+              animeList: props.animeRecList
+                ? props.animeRecList
+                : location.state.animeList,
               roleList: props.charList,
             }}
           >
