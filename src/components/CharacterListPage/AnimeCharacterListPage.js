@@ -60,6 +60,9 @@ function AnimeCharacterListPage(props) {
         let animeCharactersDataResults = animeCharactersData.data;
         console.log("Chatacters", animeCharactersDataResults);
 
+        let sortedCharacters = animeCharactersDataResults.sort(
+          (a, b) => a.role === "main",
+        );
         setCharacterList(animeCharactersDataResults);
       } catch (error) {
         console.log("Character List not found");
@@ -158,7 +161,9 @@ function AnimeCharacterListPage(props) {
                             alt={characterEntry.name}
                           />
 
-                          <ImageListItemBar title={characterEntry.name} />
+                          <ImageListItemBar
+                            title={`${characterEntry.name} (${character.role})`}
+                          />
                         </ImageListItem>
                       </Link>
                     </Grid>

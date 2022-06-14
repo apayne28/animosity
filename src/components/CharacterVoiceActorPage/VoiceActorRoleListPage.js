@@ -29,7 +29,6 @@ function VoiceActorRoleListPage(props) {
   let windowSize = window.innerWidth;
 
   window.addEventListener("resize", () => {
-    console.log(windowSize);
     if (windowSize > 3000) {
       setColumnSize(5);
       setRowHeight(780);
@@ -54,19 +53,22 @@ function VoiceActorRoleListPage(props) {
   const [columnSize, setColumnSize] = useState();
   const [rowHeight, setRowHeight] = useState();
 
-  let test = roleList.filter(
-    (value, index, self) =>
-      index ===
-      self.findIndex(
-        (t) =>
-          t.character.name === value.character.name &&
-          t.name === value.character.anime,
-      ),
-  );
+  let filteredRoleList = roleList
+    .sort((a, b) => a.role === "main")
+    .filter(
+      (value, index, self) =>
+        index ===
+        self.findIndex(
+          (t) =>
+            t.character.name === value.character.name &&
+            t.name === value.character.anime,
+        ),
+    );
 
-  console.log(roleList, test);
+  console.log(roleList, filteredRoleList);
 
   console.log(voiceActor, animeList, roleList);
+
   useEffect(() => {
     if (!columnSize && !rowHeight) {
       if (windowSize > 3000) {
@@ -91,7 +93,7 @@ function VoiceActorRoleListPage(props) {
     }
   }, [columnSize, rowHeight, windowSize]);
 
-  if (test) {
+  if (filteredRoleList) {
     return (
       <Box sx={{ height: "100vh" }}>
         <NavigationBar />
@@ -107,7 +109,7 @@ function VoiceActorRoleListPage(props) {
             />
             <Grid container>
               <ImageList cols={columnSize} rowHeight={rowHeight}>
-                {test.map((character) => {
+                {filteredRoleList.map((character) => {
                   let characterEntry = character.character;
 
                   return (
@@ -133,7 +135,9 @@ function VoiceActorRoleListPage(props) {
                             alt={characterEntry.name}
                           />
 
-                          <ImageListItemBar title={characterEntry.name} />
+                          <ImageListItemBar
+                            title={`${characterEntry.name} (${character.role})`}
+                          />
                         </ImageListItem>
                       </Link>
                     </Grid>

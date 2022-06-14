@@ -56,6 +56,9 @@ function MangaCharacterList(props) {
         ).then((res) => res.json());
         let mangaCharactersDataResults = mangaCharactersData.data;
         console.log("Chatacters", mangaCharactersDataResults);
+        let sortedCharacters = mangaCharactersDataResults.sort(
+          (a, b) => a.role === "main",
+        );
 
         setCharacterList(mangaCharactersDataResults);
       } catch (error) {
@@ -151,7 +154,9 @@ function MangaCharacterList(props) {
                           alt={characterEntry.name}
                           sx={{ width: "100%", height: "100%" }}
                         />
-                        <ImageListItemBar title={characterEntry.name} />
+                        <ImageListItemBar
+                          title={`${characterEntry.name} (${character.role})`}
+                        />
                       </ImageListItem>
                     </Link>
                   );
