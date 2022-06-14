@@ -18,7 +18,7 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 const MangaInfoSideContent = (props) => {
   const [info, setInfo] = useState();
 
-  const [mangaRelations, setMangaRelations] = useState();
+  // const [mangaRelations, setMangaRelations] = useState();
   const [mangaRecommendationsList, setMangaRecommendationsList] = useState();
 
   let navigate = useNavigate();
@@ -30,23 +30,12 @@ const MangaInfoSideContent = (props) => {
       try {
         //Grabs Manga Data Object
         const mangaData = await fetch(
-          `https://api.jikan.moe/v4/manga/${id}`,
+          `https://api.jikan.moe/v4/manga/${id}/full`,
         ).then((res) => res.json());
 
         let mangaResults = mangaData.data;
         console.log(mangaResults);
         setInfo(mangaResults);
-
-        // Grabs Related Manga Data
-        let relatedMangaData = await fetch(
-          `https://api.jikan.moe/v4/manga/${id}/relations`,
-        ).then((res) => res.json());
-
-        let relatedMangaDataResults = relatedMangaData.data;
-        console.log("RelatedManga", relatedMangaDataResults);
-        setMangaRelations(relatedMangaDataResults);
-
-        // return results;
       } catch (error) {
         console.log("Manga not found");
       }
@@ -71,10 +60,10 @@ const MangaInfoSideContent = (props) => {
   );
 
   useEffect(() => {
-    if (!info && !mangaRelations && !mangaRecommendationsList) {
+    if (!info && !mangaRecommendationsList) {
       getManga(props.mangaId).catch(console.error);
     }
-  }, [mangaRelations, getManga, info, props.mangaId, mangaRecommendationsList]);
+  }, [getManga, info, props.mangaId, mangaRecommendationsList]);
 
   // const getManga = useCallback(async (id) => {
   //   id = props.mangaId;
@@ -111,7 +100,7 @@ const MangaInfoSideContent = (props) => {
   //   // getExternalAnimeLinks(50265).catch(console.error);
   // }, [getManga, info, props.mangaId]);
 
-  if (info && mangaRelations && mangaRecommendationsList) {
+  if (info && mangaRecommendationsList) {
     return (
       <div>
         <NavigationBar />
@@ -378,8 +367,8 @@ const MangaInfoSideContent = (props) => {
 
                     <h3>Related Manga</h3>
                     <div className='anime-info-related-anime-container'>
-                      {mangaRelations.length > 0 ? (
-                        mangaRelations.map((info) => {
+                      {info.relations.length > 0 ? (
+                        info.relations.map((info) => {
                           let relatedAnime = info.entry;
                           let relatedAnimeType = info.relation;
                           console.log(info);

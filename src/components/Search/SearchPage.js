@@ -61,38 +61,28 @@ const SearchPage = () => {
   const [rowHeight, setRowHeight] = useState();
 
   const fetchAnime = useCallback(async (searchType, query, page) => {
-    let temp = await fetch(
-      `https://api.jikan.moe/v4/${searchType}?letter=${query}&order_by=popularity&sort=asc&page=${page}`,
+    const temp = await fetch(
+      `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=members&sort=desc&page=${page}`,
     ).then((res) => res.json());
+    console.log(temp);
+    console.log("V4 query", temp);
 
-    console.log("V4 Letter:", temp.data);
+    // console.log(temp.pagination);
     setLastPage(temp.pagination.last_visible_page);
-    setAnimeList(temp.data);
-
-    if (temp.data && temp.data.length === 0) {
-      const temp = await fetch(
-        `https://api.jikan.moe/v4/${searchType}?q=${query}&order_by=popularity&sort=asc`,
-      ).then((res) => res.json());
-      console.log(temp);
-      console.log("V4 query", temp);
-
-      // console.log(temp.pagination);
-      setLastPage(temp.pagination.last_visible_page);
-      // setAnimeList(temp.results);
-      let sortedAnime;
-      if (temp.data && temp.data.length > 0) {
-        sortedAnime = temp.data.sort((a, b) =>
-          a.popularity > b.popularity ? 1 : -1,
-        );
-      }
-
+    // setAnimeList(temp.results);
+    let sortedAnime;
+    if (temp.data && temp.data.length > 0) {
       sortedAnime = temp.data.sort((a, b) =>
         a.popularity > b.popularity ? 1 : -1,
       );
-      setAnimeList(sortedAnime);
-      // setAnimeList(temp.data);
-      console.log(temp.data.length);
     }
+
+    sortedAnime = temp.data.sort((a, b) =>
+      a.popularity > b.popularity ? 1 : -1,
+    );
+    setAnimeList(sortedAnime);
+    // setAnimeList(temp.data);
+    console.log(temp.data.length);
   }, []);
   useEffect(() => {
     if (!animeList) {

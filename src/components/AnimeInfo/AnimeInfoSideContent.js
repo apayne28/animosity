@@ -19,7 +19,7 @@ import AnimeInfoRecommendedAnime from "./AnimeInfoRecommendedAnime";
 
 const AnimeInfoSideContent = (props) => {
   const [info, setInfo] = useState();
-  const [animeRelations, setAnimeRelations] = useState();
+  // const [animeRelations, setAnimeRelations] = useState();
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
   let navigate = useNavigate();
 
@@ -28,21 +28,12 @@ const AnimeInfoSideContent = (props) => {
       try {
         //Grabs Anime Data Object
         const animeData = await fetch(
-          `https://api.jikan.moe/v4/anime/${id}`,
+          `https://api.jikan.moe/v4/anime/${id}/full`,
         ).then((res) => res.json());
 
         let animeResults = animeData.data;
         console.log(animeResults);
         setInfo(animeResults);
-
-        // Grabs Related Anime Data
-        let relatedAnimeData = await fetch(
-          `https://api.jikan.moe/v4/anime/${id}/relations`,
-        ).then((res) => res.json());
-
-        let relatedAnimeDataResults = relatedAnimeData.data;
-        console.log("RelatedAnime", relatedAnimeDataResults);
-        setAnimeRelations(relatedAnimeDataResults);
       } catch (error) {
         console.log("Anime not found");
       }
@@ -67,12 +58,12 @@ const AnimeInfoSideContent = (props) => {
   );
 
   useEffect(() => {
-    if (!info && !animeRelations && !animeRecommendationsList) {
+    if (!info && !animeRecommendationsList) {
       getAnime(props.animeId).catch(console.error);
     }
-  }, [animeRecommendationsList, animeRelations, getAnime, info, props.animeId]);
+  }, [animeRecommendationsList, getAnime, info, props.animeId]);
 
-  if (info && animeRelations && animeRecommendationsList) {
+  if (info && animeRecommendationsList) {
     return (
       <div>
         <NavigationBar />
@@ -347,8 +338,8 @@ const AnimeInfoSideContent = (props) => {
 
                   <h3>Related Anime</h3>
                   <div className='anime-info-related-anime-container'>
-                    {animeRelations.length > 0
-                      ? animeRelations.map((info) => {
+                    {info.relations.length > 0
+                      ? info.relations.map((info) => {
                           let relatedAnime = info.entry;
                           let relatedAnimeType = info.relation;
 
