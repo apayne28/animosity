@@ -27,7 +27,7 @@ function MangaInfoMangaDetails(props) {
             </Typography>
           </MuiLink>
         </Nav.Item>
-        {/* <div className='anime-info-content-navbar-items'>Characters</div> */}
+
         <Nav.Item>
           <Link
             to='/manga-character-list-page'
