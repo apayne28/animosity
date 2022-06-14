@@ -31,21 +31,24 @@ const TopManga = () => {
   let windowSize = window.innerWidth;
   window.addEventListener("resize", () => {
     console.log(windowSize);
-    if (windowSize > 3008) {
+    if (windowSize > 3000) {
       setColumnSize(5);
-      setRowHeight(980);
-    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setRowHeight(880);
+    } else if (windowSize > 2048 && windowSize <= 3000) {
       setColumnSize(4);
       setRowHeight(880);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(4);
+      setRowHeight(780);
     } else if (windowSize > 855 && windowSize <= 1100) {
       setColumnSize(3);
-      setRowHeight(780);
+      setRowHeight(680);
     } else if (windowSize > 550 && windowSize <= 855) {
       setColumnSize(2);
-      setRowHeight(780);
+      setRowHeight(680);
     } else if (windowSize <= 550) {
       setColumnSize(1);
-      setRowHeight(780);
+      setRowHeight(880);
     }
   });
 
@@ -76,21 +79,24 @@ const TopManga = () => {
       getTopScoredManga();
     }
     if (!columnSize && !rowHeight) {
-      if (windowSize > 3008) {
+      if (windowSize > 3000) {
         setColumnSize(5);
-        setRowHeight(980);
-      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setRowHeight(880);
+      } else if (windowSize > 2048 && windowSize <= 3000) {
         setColumnSize(4);
         setRowHeight(880);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(4);
+        setRowHeight(780);
       } else if (windowSize > 855 && windowSize <= 1100) {
         setColumnSize(3);
-        setRowHeight(780);
+        setRowHeight(680);
       } else if (windowSize > 550 && windowSize <= 855) {
         setColumnSize(2);
-        setRowHeight(780);
+        setRowHeight(680);
       } else if (windowSize <= 550) {
         setColumnSize(1);
-        setRowHeight(780);
+        setRowHeight(880);
       }
     }
   }, [columnSize, getTopScoredManga, rowHeight, topScoredManga, windowSize]);

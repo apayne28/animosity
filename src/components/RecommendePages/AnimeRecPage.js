@@ -27,21 +27,24 @@ function AnimeRecPage(props) {
 
   window.addEventListener("resize", () => {
     console.log(windowSize);
-    if (windowSize > 3008) {
-      setColumnSize(10);
-      setRowHeight(550);
-    } else if (windowSize > 1100 && windowSize <= 2048) {
-      setColumnSize(6);
-      setRowHeight(550);
-    } else if (windowSize > 855 && windowSize <= 1100) {
+    if (windowSize > 3000) {
       setColumnSize(5);
-      setRowHeight(350);
-    } else if (windowSize > 550 && windowSize <= 855) {
+      setRowHeight(780);
+    } else if (windowSize > 2048 && windowSize <= 3000) {
+      setColumnSize(4);
+      setRowHeight(780);
+    } else if (windowSize > 1100 && windowSize <= 2048) {
+      setColumnSize(4);
+      setRowHeight(580);
+    } else if (windowSize > 855 && windowSize <= 1100) {
       setColumnSize(3);
-      setRowHeight(350);
-    } else if (windowSize <= 550) {
+      setRowHeight(480);
+    } else if (windowSize > 550 && windowSize <= 855) {
       setColumnSize(2);
-      setRowHeight(350);
+      setRowHeight(480);
+    } else if (windowSize <= 550) {
+      setColumnSize(1);
+      setRowHeight(580);
     }
   });
 
@@ -95,21 +98,24 @@ function AnimeRecPage(props) {
     }
 
     if (!columnSize && !rowHeight) {
-      if (windowSize > 3008) {
-        setColumnSize(10);
-        setRowHeight(550);
-      } else if (windowSize > 1100 && windowSize <= 2048) {
-        setColumnSize(6);
-        setRowHeight(550);
-      } else if (windowSize > 855 && windowSize <= 1100) {
+      if (windowSize > 3000) {
         setColumnSize(5);
-        setRowHeight(350);
-      } else if (windowSize > 550 && windowSize <= 855) {
+        setRowHeight(780);
+      } else if (windowSize > 2048 && windowSize <= 3000) {
+        setColumnSize(4);
+        setRowHeight(780);
+      } else if (windowSize > 1100 && windowSize <= 2048) {
+        setColumnSize(4);
+        setRowHeight(580);
+      } else if (windowSize > 855 && windowSize <= 1100) {
         setColumnSize(3);
-        setRowHeight(350);
-      } else if (windowSize <= 550) {
+        setRowHeight(480);
+      } else if (windowSize > 550 && windowSize <= 855) {
         setColumnSize(2);
-        setRowHeight(350);
+        setRowHeight(480);
+      } else if (windowSize <= 550) {
+        setColumnSize(1);
+        setRowHeight(580);
       }
     }
   }, [
