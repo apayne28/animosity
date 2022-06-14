@@ -556,7 +556,7 @@ body {
   /* margin: auto; */
   padding-left: 1%;
   padding-right: 1%;
-
+  height: 100vh;
   border-radius: 5px;
 }
 .anime-character-animeography {
