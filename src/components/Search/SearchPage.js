@@ -69,20 +69,7 @@ const SearchPage = () => {
 
     // console.log(temp.pagination);
     setLastPage(temp.pagination.last_visible_page);
-    // setAnimeList(temp.results);
-    let sortedAnime;
-    if (temp.data && temp.data.length > 0) {
-      sortedAnime = temp.data.sort((a, b) =>
-        a.popularity > b.popularity ? 1 : -1,
-      );
-    }
-
-    sortedAnime = temp.data.sort((a, b) =>
-      a.popularity > b.popularity ? 1 : -1,
-    );
-    setAnimeList(sortedAnime);
-    // setAnimeList(temp.data);
-    console.log(temp.data.length);
+    setAnimeList(temp.data);
   }, []);
   useEffect(() => {
     if (!animeList) {
