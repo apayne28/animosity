@@ -54,7 +54,6 @@ function VoiceActorRoleListPage(props) {
   const [rowHeight, setRowHeight] = useState();
 
   let filteredRoleList = roleList
-    .sort((a, b) => a.role === "main")
     .filter(
       (value, index, self) =>
         index ===
@@ -63,11 +62,12 @@ function VoiceActorRoleListPage(props) {
             t.character.name === value.character.name &&
             t.name === value.character.anime,
         ),
-    );
+    )
+    .sort((a, b) => a.role === "main");
 
   console.log(roleList, filteredRoleList);
 
-  console.log(voiceActor, animeList, roleList);
+  // console.log(voiceActor, animeList, roleList);
 
   useEffect(() => {
     if (!columnSize && !rowHeight) {

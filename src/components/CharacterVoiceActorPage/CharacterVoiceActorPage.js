@@ -50,6 +50,7 @@ function CharacterVoiceActorPage(props) {
 
       console.log(voiceActorRoleData);
       let voiceActorRoleResults = voiceActorRoleData.data;
+
       setVoiceRoles(voiceActorRoleResults);
       console.log(voiceRoles);
     } catch (error) {
@@ -80,15 +81,18 @@ function CharacterVoiceActorPage(props) {
   let filteredAnime;
 
   if (voiceRoles) {
-    filteredVoiceRoles = voiceRoles.filter(
-      (value, index, self) =>
-        index ===
-        self.findIndex(
-          (t) =>
-            t.character.name === value.character.name &&
-            t.name === value.character.anime,
-        ),
-    );
+    filteredVoiceRoles = voiceRoles
+
+      .filter(
+        (value, index, self) =>
+          index ===
+          self.findIndex(
+            (t) =>
+              t.character.name === value.character.name &&
+              t.name === value.character.anime,
+          ),
+      )
+      .sort((a, b) => a.role === "main");
 
     filteredAnime = filteredVoiceRoles.filter(
       (value, index, self) =>
@@ -122,13 +126,6 @@ function CharacterVoiceActorPage(props) {
                 />
                 <ImageListItemBar
                   title={<Typography>{voiceActor.name}</Typography>}
-                  //   subtitle={
-                  //     <Typography>{`${
-                  //       animeCharacter.name_kanji
-                  //         ? `${animeCharacter.name_kanji}`
-                  //         : ""
-                  //     }`}</Typography>
-                  //   }
                 />
               </ImageListItem>
             </ImageList>
@@ -202,27 +199,6 @@ function CharacterVoiceActorPage(props) {
 
               <div className='anime-info-content-guts'>
                 <div className='anime-info-main-popularity-container'>
-                  {/* <Accordion flush>
-                    <Accordion.Item>
-                      <Accordion.Header>
-                        <Typography variant='h3'>Background</Typography>
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        <Typography
-                          variant='body2'
-                          sx={{
-                            fontSize: 18,
-                            width: "90%",
-                            padding: "2%",
-                            whiteSpace: "pre-line",
-                            // margin: "auto",
-                          }}
-                        >
-                          {animeCharacter.about}
-                        </Typography>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  </Accordion> */}
                   <h3>Background</h3>
                   {voiceActor.about ? (
                     <div>
@@ -245,9 +221,6 @@ function CharacterVoiceActorPage(props) {
                     <Box
                       sx={{
                         backgroundColor: "#ffffff",
-                        // display: "flex",
-                        // justifyContent: "space-between",
-                        // paddingRight: "2.5%",
                       }}
                     >
                       <Typography
@@ -312,7 +285,6 @@ function CharacterVoiceActorPage(props) {
                     <div className='anime-info-character-list'>
                       <Carousel breakPoints={breakPoints}>
                         {filteredVoiceRoles.map((actor) => {
-                          console.log(actor.character);
                           return (
                             <div>
                               <ImageList cols={1} rowHeight={400}>
