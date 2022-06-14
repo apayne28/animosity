@@ -1,11 +1,4 @@
-import { useState, useEffect } from "react";
-
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AnimeInfo from "./components/AnimeInfo/AnimeInfo.js";
 import MangaInfo from "./components/MangaInfo/MangaInfo.js";
@@ -19,7 +12,6 @@ import MangaCharacterList from "./components/CharacterListPage/MangaCharacterLis
 import AnimeRecPage from "./components/RecommendePages/AnimeRecPage.js";
 import MangaRecPage from "./components/RecommendePages/MangaRecPage.js";
 import GenreListPage from "./components/Genres/GenreListPage.js";
-import { createTheme, ThemeProvider } from "@mui/material";
 import CharacterVoiceActorPage from "./components/CharacterVoiceActorPage/CharacterVoiceActorPage.js";
 import VoiceActorRoleListPage from "./components/CharacterVoiceActorPage/VoiceActorRoleListPage.js";
 import CharacterVoiceActorAnimePage from "./components/CharacterVoiceActorPage/CharacterVoiceActorAnimePage.js";
@@ -29,23 +21,8 @@ import AnimeCharacterMangaPage from "./components/CharacterPage/AnimeCharacterMa
 import MangaAuthorPage from "./components/MangaAuthor/MangaAuthorPage.js";
 import MangaAuthorMangaPage from "./components/MangaAuthor/MangaAuthorMangaPage.js";
 
-// import { Routes } from "react-router";
-
 const App = () => {
-  // const THEME = createTheme({
-  //   typography: {
-  //     fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
-  //     color: "#3B2C35",
-  //     fontSize: 14,
-  //     fontWeightLight: 300,
-  //     fontWeightRegular: 400,
-  //     fontWeightMedium: 500,
-  //   },
-  //   // pagination: { fontSize: 45 },
-  // });
-
   return (
-    // <ThemeProvider theme={THEME}>
     <div className='App'>
       <Routes>
         <Route path='/' element={<Mainpage />}></Route>
@@ -100,7 +77,6 @@ const App = () => {
         <Route path='genre-list-page' element={<GenreListPage />}></Route>
       </Routes>
     </div>
-    // </ThemeProvider>
   );
 };
 
