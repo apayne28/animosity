@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/animosity/static/css/main.31f119c8.css",
+    "main.js": "/animosity/static/js/main.7a7df799.js",
+    "static/media/berserk.png": "/animosity/static/media/berserk.635ab8ae9de148be8960.png",
+    "static/media/naruto.jpg": "/animosity/static/media/naruto.c2b038235fcfe02d4d30.jpg",
+    "static/media/snk.jpg": "/animosity/static/media/snk.8f6156871288820b9ea6.jpg",
+    "static/media/opp.png": "/animosity/static/media/opp.18bf6fba6e0389aecbb7.png",
+    "static/media/deathnote4.jpg": "/animosity/static/media/deathnote4.462e27276fe943db6f39.jpg",
+    "static/media/sg.jpg": "/animosity/static/media/sg.8c16a78ce8423c324ba2.jpg",
+    "static/media/pikafight.gif": "/animosity/static/media/pikafight.604ec30c4f5a238f2109.gif",
+    "static/media/ZeroTwoSpin.gif": "/animosity/static/media/ZeroTwoSpin.41ccbb38f5ff8f39af5f.gif",
+    "static/media/cm.jpg": "/animosity/static/media/cm.bd102d36ba39f22bea0e.jpg",
+    "static/media/op.jpg": "/animosity/static/media/op.4503605e90e75c0cb3f0.jpg",
+    "static/media/fmab.webp": "/animosity/static/media/fmab.94bf3b1f250637a8bada.webp",
+    "static/media/hxh.webp": "/animosity/static/media/hxh.8877c0f8b555fd72b580.webp",
+    "static/media/logo2.png": "/animosity/static/media/logo2.4e36955ea7eb423203e7.png",
+    "index.html": "/animosity/index.html",
+    "main.31f119c8.css.map": "/animosity/static/css/main.31f119c8.css.map",
+    "main.7a7df799.js.map": "/animosity/static/js/main.7a7df799.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.31f119c8.css",
+    "static/js/main.7a7df799.js"
+  ]
+}
