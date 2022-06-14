@@ -34,16 +34,16 @@ function AnimeCharacterAnimePage(props) {
     if (windowSize > 3008) {
       setColumnSize(10);
       setRowHeight(550);
-    } else if (windowSize > 1100 && windowSize <= 2048) {
+    } else if (windowSize > 1720 && windowSize <= 2048) {
       setColumnSize(6);
       setRowHeight(550);
-    } else if (windowSize > 855 && windowSize <= 1100) {
+    } else if (windowSize > 1200 && windowSize <= 1720) {
       setColumnSize(5);
-      setRowHeight(350);
-    } else if (windowSize > 550 && windowSize <= 855) {
+      setRowHeight(450);
+    } else if (windowSize > 750 && windowSize <= 1200) {
       setColumnSize(3);
-      setRowHeight(350);
-    } else if (windowSize <= 550) {
+      setRowHeight(450);
+    } else if (windowSize <= 750) {
       setColumnSize(2);
       setRowHeight(350);
     }
@@ -58,16 +58,16 @@ function AnimeCharacterAnimePage(props) {
       if (windowSize > 3008) {
         setColumnSize(10);
         setRowHeight(550);
-      } else if (windowSize > 1100 && windowSize <= 2048) {
+      } else if (windowSize > 1720 && windowSize <= 2048) {
         setColumnSize(6);
         setRowHeight(550);
-      } else if (windowSize > 855 && windowSize <= 1100) {
+      } else if (windowSize > 1200 && windowSize <= 1720) {
         setColumnSize(5);
-        setRowHeight(350);
-      } else if (windowSize > 550 && windowSize <= 855) {
+        setRowHeight(450);
+      } else if (windowSize > 750 && windowSize <= 1200) {
         setColumnSize(3);
-        setRowHeight(350);
-      } else if (windowSize <= 550) {
+        setRowHeight(450);
+      } else if (windowSize <= 750) {
         setColumnSize(2);
         setRowHeight(350);
       }
