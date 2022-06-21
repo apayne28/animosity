@@ -15,7 +15,7 @@ function AnimeInfoRecommendedAnime(props) {
   let navigate = useNavigate();
 
   const getAnimeRecs = useCallback(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     try {
       let animeRecommendationsData = await fetch(

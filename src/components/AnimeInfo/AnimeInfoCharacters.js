@@ -17,7 +17,7 @@ function AnimeInfoCharacters(props) {
   // let navigate = useNavigate();
   console.log(props.animeId);
   const getAnimeCharacters = useCallback(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     let animeCharactersData = await fetch(
       `https://api.jikan.moe/v4/anime/${id}/characters`,
