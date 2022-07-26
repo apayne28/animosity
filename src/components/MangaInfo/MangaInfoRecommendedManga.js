@@ -19,7 +19,7 @@ function MangaInfoRecommendedManga(props) {
   let navigate = useNavigate();
 
   const getMangaRecs = useCallback(async (id) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     try {
       //Grabs Manga Recs
