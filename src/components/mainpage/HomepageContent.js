@@ -91,7 +91,7 @@ const HomepageContent = () => {
   return (
     <div className='homepage-content'>
       <div className='homepage-header-content'>
-        <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+        <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="spring-anime-2022-header">
           Spring 2022 Anime
         </Typography>
         <Link to='/top-anime' state={{ animeList: springAnime }}>
@@ -104,7 +104,7 @@ const HomepageContent = () => {
           </Typography>
         </Link>
       </div>
-      <Box sx={{ paddingBottom: "3%" }}>
+      <Box sx={{ paddingBottom: "3%" }} data-testid="spring-anime-carousel">
         <Carousel breakPoints={breakPoints}>
           {springAnime.map((anime, aniKey) => {
             return (
@@ -134,7 +134,7 @@ const HomepageContent = () => {
 
       <div className='homepage-header-content'>
         {/* <h3>Upcoming Summer 2022 Anime</h3> */}
-        <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+        <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="summer-anime-2022-header">
           Upcoming Summer 2022 Anime
         </Typography>
         <Link to='/top-anime' state={{ animeList: summerAnime }}>
@@ -147,7 +147,7 @@ const HomepageContent = () => {
           </Typography>
         </Link>
       </div>
-      <Box sx={{ paddingBottom: "3%" }}>
+      <Box sx={{ paddingBottom: "3%" }} data-testid="summer-anime-carousel">
         <Carousel breakPoints={breakPoints}>
           {summerAnime.map((anime, aniKey) => {
             return (
@@ -174,10 +174,10 @@ const HomepageContent = () => {
         </Carousel>
       </Box>
 
-      <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+      <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="recent-promos-header">
         Watch Recent Promos
       </Typography>
-      <Box sx={{ paddingBottom: "3%" }}>
+      <Box sx={{ paddingBottom: "3%" }} data-testid="recent-promos-carousel">
         <Carousel breakPoints={promoBreakPoints}>
           {recentPromos.map((anime, aniKey) => {
             return (
@@ -197,10 +197,10 @@ const HomepageContent = () => {
         </Carousel>
       </Box>
 
-      <Typography variant='h3' sx={{ marginBottom: "2%" }}>
+      <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="popular-promos-header">
         Watch Popular Promos
       </Typography>
-      <Box sx={{ paddingBottom: "3%" }}>
+      <Box sx={{ paddingBottom: "3%" }} data-testid="popular-promos-carousel">
         <Carousel breakPoints={promoBreakPoints}>
           {popularPromos.map((anime, aniKey) => {
             return (
