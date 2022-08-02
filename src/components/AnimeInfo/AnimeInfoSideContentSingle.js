@@ -39,7 +39,7 @@ const AnimeInfoSideContentSingle = (props) => {
 
   if (info) {
     return (
-      <div className='anime-info-side-content'>
+      <div className='anime-info-side-content' data-testid={`animosity-anime-page-side-profile-${info.title}`}>
         <ImageList cols={1}>
           <ImageListItem>
             <Box

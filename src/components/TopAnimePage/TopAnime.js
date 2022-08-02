@@ -133,6 +133,7 @@ const TopAnime = (props) => {
             marginTop: "2%",
             marginBottom: "1%",
           }}
+          data-testid='top-anime-page-upper-page-section'
         >
           <Pagination
             count={lastPage}
@@ -166,11 +167,11 @@ const TopAnime = (props) => {
           />
         </Stack>
 
-        <div className='search-page-contents'>
+        <div className='search-page-contents' data-testid='top-anime-page-contents'>
           <div className='top-anime-top-category-title'>
             {/* <Typography>Top Anime</Typography> */}
           </div>
-          <Grid container>
+          <Grid container data-testid='top-anime-result-cards'>
             <ImageList cols={columnSize} rowHeight={rowHeight}>
               {testCon.map((entry) => {
                 // console.log(entry);
@@ -305,6 +306,7 @@ const TopAnime = (props) => {
 
               paddingBottom: "1%",
             }}
+            data-testid='top-anime-page-lower-page-section'
           >
             <Pagination
               count={401}

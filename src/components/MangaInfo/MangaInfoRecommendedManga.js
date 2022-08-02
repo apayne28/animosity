@@ -59,7 +59,7 @@ function MangaInfoRecommendedManga(props) {
   );
   if (mangaRecommendationsList && mangaRecommendationsList.length > 0) {
     return (
-      <Box>
+      <Box data-testid="animosity-manga-page-recommended-manga-section">
         <Box
           sx={{
             backgroundColor: "#56e39f",
@@ -88,7 +88,7 @@ function MangaInfoRecommendedManga(props) {
           </Link>
         </Box>
 
-        <div className='anime-info-rec-anime-container'>
+        <div className='anime-info-rec-anime-container' data-testid="animosity-anime-page-recommended-manga-carousel">
           <Carousel breakPoints={breakPoints}>
             {mangaRecommendationsList.length > 0
               ? mangaRecommendationsList.map((info) => {

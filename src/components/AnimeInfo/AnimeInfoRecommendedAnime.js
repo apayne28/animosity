@@ -49,7 +49,7 @@ function AnimeInfoRecommendedAnime(props) {
   ];
   if (animeRecommendationsList && animeRecommendationsList.length > 0) {
     return animeRecommendationsList.length >= 1 ? (
-      <Box>
+      <Box data-testid="animosity-anime-page-recommended-anime-section">
         <Box
           sx={{
             backgroundColor: "#56e39f",
@@ -83,28 +83,8 @@ function AnimeInfoRecommendedAnime(props) {
         </Box>
 
         <Box sx={{ paddingLeft: "2%", paddingRight: "2%" }}>
-          {/* <Link
-            to='/anime-recs-page'
-            state={{
-              animeId: props.animeId,
-              animeRecList: animeRecommendationsList,
-            }}
-            style={{ textDecoration: "none" }}
-          >
-            <Typography
-              sx={{
-                padding: "0.5%",
-                fontSize: 29,
-                display: "flex",
-                justifyContent: "flex-end",
-                marginTop: "1%",
-              }}
-            >
-              View More
-            </Typography>
-          </Link> */}
 
-          <div className='anime-info-rec-anime-container'>
+          <div className='anime-info-rec-anime-container' data-testid="animosity-anime-page-recommended-anime-carousel">
             <Carousel breakPoints={breakPoints}>
               {animeRecommendationsList.map((info) => {
                 let recAnime = info.entry;

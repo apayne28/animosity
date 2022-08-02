@@ -46,7 +46,7 @@ function AnimeInfoCharacters(props) {
   ];
   if (animeCharacterList && animeCharacterList.length > 1) {
     return (
-      <Box>
+      <Box data-testid="animosity-anime-page-character-section">
         <Box
           sx={{
             backgroundColor: "#56e39f",
@@ -79,7 +79,7 @@ function AnimeInfoCharacters(props) {
 
         <Box sx={{ paddingLeft: "2%", paddingRight: "2%" }}></Box>
 
-        <div className='anime-info-character-list'>
+        <div className='anime-info-character-list' data-testid="animosity-anime-page-character-section-carousel">
           <Carousel breakPoints={breakPoints}>
             {animeCharacterList.map((character) => {
               let characterEntry = character.character;

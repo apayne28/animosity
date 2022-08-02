@@ -48,7 +48,7 @@ function MangaInfoCharacters(props) {
   console.log(props.mangaId);
   if (mangaCharacterList && mangaCharacterList.length > 1) {
     return (
-      <Box>
+      <Box data-testid="animosity-anime-page-character-section">
         <Box
           sx={{
             backgroundColor: "#56e39f",
@@ -77,7 +77,7 @@ function MangaInfoCharacters(props) {
           </Link>
         </Box>
 
-        <div className='anime-info-character-list'>
+        <div className='anime-info-character-list' data-testid="animosity-anime-page-character-section-carousel">
           <Carousel breakPoints={breakPoints}>
             {mangaCharacterList.length > 0
               ? mangaCharacterList.map((character) => {

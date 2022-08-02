@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import MangaInfoSideContent from "./MangaInfoSideContent";
+import MangaInfoSideContent from "./MangaInfoPage";
 import { useLocation } from "react-router-dom";
 
 const MangaInfo = (props) => {

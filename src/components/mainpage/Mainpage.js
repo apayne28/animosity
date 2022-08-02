@@ -26,7 +26,7 @@ const Mainpage = () => {
 
         <NavigationBar />
       </div>
-      <div className='homepage-carousel'>
+      <div className='homepage-carousel' data-testid="animosity-homepage-carousel">
         <Carousel>
           <Carousel.Item>
             <ImageList cols={1} rowHeight={1200}>
@@ -35,7 +35,7 @@ const Mainpage = () => {
                   <Box
                     component='img'
                     src={fmab}
-                    alt='Death Note'
+                    alt='Full Metal Alchemist: Brotherhood'
                     sx={{
                       maxHeight: "100%",
                       maxWidth: "100%",

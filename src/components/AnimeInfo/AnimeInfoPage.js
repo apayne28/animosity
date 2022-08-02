@@ -17,7 +17,7 @@ import AnimeInfoAnimeDetails from "./AnimeInfoAnimeDetails";
 import AnimeInfoCharacters from "./AnimeInfoCharacters";
 import AnimeInfoRecommendedAnime from "./AnimeInfoRecommendedAnime";
 
-const AnimeInfoSideContent = (props) => {
+const AnimeInfoPage = (props) => {
   const [info, setInfo] = useState();
   // const [animeRelations, setAnimeRelations] = useState();
   const [animeRecommendationsList, setAnimeRecommendationsList] = useState();
@@ -68,7 +68,7 @@ const AnimeInfoSideContent = (props) => {
       <div>
         <NavigationBar />
 
-        <div className='anime-info-main'>
+        <div className='anime-info-main' data-testid={`animosity-anime-page-${info.title}`}>
           <div className='anime-info-side-content'>
             <ImageList cols={1}>
               <ImageListItem>
@@ -331,13 +331,14 @@ const AnimeInfoSideContent = (props) => {
                   <h3>Background</h3>
                   <Typography
                     sx={{ padding: "1%", fontSize: 19, paddingLeft: "1%" }}
+                    data-testid="animosity-anime-page-background-text"
                   >
                     {info.background ? info.background : "N/A"}
                   </Typography>
                   <Divider sx={{ pb: 4 }} />
 
                   <h3>Related Anime</h3>
-                  <div className='anime-info-related-anime-container'>
+                  <div className='anime-info-related-anime-container' data-testid="animosity-anime-page-related-anime">
                     {info.relations.length > 0
                       ? info.relations.map((info) => {
                           let relatedAnime = info.entry;
@@ -396,4 +397,4 @@ const AnimeInfoSideContent = (props) => {
   }
 };
 
-export default AnimeInfoSideContent;
+export default AnimeInfoPage;

@@ -15,7 +15,7 @@ import MangaInfoMangaDetails from "./MangaInfoMangaDetails";
 import MangaInfoRecommendedManga from "./MangaInfoRecommendedManga";
 import NavigationBar from "../mainpage/navBar/NavigationBar";
 
-const MangaInfoSideContent = (props) => {
+const MangaInfoPage = (props) => {
   const [info, setInfo] = useState();
 
   // const [mangaRelations, setMangaRelations] = useState();
@@ -105,7 +105,7 @@ const MangaInfoSideContent = (props) => {
       <div>
         <NavigationBar />
 
-        <div className='anime-info-container'>
+        <div className='anime-info-container' data-testid={`animosity-manga-page-${info.title}`}>
           <div className='header-content'></div>
           <div className='anime-info-main'>
             <div className='anime-info-side-content'>
@@ -359,14 +359,15 @@ const MangaInfoSideContent = (props) => {
                     </Box>
                     <h3>Background</h3>
                     <Typography
-                      sx={{ padding: "1%", fontSize: 19, paddingLeft: "1%" }}
+                      sx={{ padding: "1%", fontSize: 19, paddingLeft: "1%" } }
+                      data-testid="animosity-manga-page-background-text"
                     >
                       {info.background ? info.background : "N/A"}
                     </Typography>
                     <Divider sx={{ pb: 4 }} />
 
                     <h3>Related Manga</h3>
-                    <div className='anime-info-related-anime-container'>
+                    <div className='anime-info-related-anime-container' data-testid="animosity-manga-page-related-anime">
                       {info.relations.length > 0 ? (
                         info.relations.map((info) => {
                           let relatedAnime = info.entry;
@@ -448,4 +449,4 @@ const MangaInfoSideContent = (props) => {
   }
 };
 
-export default MangaInfoSideContent;
+export default MangaInfoPage;

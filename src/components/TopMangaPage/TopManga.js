@@ -153,11 +153,11 @@ const TopManga = () => {
             }}
           />
         </Stack>
-        <div className='search-page-contents'>
+        <div className='search-page-contents'  data-testid='top-manga-page-contents'>
           <div className='top-anime-top-category-title'>
             {/* <Typography>Top Anime</Typography> */}
           </div>
-          <Grid container>
+          <Grid container data-testid='top-manga-result-cards'>
             <ImageList cols={columnSize} rowHeight={rowHeight}>
               {topScoredManga.map((entry) => {
                 // const entryInfo = getManga(entry.mal_id);

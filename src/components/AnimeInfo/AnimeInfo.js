@@ -1,5 +1,5 @@
 import React from "react";
-import AnimeInfoSideContent from "./AnimeInfoSideContent.js";
+import AnimeInfoSideContent from "./AnimeInfoPage.js";
 
 import { useLocation } from "react-router-dom";
 import { Box } from "@mui/system";
