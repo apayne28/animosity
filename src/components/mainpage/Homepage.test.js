@@ -1,18 +1,23 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter as Router} from "react-router-dom";
 import HomepageContent from "./HomepageContent";
 
 test("renders homepage", () => {
-  render(<HomepageContent />);
-  const springAnimeText = screen.getByText(/spring anime/i);
+  render(
+  <Router>
+<HomepageContent />
+  </Router>
+  );
+  const springAnimeText = screen.getByTestId("spring-anime-2022-header")
   const springAnimeCarousel = screen.getByTestId("spring-anime-carousel");
 
-  const summerAnimeText = screen.getByText(/summer anime/i);
+  const summerAnimeText = screen.getByTestId("summer-anime-2022-header")
   const summerAnimeCarousel = screen.getByTestId("summer-anime-carousel");
 
-  const recentPromosText = screen.getByText(/recent promos/i);
+  const recentPromosText = screen.getByTestId("recent-promos-header")
   const recentPromosCarousel = screen.getByTestId("recent-promos-carousel");
 
-  const popularPromosText = screen.getByText(/popular promos/i);
+  const popularPromosText = screen.getByTestId("popular-promos-header")
   const popularPromosCarousel = screen.getByTestId("popular-promos-carousel");
 
   expect(springAnimeText).toBeInTheDocument();
