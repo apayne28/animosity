@@ -77,13 +77,25 @@ const HomepageContent = () => {
   // }
 
   useEffect(() => {
-    GetSpringAnime();
+    if(!springAnime){
+      GetSpringAnime();
 
-    GetSummerAnime();
+    }
 
-    GetRecentPromos();
+    if(!summerAnime){
+      GetSummerAnime();
 
-    GetPopularPromos();
+    }
+
+    if(!recentPromos){
+      GetRecentPromos();
+
+    }
+
+    if(!popularPromos){
+      GetPopularPromos();
+
+    }
   }, [popularPromos, recentPromos, springAnime, summerAnime]);
 
   const breakPoints = [
