@@ -77,26 +77,28 @@ const HomepageContent = () => {
   // }
 
   useEffect(() => {
-    if(!springAnime){
+    if(springAnime.length === 0){
       GetSpringAnime();
 
     }
 
-    if(!summerAnime){
+    if(summerAnime.length === 0){
       GetSummerAnime();
 
     }
 
-    if(!recentPromos){
+    if(recentPromos.length === 0){
       GetRecentPromos();
 
     }
 
-    if(!popularPromos){
+    if(popularPromos.length === 0){
       GetPopularPromos();
 
     }
   }, [popularPromos, recentPromos, springAnime, summerAnime]);
+
+
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
