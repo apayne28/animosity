@@ -46,6 +46,8 @@ const HomepageContent = () => {
     }
   };
 
+ 
+
   const GetRecentPromos = async () => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -77,24 +79,32 @@ const HomepageContent = () => {
   // }
 
   useEffect(() => {
-    if(springAnime.length === 0){
-      GetSpringAnime();
+    // if(springAnime.length === 0){
+    //   GetSpringAnime();
 
-    }
+    // }
 
-    if(summerAnime.length === 0){
-      GetSummerAnime();
+    // if(summerAnime.length === 0){
+    //   GetSummerAnime();
 
-    }
+    // }
 
-    if(recentPromos.length === 0){
-      GetRecentPromos();
+    // if(recentPromos.length === 0){
+    //   GetRecentPromos();
 
-    }
+    // }
 
-    if(popularPromos.length === 0){
-      GetPopularPromos();
+    // if(popularPromos.length === 0){
+    //   GetPopularPromos();
 
+    // }
+    if(springAnime.length ===0 && summerAnime.length === 0 && recentPromos.length === 0 && popularPromos.length === 0) {
+      GetSpringAnime()
+      GetSummerAnime()
+      GetRecentPromos()
+      GetPopularPromos()
+      
+      
     }
   }, [popularPromos, recentPromos, springAnime, summerAnime]);
 
@@ -230,7 +240,7 @@ const HomepageContent = () => {
                     <ImageListItem>
                       <ReactPlayer url={anime.trailer.url} />
                       <ImageListItemBar
-                        title={anime.entry.title}
+                        title={<a href={anime.trailer.url} data-testid={`recent-promos-link-${anime.entry.title}`} style={{textDecoration: 'none', color:'#ffffff'}}>{anime.entry.title}</a>}
                         subtitle={anime.title}
                       />
                     </ImageListItem>
@@ -256,7 +266,7 @@ const HomepageContent = () => {
                     <ImageListItem>
                       <ReactPlayer url={anime.trailer.url} />
                       <ImageListItemBar
-                        title={anime.entry.title}
+                        title={<a href={anime.trailer.url} data-testid={`popular-promos-link-${anime.entry.title}`} style={{textDecoration: 'none', color:'#ffffff'}}>{anime.entry.title}</a>}
                         subtitle={anime.title}
                       />
                     </ImageListItem>

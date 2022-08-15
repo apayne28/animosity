@@ -43,6 +43,7 @@ const SearchBar = (props) => {
     <div className='search-bar-container'>
       <div className='search-bar-select-button'>
         <RBForm.Select
+        data-testid="search-bar-select-button"
           onChange={(e, data) => {
             console.log(e.target.value);
 
@@ -50,8 +51,8 @@ const SearchBar = (props) => {
             console.log(type);
           }}
         >
-          <option value='anime'>Anime</option>
-          <option value='manga'>Manga</option>
+          <option value='anime' data-testid="search-bar-select-anime-button">Anime</option>
+          <option value='manga' data-testid="search-bar-select-manga-button">Manga</option>
         </RBForm.Select>
       </div>
       <RBForm
@@ -65,6 +66,7 @@ const SearchBar = (props) => {
         }}
       >
         <Form.Control
+        data-testid="search-bar-textbox"
           type='search'
           placeholder='Search for an anime'
           className='me-2'
@@ -74,6 +76,8 @@ const SearchBar = (props) => {
           Must be at least 3 characters
         </Form.Control.Feedback>
         <IconButton
+        data-testid="search-bar-search-icon"
+
           onClick={async (e) => {
             e.preventDefault();
 

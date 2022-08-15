@@ -69,7 +69,7 @@ const TopAnime = (props) => {
       console.log(
         `https://api.jikan.moe/v4/top/anime?type=${location.state.topFilter}&page=${buttonValue}`,
       );
-      console.log(temp, temp.pagination.last_visible_page);
+      // console.log(temp, temp.pagination.last_visible_page);
       setLastPage(temp.pagination.last_visible_page);
       setTopScoredAnime(temp.data);
     } catch (error) {

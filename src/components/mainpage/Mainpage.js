@@ -30,7 +30,7 @@ const Mainpage = () => {
         <Carousel>
           <Carousel.Item>
             <ImageList cols={1} rowHeight={1200}>
-              <Link to='anime-info' state={{ animeId: 5114 }}>
+              <Link to='anime-info' state={{ animeId: 5114 }} data-testid={`animosity-banner-link-Full Metal Alchemist: Brotherhood`}>
                 <ImageListItem>
                   <Box
                     component='img'

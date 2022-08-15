@@ -20,6 +20,7 @@ const NavigationBar = () => {
       <Navbar.Collapse id='navbarScroll'>
         <Nav>
           <NavDropdown
+          data-testid='navbar-anime-dropdown'
             title='Anime'
             id='navbarScrollingDropdown'
             style={{ fontSize: 30, paddingRight: "10%", marginTop: "0.5%" }}
@@ -33,12 +34,16 @@ const NavigationBar = () => {
                   fontSize: 25,
                 }}
                 state={{ topFilter: " ", type: "anime" }}
+          data-testid='navbar-anime-dropdown-top-anime'
+
               >
                 Top Anime
               </Link>
             </NavDropdown.Item>
           </NavDropdown>
           <NavDropdown
+          data-testid='navbar-manga-dropdown'
+
             title='Manga'
             style={{ fontSize: 30, paddingRight: "50%" }}
           >
@@ -51,6 +56,8 @@ const NavigationBar = () => {
                   fontSize: 25,
                 }}
                 state={{ topFilter: " ", type: "manga" }}
+          data-testid='navbar-manga-dropdown-top-manga'
+
               >
                 Top Manga
               </Link>

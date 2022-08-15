@@ -4,7 +4,7 @@ import TopManga from './TopManga';
 
 
 
-jest.setTimeout(12000)
+jest.setTimeout(7000)
 
 test('render the top manga page', async () => {
   render(
@@ -14,8 +14,8 @@ test('render the top manga page', async () => {
   );
  
 
-  await waitFor(() => expect(screen.getByTestId('top-manga-page-contents')).toBeInTheDocument(), {timeout: 12000})
-  await waitFor(() => expect(screen.getByTestId('top-manga-result-cards')).toBeInTheDocument(), {timeout: 12000})
+  await waitFor(() => expect(screen.getByTestId('top-manga-page-contents')).toBeInTheDocument(), {timeout: 7000})
+  await waitFor(() => expect(screen.getByTestId('top-manga-result-cards')).toBeInTheDocument(), {timeout: 7000})
 
 
 
