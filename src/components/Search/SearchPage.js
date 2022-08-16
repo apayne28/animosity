@@ -173,7 +173,7 @@ const SearchPage = () => {
           />
         </Stack>
         {/* <div className='anime-character-list-contents'> */}
-        <div className='search-page-contents'>
+        <div className='search-page-contents' data-testid={`search-bar-container-${searchThing}-${buttonCounter}`}>
           <Grid container>
             <ImageList cols={columnSize} rowHeight={rowHeight}>
               {animeList.map((anime, key) => (
@@ -491,7 +491,7 @@ const SearchPage = () => {
     );
   } else if (animeList && animeList.length === 0) {
     return (
-      <div>
+      <div data-testid='no-search-results-found-page'>
         <NavigationBar />
         <Box
           sx={{
@@ -509,7 +509,7 @@ const SearchPage = () => {
           }}
         >
           <img src={pikafight} alt='No results' />
-          <Typography sx={{ fontSize: 50, color: "#ffffff" }}>
+          <Typography sx={{ fontSize: 50, color: "#ffffff" }} data-testid='no-results-found-text'>
             Sorry Nothing
           </Typography>
         </Box>
@@ -517,7 +517,7 @@ const SearchPage = () => {
     );
   } else {
     return (
-      <div>
+      <div data-testid='zero-two-loading-screen'>
         <NavigationBar />
         <LoadingScreen />
       </div>

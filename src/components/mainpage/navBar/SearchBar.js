@@ -40,7 +40,7 @@ const SearchBar = (props) => {
   };
 
   return (
-    <div className='search-bar-container'>
+    <div className='search-bar-container' >
       <div className='search-bar-select-button'>
         <RBForm.Select
         data-testid="search-bar-select-button"

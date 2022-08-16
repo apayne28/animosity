@@ -240,7 +240,7 @@ describe('Homepage Cypress Test', () => {
 
     cy.wait(3000)
 
-    cy.get('[class="search-page-contents"]').should('be.visible')
+    cy.get('[data-testid="search-bar-container-Ranma"]').should('be.visible')
 
 
     // cy.url().should('include', 'youtube.com/')
