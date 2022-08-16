@@ -53,7 +53,7 @@ describe('Anime Info Page Cypress Test', () => {
 
   })
 
-  it.only('can use the anime details navbar to select items', () => {
+  it('can use the anime details navbar to select items', () => {
     cy.visit('http://localhost:3000/animosity#/')
 
    
