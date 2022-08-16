@@ -394,7 +394,7 @@ const AnimeInfoPage = (props) => {
     );
   } else {
     return (
-      <div>
+      <div data-testid='zero-two-loading-screen'>
         <LoadingScreen />
       </div>
     );

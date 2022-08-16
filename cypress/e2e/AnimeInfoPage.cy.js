@@ -20,6 +20,8 @@ describe('Anime Info Page Cypress Test', () => {
 
     cy.get('[data-testid="search-page-result-card-view-more-link-Lodoss-tou Senki"]').click()
 
+    cy.get('[data-testid="zero-two-loading-screen"]').should('be.visible')
+
     cy.wait(9000)
 
     cy.get('[data-testid="animosity-anime-page-Lodoss-tou Senki"]').should('be.visible')
@@ -115,6 +117,8 @@ describe('Anime Info Page Cypress Test', () => {
     cy.wait(9000)
 
     cy.get('[data-testid="animosity-anime-page-Lodoss-tou Senki"]').should('be.visible')
+    cy.wait(3000)
+
   })
     
   it('should have the correct items in the related anime sections. Items should be clickable', () => {
@@ -162,6 +166,9 @@ describe('Anime Info Page Cypress Test', () => {
     cy.wait(9000)
 
     cy.get('[data-testid="animosity-manga-page-Lodoss-tou Senki"]').should('be.visible')
+
+    cy.wait(3000)
+
 
   })
 
@@ -226,7 +233,8 @@ describe('Anime Info Page Cypress Test', () => {
     cy.get('[data-testid="anime-character-side-content-Deedlit"]').should('be.visible')
 
     cy.get('[data-testid="anime-character-header-Deedlit"]').should('be.visible')
-
+    cy.wait(3000)
+    
   })
 
   it('should be able to click the arrows in the character carousel. Characters should be clickable', () => {
@@ -279,6 +287,9 @@ describe('Anime Info Page Cypress Test', () => {
       cy.get('[data-testid="anime-info-page-character-link-Parn"]').should('be.visible')
   
       cy.get('[data-testid="anime-info-page-character-link-Deedlit"]').click()
+
+    cy.wait(3000)
+
       
     })
 
