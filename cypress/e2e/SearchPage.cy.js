@@ -153,7 +153,7 @@ it('should load the pikachu gif if there is no results for an anime', () => {
 
   })
 
-  it.only('can move from page to page in the manga section', () => {
+  it('can move from page to page in the manga section', () => {
     cy.visit('http://localhost:3000/animosity#/')
 
     cy.intercept('https://play.google.com/*', req => req.destroy())
