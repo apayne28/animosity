@@ -71,8 +71,8 @@ function AnimeCharacterPage(props) {
             <NavigationBar />
           </div>
         </Box>
-        <div className='anime-characters-main'>
-          <div className='anime-character-side-content'>
+        <div className='anime-characters-main' data-testid={`anime-character-main-${animeCharacter.name}`}>
+          <div className='anime-character-side-content' data-testid={`anime-character-side-content-${animeCharacter.name}`}>
             <ImageList cols={1}>
               <ImageListItem>
                 <Box
@@ -154,6 +154,7 @@ function AnimeCharacterPage(props) {
                   animeCharacter.name_kanji ? animeCharacter.name_kanji : ""
                 })`}</Typography> */}
                 <Typography
+                data-testid={`anime-character-header-${animeCharacter.name}`}
                   variant='h3'
                   sx={{
                     fontSize: 26,
@@ -172,7 +173,9 @@ function AnimeCharacterPage(props) {
                 <div className='anime-info-main-popularity-container'>
                   <h3>Background</h3>
 
-                  <Typography sx={{ margin: "1%", fontSize: 22 }}>
+                  <Typography sx={{ margin: "1%", fontSize: 22 }}
+                  data-testid={`anime-character-${animeCharacter.name}-background`}
+                  >
                     <ShowMoreText
                       lines={15}
                       more='Show more'
@@ -190,7 +193,7 @@ function AnimeCharacterPage(props) {
                   <Divider sx={{ paddingTop: 2 }} />
 
                   {animeCharacter.voice_actors.length > 0 && (
-                    <div>
+                    <div data-testid={`anime-character-${animeCharacter.name}-voice-actor-list`}>
                       <Box
                         sx={{
                           backgroundColor: "#56e39f",
@@ -201,6 +204,7 @@ function AnimeCharacterPage(props) {
                       >
                         <h3>Voice Actors</h3>
                         <Link
+                        data-testid={`anime-character-${animeCharacter.name}-voice-actor-list-view-more`}
                           to='/character-page-voice-actor-list'
                           state={{
                             voiceActors: animeCharacter.voice_actors,
@@ -237,12 +241,13 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <div className='anime-info-character-list'>
+                        <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-voice-actor-carousel`}>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.voice_actors.map((actor) => {
                               return (
                                 <div>
                                   <Link
+                                  data-testid={`anime-character-${animeCharacter.name}-voice-actor-${actor.name}`}
                                     to='/character-voice-actor-page'
                                     state={{ characterValue: actor.mal_id }}
                                   >
@@ -283,7 +288,7 @@ function AnimeCharacterPage(props) {
                   )}
 
                   {animeCharacter.animeography.length > 0 && (
-                    <div>
+                    <div data-testid={`anime-character-${animeCharacter.name}-animeography`}>
                       <Box
                         sx={{
                           backgroundColor: "#56e39f",
@@ -295,6 +300,7 @@ function AnimeCharacterPage(props) {
                         <h3>Animeography</h3>
 
                         <Link
+                        data-testid={`anime-character-${animeCharacter.name}-animeography-list-view-more`}
                           to='/character-page-anime-list'
                           state={{
                             voiceActors: animeCharacter.voice_actors,
@@ -332,7 +338,7 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <div className='anime-info-character-list'>
+                        <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-animeography-carousel`}>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.animeography.map((appearances) => {
                               return (
@@ -340,6 +346,7 @@ function AnimeCharacterPage(props) {
                                   <Link
                                     to='/anime-info'
                                     state={{ animeId: appearances.mal_id }}
+                                    data-testid={`anime-character-${animeCharacter.name}-animeography-${appearances.name}`}
                                   >
                                     <ImageList cols={1} rowHeight={400}>
                                       <ImageListItem>
@@ -370,7 +377,7 @@ function AnimeCharacterPage(props) {
                   )}
 
                   {animeCharacter.mangaography.length > 0 && (
-                    <Box>
+                    <Box data-testid={`anime-character-${animeCharacter.name}-mangaography`}>
                       <Box
                         sx={{
                           backgroundColor: "#56e39f",
@@ -382,6 +389,7 @@ function AnimeCharacterPage(props) {
                         <h3>Mangaography</h3>
 
                         <Link
+                        data-testid={`anime-character-${animeCharacter.name}-mangaography-view-more`}
                           to='/character-page-manga-list'
                           state={{
                             voiceActors: animeCharacter.voice_actors,
@@ -420,7 +428,7 @@ function AnimeCharacterPage(props) {
                           marginTop: "2%",
                         }}
                       >
-                        <div className='anime-info-character-list'>
+                        <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-mangaography-carousel`}>
                           <Carousel breakPoints={breakPoints}>
                             {animeCharacter.mangaography.map((appearances) => {
                               return (
@@ -428,6 +436,7 @@ function AnimeCharacterPage(props) {
                                   <div className='anime-info-rec-anime-item'>
                                     <div>
                                       <Link
+                                      data-testid={`anime-character-${animeCharacter.name}-mangaography-${appearances.name}`}
                                         to='/manga-info'
                                         state={{ mangaId: appearances.mal_id }}
                                       >

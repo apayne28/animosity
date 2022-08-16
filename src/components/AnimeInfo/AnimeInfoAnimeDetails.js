@@ -10,10 +10,13 @@ function AnimeInfoAnimeDetails(props) {
 
   console.log(props, location);
   return (
-    <Box>
+    <Box
+    data-testid='anime-info-anime-details-bar'
+    >
       <Nav className='rb-navbar '>
         <Nav.Item>
           <MuiLink
+           data-testid='anime-info-anime-details-bar-details'
             onClick={(e) => {
               navigate("/anime-info", {
                 state: { animeId: location.state.animeId },
@@ -32,6 +35,7 @@ function AnimeInfoAnimeDetails(props) {
 
         <Nav.Item>
           <Link
+           data-testid='anime-info-anime-details-bar-characters'
             to='/anime-character-list-page'
             state={{
               animeId: props.animeId,
@@ -51,6 +55,7 @@ function AnimeInfoAnimeDetails(props) {
         {props.animeRecList && props.animeRecList.length > 0 && (
           <Nav.Item>
             <Link
+             data-testid='anime-info-anime-details-bar-recommendations'
               to='/anime-recs-page'
               state={{
                 animeId: props.animeId,

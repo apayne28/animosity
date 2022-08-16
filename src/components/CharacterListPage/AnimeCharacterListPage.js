@@ -119,10 +119,10 @@ function AnimeCharacterListPage(props) {
 
   if (characterList) {
     return (
-      <Box>
+      <Box data-testid='anime-info-page-character-list'>
         <NavigationBar />
 
-        <Box sx={{ display: "flex", marginTop: "2%" }}>
+        <Box sx={{ display: "flex", marginTop: "2%" }} >
           <AnimeInfoSideContentSingle animeId={animeId} />
           <div className='anime-character-list-contents'>
             <AnimeInfoAnimeDetails
@@ -152,6 +152,7 @@ function AnimeCharacterListPage(props) {
                       <Link
                         to='/character-profile'
                         state={{ characterId: characterEntry.mal_id }}
+                        data-testid={`anime-info-page-character-list-entry-${characterEntry.name}`}
                       >
                         <ImageListItem>
                           <Box

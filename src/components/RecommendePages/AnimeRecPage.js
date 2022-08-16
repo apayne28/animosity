@@ -130,7 +130,7 @@ function AnimeRecPage(props) {
 
   if (originAnimeRecList) {
     return (
-      <Box>
+      <Box data-testid='anime-info-anime-recs-list-page'>
         <NavigationBar />
 
         <Box sx={{ display: "flex", marginTop: "2%" }}>
@@ -162,6 +162,7 @@ function AnimeRecPage(props) {
                       <Link
                         to='/anime-info'
                         state={{ animeId: entry.entry.mal_id }}
+                        data-testid={`anime-info-anime-recs-list-page-${entry.entry.title}`}
                       >
                         <ImageListItem>
                           <Box

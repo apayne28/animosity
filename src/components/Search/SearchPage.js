@@ -142,6 +142,7 @@ const SearchPage = () => {
         >
           <Pagination
             count={lastPage}
+            data-testid='search-page-upper-pagination'
             color='primary'
             page={buttonCounter}
             size='large'
@@ -216,6 +217,7 @@ const SearchPage = () => {
                             ? { animeId: anime.mal_id }
                             : { mangaId: anime.mal_id }
                         }
+                        data-testid={`search-page-result-card-${anime.title}`}
                       >
                         {/* <ImageListItem> */}
                         {/* <img src={anime.image_url} alt={anime.title} /> */}
@@ -252,7 +254,10 @@ const SearchPage = () => {
                         /> */}
                         {/* </ImageListItem> */}
                       </Link>
-                      <CardContent>
+                      <CardContent 
+                          data-testid='search-page-result-card-content'
+                      
+                      >
                         {/* <Typography gutterBottom variant='h5' component='div'>
                           {anime.title}
                         </Typography> */}
@@ -281,6 +286,8 @@ const SearchPage = () => {
                           "en-US",
                         )} fans`}</Typography>
                         <Typography
+                          data-testid='search-page-result-card-synopsis'
+
                           variant='body2'
                           sx={{
                             overflow: "hidden",
@@ -308,6 +315,8 @@ const SearchPage = () => {
                           }
                         >
                           <Typography
+                          data-testid={`search-page-result-card-view-more-link-${anime.title}`}
+
                             sx={{
                               display: "flex",
                               justifyContent: "flex-end",
@@ -363,6 +372,8 @@ const SearchPage = () => {
         <Stack spacing={2} sx={{ display: "flex", alignItems: "center" }}>
           <Pagination
             count={lastPage}
+            data-testid='search-page-bottom-pagination'
+
             page={buttonCounter}
             size='large'
             color='primary'

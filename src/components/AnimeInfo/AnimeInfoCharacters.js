@@ -60,6 +60,7 @@ function AnimeInfoCharacters(props) {
             to='/anime-character-list-page'
             state={{ animeId: props.animeId }}
             style={{ textDecoration: "none" }}
+            data-testid="animosity-anime-page-character-section-view-more-link"
           >
             <Typography
               sx={{
@@ -91,6 +92,7 @@ function AnimeInfoCharacters(props) {
                     <Link
                       to='/character-profile'
                       state={{ characterId: characterEntry.mal_id }}
+                      data-testid={`anime-info-page-character-link-${characterEntry.name}`}
                     >
                       <ImageListItem>
                         <Box

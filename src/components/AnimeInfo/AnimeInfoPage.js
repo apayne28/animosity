@@ -79,6 +79,7 @@ const AnimeInfoPage = (props) => {
                   sx={{ width: "100%", height: "100%" }}
                 />
                 <ImageListItemBar
+                  data-testid={`anime-info-page-side-content-title`}
                   title={info.title}
                   subtitle={
                     info.title !== info.title_english && (
@@ -306,7 +307,7 @@ const AnimeInfoPage = (props) => {
             </div>
             <div className='anime-info-main-info-content'>
               {info.trailer.url && (
-                <div>
+                <div data-testid={`anime-info-page-trailer-${info.title}`}>
                   <ReactPlayer
                     url={info.trailer.url}
                     style={{
@@ -321,12 +322,14 @@ const AnimeInfoPage = (props) => {
 
               <div className='anime-info-main-synopsis'>
                 <h3>Synopsis</h3>
-                <Typography paragraph sx={{ padding: "1%", fontSize: 19 }}>
+                <Typography paragraph sx={{ padding: "1%", fontSize: 19 }}
+                data-testid={`anime-info-page-synopsis-text-${info.title}`}
+                >
                   {info.synopsis ? info.synopsis : "N/A"}
                 </Typography>
               </div>
               <div className='anime-info-content-guts'>
-                <div className='anime-info-main-popularity-container'>
+                <div className='anime-info-main-popularity-container' data-testid="animosity-anime-page-background">
                   <Divider sx={{ pb: 4 }} />
                   <h3>Background</h3>
                   <Typography
@@ -346,8 +349,9 @@ const AnimeInfoPage = (props) => {
 
                           return relatedAnime.map((single) => {
                             return (
-                              <div>
+                              <div      data-testid={`animosity-anime-page-related-anime-entry-${single.name}`}>
                                 <MuiLink
+                                  data-testid={`animosity-anime-page-related-anime-entry-link-${single.name}`}
                                   onClick={(e) => {
                                     navigate(
                                       single.type === "anime"

@@ -66,6 +66,7 @@ function AnimeInfoRecommendedAnime(props) {
               animeRecList: animeRecommendationsList,
             }}
             style={{ textDecoration: "none" }}
+            data-testid="animosity-anime-page-recommended-anime-section-view-more-link"
           >
             <Typography
               sx={{
@@ -95,6 +96,7 @@ function AnimeInfoRecommendedAnime(props) {
                       <ImageListItem>
                         <Box
                           component='img'
+                          data-testid={`anime-info-page-rec-anime-link-${recAnime.title}`}
                           src={recAnime.images.jpg.image_url}
                           alt={recAnime.title}
                           onClick={(e) => {
