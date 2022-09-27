@@ -27,12 +27,16 @@ function AnimeCharacterPage(props) {
       // id = props.characterId;
 
       try {
+        // const characterData = await fetch(
+        //   `https://api.jikan.moe/v3/character/${characterValue}`,
+        // ).then((res) => res.json());
+
         const characterData = await fetch(
-          `https://api.jikan.moe/v3/character/${characterValue}`,
+          `https://api.jikan.moe/v4/characters/${characterValue}/full`,
         ).then((res) => res.json());
 
         console.log(characterData);
-        let characterResults = characterData;
+        let characterResults = characterData.data;
         setAnimeCharacter(characterResults);
         console.log(animeCharacter);
       } catch (error) {
@@ -77,7 +81,7 @@ function AnimeCharacterPage(props) {
               <ImageListItem>
                 <Box
                   component='img'
-                  src={animeCharacter.image_url}
+                  src={animeCharacter.images.jpg.image_url}
                   alt={animeCharacter.name}
                   sx={{ width: "100%", height: "100%", borderRadius: 1 }}
                 />
@@ -134,7 +138,7 @@ function AnimeCharacterPage(props) {
               </Typography>
               <Typography
                 sx={{ padding: "2%", fontSize: 25 }}
-              >{`${animeCharacter.member_favorites.toLocaleString(
+              >{`${animeCharacter.favorites.toLocaleString(
                 "en-US",
               )}`}</Typography>
             </div>
@@ -143,9 +147,9 @@ function AnimeCharacterPage(props) {
             <div>
               <CharacterDetails
                 characterId={animeCharacter.mal_id}
-                voiceActors={animeCharacter.voice_actors}
-                animeList={animeCharacter.animeography}
-                mangaList={animeCharacter.mangaography}
+                voiceActors={animeCharacter.voices}
+                animeList={animeCharacter.anime}
+                mangaList={animeCharacter.manga}
               />
             </div>
             <div className='anime-info-character-info-content'>
@@ -192,7 +196,7 @@ function AnimeCharacterPage(props) {
 
                   <Divider sx={{ paddingTop: 2 }} />
 
-                  {animeCharacter.voice_actors.length > 0 && (
+                  {animeCharacter.voices.length > 0 && (
                     <div data-testid={`anime-character-${animeCharacter.name}-voice-actor-list`}>
                       <Box
                         sx={{
@@ -207,11 +211,11 @@ function AnimeCharacterPage(props) {
                         data-testid={`anime-character-${animeCharacter.name}-voice-actor-list-view-more`}
                           to='/character-page-voice-actor-list'
                           state={{
-                            voiceActors: animeCharacter.voice_actors,
+                            voiceActors: animeCharacter.voices,
                             characterId: animeCharacter.mal_id,
 
-                            animeList: animeCharacter.animeography,
-                            mangaList: animeCharacter.mangaography,
+                            animeList: animeCharacter.anime,
+                            mangaList: animeCharacter.manga,
                           }}
                           style={{ textDecoration: "none" }}
                         >
@@ -229,12 +233,12 @@ function AnimeCharacterPage(props) {
                         className='anime-character-voice-actors'
                         style={{
                           width: `${
-                            animeCharacter.voice_actors.length >= 1
+                            animeCharacter.voices.length >= 1
                               ? "95%"
                               : "50%"
                           }`,
                           margin: `${
-                            animeCharacter.voice_actors.length >= 5
+                            animeCharacter.voices.length >= 5
                               ? "auto"
                               : "auto"
                           }`,
@@ -243,20 +247,20 @@ function AnimeCharacterPage(props) {
                       >
                         <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-voice-actor-carousel`}>
                           <Carousel breakPoints={breakPoints}>
-                            {animeCharacter.voice_actors.map((actor) => {
+                            {animeCharacter.voices.map((actor) => {
                               return (
                                 <div>
                                   <Link
-                                  data-testid={`anime-character-${animeCharacter.name}-voice-actor-${actor.name}`}
+                                  data-testid={`anime-character-${animeCharacter.name}-voice-actor-${actor.person.name}`}
                                     to='/character-voice-actor-page'
-                                    state={{ characterValue: actor.mal_id }}
+                                    state={{ characterValue: actor.person.mal_id }}
                                   >
                                     <ImageList cols={1} rowHeight={400}>
                                       <ImageListItem>
                                         <Box
                                           component='img'
-                                          src={actor.image_url}
-                                          alt={actor.name}
+                                          src={actor.person.images.jpg.image_url}
+                                          alt={actor.person.name}
                                           sx={{
                                             width: "100%",
                                             height: "100%",
@@ -287,7 +291,7 @@ function AnimeCharacterPage(props) {
                     </div>
                   )}
 
-                  {animeCharacter.animeography.length > 0 && (
+                  {animeCharacter.anime.length > 0 && (
                     <div data-testid={`anime-character-${animeCharacter.name}-animeography`}>
                       <Box
                         sx={{
@@ -303,11 +307,11 @@ function AnimeCharacterPage(props) {
                         data-testid={`anime-character-${animeCharacter.name}-animeography-list-view-more`}
                           to='/character-page-anime-list'
                           state={{
-                            voiceActors: animeCharacter.voice_actors,
+                            voiceActors: animeCharacter.voices,
                             characterId: animeCharacter.mal_id,
 
-                            animeList: animeCharacter.animeography,
-                            mangaList: animeCharacter.mangaography,
+                            animeList: animeCharacter.animeo,
+                            mangaList: animeCharacter.manga,
                           }}
                           style={{ textDecoration: "none" }}
                         >
@@ -326,12 +330,12 @@ function AnimeCharacterPage(props) {
                         className='anime-character-voice-actors'
                         style={{
                           width: `${
-                            animeCharacter.animeography.length >= 3
+                            animeCharacter.anime.length >= 3
                               ? "95%"
                               : "60%"
                           }`,
                           margin: `${
-                            animeCharacter.animeography.length >= 5
+                            animeCharacter.anime.length >= 5
                               ? "auto"
                               : "auto"
                           }`,
@@ -340,20 +344,20 @@ function AnimeCharacterPage(props) {
                       >
                         <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-animeography-carousel`}>
                           <Carousel breakPoints={breakPoints}>
-                            {animeCharacter.animeography.map((appearances) => {
+                            {animeCharacter.anime.map((appearances) => {
                               return (
                                 <div>
                                   <Link
                                     to='/anime-info'
-                                    state={{ animeId: appearances.mal_id }}
-                                    data-testid={`anime-character-${animeCharacter.name}-animeography-${appearances.name}`}
+                                    state={{ animeId: appearances.anime.mal_id }}
+                                    data-testid={`anime-character-${animeCharacter.name}-animeography-${appearances.anime.title}`}
                                   >
                                     <ImageList cols={1} rowHeight={400}>
                                       <ImageListItem>
                                         <Box
                                           component='img'
-                                          src={appearances.image_url}
-                                          alt={appearances.name}
+                                          src={appearances.anime.images.jpg.image_url}
+                                          alt={appearances.anime.title}
                                           sx={{
                                             width: "100%",
                                             height: "100%",
@@ -361,7 +365,7 @@ function AnimeCharacterPage(props) {
                                           }}
                                         />
                                         <ImageListItemBar
-                                          title={appearances.name}
+                                          title={appearances.anime.title}
                                           subtitle={`Role: ${appearances.role}`}
                                         />
                                       </ImageListItem>
@@ -376,7 +380,7 @@ function AnimeCharacterPage(props) {
                     </div>
                   )}
 
-                  {animeCharacter.mangaography.length > 0 && (
+                  {animeCharacter.manga.length > 0 && (
                     <Box data-testid={`anime-character-${animeCharacter.name}-mangaography`}>
                       <Box
                         sx={{
@@ -392,11 +396,11 @@ function AnimeCharacterPage(props) {
                         data-testid={`anime-character-${animeCharacter.name}-mangaography-view-more`}
                           to='/character-page-manga-list'
                           state={{
-                            voiceActors: animeCharacter.voice_actors,
+                            voiceActors: animeCharacter.voices,
                             characterId: animeCharacter.mal_id,
 
-                            animeList: animeCharacter.animeography,
-                            mangaList: animeCharacter.mangaography,
+                            animeList: animeCharacter.anime,
+                            mangaList: animeCharacter.manga,
                           }}
                           style={{ textDecoration: "none" }}
                         >
@@ -416,12 +420,12 @@ function AnimeCharacterPage(props) {
                         className='anime-character-voice-actors'
                         style={{
                           width: `${
-                            animeCharacter.mangaography.length >= 1
+                            animeCharacter.manga.length >= 1
                               ? "95%"
                               : "50%"
                           }`,
                           margin: `${
-                            animeCharacter.mangaography.length >= 5
+                            animeCharacter.manga.length >= 5
                               ? "auto"
                               : ""
                           }`,
@@ -430,22 +434,23 @@ function AnimeCharacterPage(props) {
                       >
                         <div className='anime-info-character-list' data-testid={`anime-character-${animeCharacter.name}-mangaography-carousel`}>
                           <Carousel breakPoints={breakPoints}>
-                            {animeCharacter.mangaography.map((appearances) => {
+                            {animeCharacter.manga.map((appearances) => {
+                              console.log(appearances)
                               return (
                                 <div>
                                   <div className='anime-info-rec-anime-item'>
                                     <div>
                                       <Link
-                                      data-testid={`anime-character-${animeCharacter.name}-mangaography-${appearances.name}`}
+                                      data-testid={`anime-character-${animeCharacter.name}-mangaography-${appearances.manga.title}`}
                                         to='/manga-info'
-                                        state={{ mangaId: appearances.mal_id }}
+                                        state={{ mangaId: appearances.manga.mal_id }}
                                       >
                                         <ImageList cols={1} rowHeight={400}>
                                           <ImageListItem>
                                             <Box
                                               component='img'
-                                              src={appearances.image_url}
-                                              alt={appearances.name}
+                                              src={appearances.manga.images.jpg.image_url}
+                                              alt={appearances.manga.title}
                                               sx={{
                                                 width: "100%",
                                                 height: "100%",
@@ -453,7 +458,7 @@ function AnimeCharacterPage(props) {
                                               }}
                                             />
                                             <ImageListItemBar
-                                              title={appearances.name}
+                                              title={appearances.manga.title}
                                               subtitle={`Role: ${appearances.role}`}
                                             />
                                           </ImageListItem>

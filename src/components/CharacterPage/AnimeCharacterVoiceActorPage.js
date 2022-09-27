@@ -120,18 +120,18 @@ function AnimeCharacterVoiceActorPage(props) {
                     >
                       <Link
                         to='/character-voice-actor-page'
-                        state={{ characterValue: actor.mal_id }}
+                        state={{ characterValue: actor.person.mal_id }}
                       >
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={actor.image_url}
-                            alt={actor.name}
+                            src={actor.person.images.jpg.image_url}
+                            alt={actor.person.name}
                           />
 
                           <ImageListItemBar
-                            title={actor.name}
+                            title={actor.person.name}
                             subtitle={actor.language}
                           />
                         </ImageListItem>

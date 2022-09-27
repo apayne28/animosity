@@ -80,6 +80,8 @@ function AnimeCharacterAnimePage(props) {
     }
   }, [columnSize, rowHeight, windowSize]);
 
+  console.log(animeList,characterId,mangaList,voiceActors)
+
   if (animeList) {
     return (
       <Box sx={{ height: "100vh" }}>
@@ -112,16 +114,16 @@ function AnimeCharacterAnimePage(props) {
                         backgroundColor: "white",
                       }}
                     >
-                      <Link to='/anime-info' state={{ animeId: anime.mal_id }}>
+                      <Link to='/anime-info' state={{ animeId: anime.anime.mal_id }}>
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={anime.image_url}
-                            alt={anime.name}
+                            src={anime.anime.images.jpg.image_url}
+                            alt={anime.anime.title}
                           />
 
-                          <ImageListItemBar title={anime.name} />
+                          <ImageListItemBar title={anime.anime.title} />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}

@@ -113,16 +113,16 @@ function AnimeCharacterMangaPage(props) {
                         backgroundColor: "white",
                       }}
                     >
-                      <Link to='/manga-info' state={{ mangaId: manga.mal_id }}>
+                      <Link to='/manga-info' state={{ mangaId: manga.manga.mal_id }}>
                         <ImageListItem>
                           <Box
                             component='img'
                             sx={{ width: "100%", height: "100%" }}
-                            src={manga.image_url}
-                            alt={manga.name}
+                            src={manga.manga.images.jpg.image_url}
+                            alt={manga.manga.title}
                           />
 
-                          <ImageListItemBar title={manga.name} />
+                          <ImageListItemBar title={manga.manga.title} />
                         </ImageListItem>
 
                         {/* <Typography>{characterEntry.name} </Typography> */}

@@ -25,11 +25,11 @@ function AnimeCharacterSide(props) {
 
     try {
       const characterData = await fetch(
-        `https://api.jikan.moe/v3/character/${characterValue}`,
+        `https://api.jikan.moe/v4/characters/${characterValue}/full`,
       ).then((res) => res.json());
 
       console.log(characterData);
-      let characterResults = characterData;
+      let characterResults = characterData.data;
       setAnimeCharacter(characterResults);
       console.log(animeCharacter);
     } catch (error) {
@@ -52,7 +52,7 @@ function AnimeCharacterSide(props) {
           <ImageListItem>
             <Box
               component='img'
-              src={animeCharacter.image_url}
+              src={animeCharacter.images.jpg.image_url}
               alt={animeCharacter.name}
               sx={{ width: "100%", height: "100%", borderRadius: 1 }}
             />
@@ -109,7 +109,7 @@ function AnimeCharacterSide(props) {
           </Typography>
           <Typography
             sx={{ padding: "2%", fontSize: 25 }}
-          >{`${animeCharacter.member_favorites}`}</Typography>
+          >{`${animeCharacter.favorites}`}</Typography>
         </div>
       </div>
     );
