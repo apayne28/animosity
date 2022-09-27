@@ -19,10 +19,85 @@ const HomepageContent = () => {
   const [recentPromos, setRecentPromos] = useState([]);
   const [popularPromos, setPopularPromos] = useState([]);
 
-  const GetSpringAnime = async () => {
+
+
+
+  const getCurrentSeason = () => {
+    // It's plus one because January is index 0
+    const now = new Date();
+    const month = now.getMonth() + 1;
+  
+    if (month > 3 && month < 6) {
+      return 'spring';
+    }
+  
+    if (month > 6 && month < 9) {
+      return 'summer';
+    }
+  
+    if (month > 9 && month < 12) {
+      return 'fall';
+    }
+  
+    if (month >= 1 && month < 3) {
+      return 'winter';
+    }
+  
+    const day = now.getDate();
+    if (month === 3) {
+      return day < 22 ? 'winter' : 'spring';
+    }
+  
+    if (month === 6) {
+      return day < 22 ? 'spring' : 'summer';
+    }
+  
+    if (month === 9) {
+      return day < 22 ? 'summer' : 'fall';
+    }
+  
+    if (month === 12) {
+      return day < 22 ? 'fall' : 'winter';
+    }
+  
+    console.error('Unable to calculate current season');
+  }
+
+ 
+  
+
+  const d = new Date()
+
+  let currentYear = d.getFullYear()
+  let currentSeason = getCurrentSeason()
+
+  const getNextSeason = () => {
+    let nextSeason = ''
+ 
+    if (currentSeason === 'fall') {
+      nextSeason = 'winter'
+    }
+    else if (currentSeason === 'winter') {
+      nextSeason = 'spring'
+    }
+    else   if (currentSeason === 'spring') {
+      nextSeason = 'summer'
+    }
+    else   if (currentSeason === 'summer') {
+      nextSeason = 'fall'
+    }
+    return nextSeason
+  }
+
+  const nextAnimeSeason = getNextSeason(currentSeason)
+
+  console.log(getCurrentSeason(), getNextSeason('winter'))
+
+
+  const GetCurrentSeasonAnime = async () => {
     try {
       const temp = await fetch(
-        `https://api.jikan.moe/v4/seasons/2022/spring`,
+        `https://api.jikan.moe/v4/seasons/${currentYear}/${currentSeason}`,
 
       ).then((res) => res.json());
 
@@ -32,18 +107,21 @@ const HomepageContent = () => {
     }
   };
 
-  const GetSummerAnime = async () => {
+  const GetUpcomingAnime = async () => {
     try {
       const temp = await fetch(
-        `https://api.jikan.moe/v4/seasons/2022/summer`,
+        `https://api.jikan.moe/v4/seasons/${currentYear}/${nextAnimeSeason}`,
      
       ).then((res) => res.json());
+
 
       setSummerAnime(temp.data);
     } catch (error) {
       console.log("Summer Anime not found");
     }
   };
+
+ 
 
  
 
@@ -78,28 +156,10 @@ const HomepageContent = () => {
   // }
 
   useEffect(() => {
-    // if(springAnime.length === 0){
-    //   GetSpringAnime();
 
-    // }
-
-    // if(summerAnime.length === 0){
-    //   GetSummerAnime();
-
-    // }
-
-    // if(recentPromos.length === 0){
-    //   GetRecentPromos();
-
-    // }
-
-    // if(popularPromos.length === 0){
-    //   GetPopularPromos();
-
-    // }
     if(springAnime.length ===0 && summerAnime.length === 0 && recentPromos.length === 0 && popularPromos.length === 0) {
-      GetSpringAnime()
-      GetSummerAnime()
+      GetCurrentSeasonAnime()
+      GetUpcomingAnime()
       GetRecentPromos()
       GetPopularPromos()
       
@@ -135,8 +195,8 @@ const HomepageContent = () => {
     return (
       <div className='homepage-content'>
         <div className='homepage-header-content'>
-          <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="spring-anime-2022-header">
-            Spring 2022 Anime
+          <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid={`spring-anime-${currentYear}-header`}>
+            {`${currentSeason[0].toLocaleUpperCase()+ currentSeason.substring(1)} ${currentYear} Anime`}
           </Typography>
           <Link to='/top-anime' state={{ animeList: springAnime }}>
             <Typography
@@ -180,9 +240,9 @@ const HomepageContent = () => {
         </Box>
 
         <div className='homepage-header-content'>
-          {/* <h3>Upcoming Summer 2022 Anime</h3> */}
-          <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid="summer-anime-2022-header">
-            Upcoming Summer 2022 Anime
+         
+          <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid={`summer-anime-${currentYear}-header`}>
+          {`${nextAnimeSeason[0].toLocaleUpperCase()+ nextAnimeSeason.substring(1)} ${currentYear} Anime`}
           </Typography>
           <Link to='/top-anime' state={{ animeList: summerAnime }}>
             <Typography
