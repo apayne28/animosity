@@ -13,7 +13,6 @@ import { Box } from "@mui/system";
 import LoadingScreen from "../LoadingScreen";
 
 const HomepageContent = () => {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
 
   const [springAnime, setSpringAnime] = useState([]);
   const [summerAnime, setSummerAnime] = useState([]);
@@ -24,7 +23,7 @@ const HomepageContent = () => {
     try {
       const temp = await fetch(
         `https://api.jikan.moe/v4/seasons/2022/spring`,
-        //   `https://api.jikan.moe/v3/season/2022/spring`,
+
       ).then((res) => res.json());
 
       setSpringAnime(temp.data);
@@ -37,7 +36,7 @@ const HomepageContent = () => {
     try {
       const temp = await fetch(
         `https://api.jikan.moe/v4/seasons/2022/summer`,
-        //   `https://api.jikan.moe/v3/season/2022/spring`,
+     
       ).then((res) => res.json());
 
       setSummerAnime(temp.data);

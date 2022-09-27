@@ -5,30 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { Form, Form as RBForm } from "react-bootstrap";
 
 const SearchBar = (props) => {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
 
-  // const [animeList, setAnimeList] = useState([]);
 
   const [search, setSearch] = useState("");
   const [type, setType] = useState("anime");
   let navigate = useNavigate();
   const isValid = search.length >= 3;
 
-  const FetchAnime = async (query) => {
-    // const temp = await fetch(
-    //   `https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc`,
-    // ).then((res) => res.json());
-    // const temp = await jikanjsV3.search("anime", query, 1);
-    // const temp = await client.
-    // setAnimeList(temp.results);
-  };
+
 
   const handleSubmit = (e) => {
     const form = e.currentTarget;
     if (form.checkValidity() === true) {
       e.preventDefault();
 
-      FetchAnime(search);
+
       console.log(search, type);
       navigate(`/search-page`, {
         state: { searchQuery: search, searchType: type },
@@ -81,7 +72,7 @@ const SearchBar = (props) => {
           onClick={async (e) => {
             e.preventDefault();
 
-            FetchAnime(search);
+      
             console.log(search, e.charCode);
             navigate(`/search-page`, {
               state: { searchQuery: search, searchType: type },

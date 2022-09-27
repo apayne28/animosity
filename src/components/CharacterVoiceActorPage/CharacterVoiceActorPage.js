@@ -16,7 +16,7 @@ import VoiceActorDetails from "./VoiceActorDetails";
 import ShowMoreText from "react-show-more-text";
 
 function CharacterVoiceActorPage(props) {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+
   const location = useLocation();
   let characterValue = location.state.characterValue;
   let actor = characterValue ? characterValue : location.state.voiceActor;

@@ -18,11 +18,9 @@ import NavigationBar from "../mainpage/navBar/NavigationBar";
 import pikafight from "../../pikafight.gif";
 
 const SearchPage = () => {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
-  const [animeList, setAnimeList] = useState();
-  // const [animeList2, setAnimeList2] = useState();
 
-  // const [animeListv3, setAnimeListv3] = useState();
+  const [animeList, setAnimeList] = useState();
+
 
   const location = useLocation();
   let navigate = useNavigate();

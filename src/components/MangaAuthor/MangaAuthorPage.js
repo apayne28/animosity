@@ -16,7 +16,7 @@ import MangaAuthorDetails from "./MangaAuthorDetails";
 import ShowMoreText from "react-show-more-text";
 
 function MangaAuthorPage(props) {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+
   const location = useLocation();
   let authorValue = location.state.voiceActor;
   let actor = authorValue ? authorValue : location.state.authorId;
