@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen";
 
 function AnimeCharacterSide(props) {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+ 
   const location = useLocation();
   let characterValue = location.state.characterId
     ? location.state.characterId

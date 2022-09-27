@@ -16,7 +16,7 @@ import CharacterDetails from "./CharacterDetails";
 import ShowMoreText from "react-show-more-text";
 
 function AnimeCharacterPage(props) {
-  // const jikanjsV3 = require("jikanjs"); // Uses per default the API version 3
+
   const location = useLocation();
   let characterValue = location.state.characterId;
 
@@ -27,9 +27,7 @@ function AnimeCharacterPage(props) {
       // id = props.characterId;
 
       try {
-        // const characterData = await fetch(
-        //   `https://api.jikan.moe/v3/character/${characterValue}`,
-        // ).then((res) => res.json());
+    
 
         const characterData = await fetch(
           `https://api.jikan.moe/v4/characters/${characterValue}/full`,
