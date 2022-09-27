@@ -110,7 +110,7 @@ const HomepageContent = () => {
   const GetUpcomingAnime = async () => {
     try {
       const temp = await fetch(
-        `https://api.jikan.moe/v4/seasons/${currentYear}/${nextAnimeSeason}`,
+        `https://api.jikan.moe/v4/seasons/${nextAnimeSeason === 'winter' ? currentYear + 1 : currentYear}/${nextAnimeSeason}`,
      
       ).then((res) => res.json());
 
@@ -242,7 +242,7 @@ const HomepageContent = () => {
         <div className='homepage-header-content'>
          
           <Typography variant='h3' sx={{ marginBottom: "2%" }} data-testid={`summer-anime-${currentYear}-header`}>
-          {`${nextAnimeSeason[0].toLocaleUpperCase()+ nextAnimeSeason.substring(1)} ${currentYear} Anime`}
+          {`${nextAnimeSeason[0].toLocaleUpperCase()+ nextAnimeSeason.substring(1)} ${nextAnimeSeason === 'winter' ? currentYear + 1 : currentYear} Anime`}
           </Typography>
           <Link to='/top-anime' state={{ animeList: summerAnime }}>
             <Typography
