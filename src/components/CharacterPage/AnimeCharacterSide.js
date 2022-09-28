@@ -114,7 +114,7 @@ function AnimeCharacterSide(props) {
       </div>
     );
   } else {
-    return <LoadingScreen />;
+    return <div></div>;
   }
 }
 
