@@ -268,7 +268,7 @@ function AnimeCharacterPage(props) {
                                         <ImageListItemBar
                                           title={
                                             <Typography>
-                                              {actor.name}
+                                              {actor.person.name}
                                             </Typography>
                                           }
                                           subtitle={
