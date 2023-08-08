@@ -63,11 +63,15 @@ const TopAnime = (props) => {
     try {
       console.log(location, category);
       const temp = await fetch(
-        `https://api.jikan.moe/v4/top/anime?type=${category}&page=${buttonValue}`,
+        `https://api.jikan.moe/v4/top/anime?${category !== ' ' ? `?type=${category }` :''}&page=${buttonValue}`,
       ).then((res) => res.json());
 
       console.log(
         `https://api.jikan.moe/v4/top/anime?type=${location.state.topFilter}&page=${buttonValue}`,
+      );
+
+      console.log(
+        `https://api.jikan.moe/v4/top/anime?${location.state.topFilter !== ' ' ? `?type=${location.state.topFilter }` :''}&page=${buttonValue}`,
       );
       // console.log(temp, temp.pagination.last_visible_page);
       setLastPage(temp.pagination.last_visible_page);
