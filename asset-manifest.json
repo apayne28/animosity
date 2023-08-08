@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/animosity/static/css/main.aa311486.css",
-    "main.js": "/animosity/static/js/main.81f4517a.js",
+    "main.js": "/animosity/static/js/main.2da60c6b.js",
     "static/media/berserk.png": "/animosity/static/media/berserk.635ab8ae9de148be8960.png",
     "static/media/naruto.jpg": "/animosity/static/media/naruto.c2b038235fcfe02d4d30.jpg",
     "static/media/snk.jpg": "/animosity/static/media/snk.8f6156871288820b9ea6.jpg",
@@ -17,10 +17,10 @@
     "static/media/logo2.png": "/animosity/static/media/logo2.4e36955ea7eb423203e7.png",
     "index.html": "/animosity/index.html",
     "main.aa311486.css.map": "/animosity/static/css/main.aa311486.css.map",
-    "main.81f4517a.js.map": "/animosity/static/js/main.81f4517a.js.map"
+    "main.2da60c6b.js.map": "/animosity/static/js/main.2da60c6b.js.map"
   },
   "entrypoints": [
     "static/css/main.aa311486.css",
-    "static/js/main.81f4517a.js"
+    "static/js/main.2da60c6b.js"
   ]
 }
